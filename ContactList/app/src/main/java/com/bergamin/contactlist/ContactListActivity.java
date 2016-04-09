@@ -8,6 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.bergamin.contactlist.dao.ContactDAO;
+import com.bergamin.contactlist.model.Contact;
+
+import java.util.List;
+
 /**
  * Created by Guilherme on 28/03/2016.
  */
@@ -18,12 +23,6 @@ public class ContactListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_list_layout);
 
-        String[] contacts = {"Daniel", "Ronald", "Jefferson", "Phillip"};
-
-        ListView contactsLvw = (ListView) findViewById(R.id.contactsLvw);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,contacts);
-        contactsLvw.setAdapter(adapter);
-
         Button newContactBtn = (Button) findViewById(R.id.newContactBtn);
         newContactBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,5 +31,23 @@ public class ContactListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        loadList();
+        super.onResume();
+    }
+
+    public void loadList(){
+
+        ContactDAO dao = new ContactDAO(this);
+        List<Contact> contacts = dao.getContacts();
+        dao.close();
+
+        ListView contactsLvw = (ListView) findViewById(R.id.contactsLvw);
+        ArrayAdapter<Contact> adapter = new ArrayAdapter<Contact>(this,android.R.layout.simple_list_item_1,contacts);
+        contactsLvw.setAdapter(adapter);
+
     }
 }

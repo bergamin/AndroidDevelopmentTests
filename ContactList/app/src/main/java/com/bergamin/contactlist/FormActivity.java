@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.bergamin.contactlist.dao.ContactDAO;
 import com.bergamin.contactlist.model.Contact;
 
 import java.math.BigInteger;
@@ -44,8 +45,12 @@ public class FormActivity extends AppCompatActivity {
 
                 Contact contact = helper.getContact();
 
-                Toast.makeText(FormActivity.this, "Contact " + contact.getName() + " successfully saved", Toast.LENGTH_SHORT).show();
+                ContactDAO dao = new ContactDAO(this);
+                dao.insert(contact);
+                dao.close();
                 finish();
+
+                Toast.makeText(FormActivity.this, "Contact " + contact.getName() + " successfully saved", Toast.LENGTH_SHORT).show();
                 break;
         }
 
