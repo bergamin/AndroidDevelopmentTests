@@ -17,7 +17,7 @@ import java.util.List;
 public class ContactDAO extends SQLiteOpenHelper {
 
     public ContactDAO(Context context) {
-        super(context, "ContactList", null, 1);
+        super(context, "ContactList", null, 2);
     }
 
     @Override
@@ -27,16 +27,51 @@ public class ContactDAO extends SQLiteOpenHelper {
                 ",name    TEXT NOT NULL" +
                 ",address TEXT" +
                 ",phone   TEXT" +
-                ",webSite TEXT" +
-                ",rating  REAL);";
+                ",webSite TEXT);";
         db.execSQL(sql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        String sql = "";
+        switch (oldVersion){
+            case 1:
 
+                /*
+                Version 2 removes the rating column from the Contacts table.
+                Since SQLite doesn't have DROP COLUMN, a new table is necessary
+                */
+
+                sql += "\nPRAGMA foreign_keys = OFF;";
+
+                sql += "\nCREATE TABLE Contacts_Aux (             ";
+                sql += "\n             id      INTEGER PRIMARY KEY";
+                sql += "\n            ,name    TEXT NOT NULL      ";
+                sql += "\n            ,address TEXT               ";
+                sql += "\n            ,phone   TEXT               ";
+                sql += "\n            ,webSite TEXT);             ";
+
+                sql += "\nINSERT INTO Contacts_Aux (";
+                sql += "\n            name          ";
+                sql += "\n           ,address       ";
+                sql += "\n           ,phone         ";
+                sql += "\n           ,website       ";
+                sql += "\n   ) SELECT name          ";
+                sql += "\n           ,address       ";
+                sql += "\n           ,phone         ";
+                sql += "\n           ,website       ";
+                sql += "\n       FROM Contacts;     ";
+
+                sql += "\nDROP TABLE Contacts;";
+
+                sql += "\nALTER TABLE Contacts_Aux";
+                sql += "\n  RENAME TO Contacts;   ";
+
+                sql += "\nPRAGMA foreign_keys = ON;";
+
+                db.execSQL(sql);
+        }
     }
-
 
     public void insert(Contact contact) {
 
@@ -47,7 +82,6 @@ public class ContactDAO extends SQLiteOpenHelper {
         data.put("address",contact.getAddress());
         data.put("phone",contact.getPhone());
         data.put("webSite",contact.getWebSite());
-        data.put("rating",contact.getRating());
 
         db.insert("Contacts",null,data);
 
@@ -68,7 +102,6 @@ public class ContactDAO extends SQLiteOpenHelper {
             contact.setAddress(c.getString(c.getColumnIndex("address")));
             contact.setPhone(c.getString(c.getColumnIndex("phone")));
             contact.setWebSite(c.getString(c.getColumnIndex("webSite")));
-            contact.setRating(c.getDouble(c.getColumnIndex("rating")));
 
             contacts.add(contact);
         }

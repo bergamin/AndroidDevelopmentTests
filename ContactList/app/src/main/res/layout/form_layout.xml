@@ -45,14 +45,6 @@
                 android:id="@+id/websiteTxt"
                 android:hint="Website" />
 
-            <RatingBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ratingBar"
-                android:layout_gravity="center"
-                android:numStars="5"
-                android:max="10" />
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

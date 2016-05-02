@@ -14,14 +14,12 @@ public class FormHelper {
     private final TextView addressTxt;
     private final TextView phoneTxt;
     private final TextView websiteTxt;
-    private final RatingBar ratingBar;
 
     public FormHelper(FormActivity activity){
         nameTxt = (TextView) activity.findViewById(R.id.nameTxt);
         addressTxt = (TextView) activity.findViewById(R.id.addressTxt);
         phoneTxt = (TextView) activity.findViewById(R.id.phoneTxt);
         websiteTxt = (TextView) activity.findViewById(R.id.websiteTxt);
-        ratingBar = (RatingBar) activity.findViewById(R.id.ratingBar);
     }
 
     public Contact getContact(){
@@ -32,7 +30,6 @@ public class FormHelper {
         contact.setAddress(addressTxt.getText().toString());
         contact.setPhone(phoneTxt.getText().toString());
         contact.setWebSite(websiteTxt.getText().toString());
-        contact.setRating(Double.valueOf(ratingBar.getProgress()));
 
         return contact;
     }

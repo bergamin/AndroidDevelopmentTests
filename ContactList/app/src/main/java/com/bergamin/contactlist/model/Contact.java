@@ -10,7 +10,6 @@ public class Contact {
     private String address;
     private String phone;
     private String webSite;
-    private Double rating;
 
     public Long getId() {
         return id;
@@ -52,11 +51,8 @@ public class Contact {
         this.webSite = webSite;
     }
 
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
+    @Override
+    public String toString() {
+        return getName();
     }
 }
