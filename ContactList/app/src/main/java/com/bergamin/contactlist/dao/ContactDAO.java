@@ -111,4 +111,9 @@ public class ContactDAO extends SQLiteOpenHelper {
 
     }
 
+    public void delete(Contact contact) {
+        SQLiteDatabase db = getWritableDatabase();
+        String[] parameters = {contact.getId().toString()};
+        db.delete("Contacts","id = ?",parameters);
+    }
 }
