@@ -1,5 +1,6 @@
 package com.bergamin.contactlist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -26,6 +27,14 @@ public class FormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_layout);
         helper = new FormHelper(this);
+
+        Intent intent = getIntent();
+        Contact contact = (Contact) intent.getSerializableExtra("contact");
+
+        if(contact != null){
+            helper.fillForm(contact);
+        }
+
     }
 
     @Override
@@ -44,13 +53,19 @@ public class FormActivity extends AppCompatActivity {
             case R.id.saveBtn:
 
                 Contact contact = helper.getContact();
-
                 ContactDAO dao = new ContactDAO(this);
-                dao.insert(contact);
+
+                if(contact.getId() != null){
+                    dao.update(contact);
+                }else {
+                    dao.insert(contact);
+                }
+
                 dao.close();
-                finish();
 
                 Toast.makeText(FormActivity.this, "Contact " + contact.getName() + " successfully saved", Toast.LENGTH_SHORT).show();
+                finish();
+
                 break;
         }
 

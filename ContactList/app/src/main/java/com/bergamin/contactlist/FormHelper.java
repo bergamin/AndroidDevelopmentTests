@@ -14,8 +14,10 @@ public class FormHelper {
     private final TextView addressTxt;
     private final TextView phoneTxt;
     private final TextView websiteTxt;
+    private Contact contact;
 
     public FormHelper(FormActivity activity){
+        this.contact = new Contact();
         nameTxt = (TextView) activity.findViewById(R.id.nameTxt);
         addressTxt = (TextView) activity.findViewById(R.id.addressTxt);
         phoneTxt = (TextView) activity.findViewById(R.id.phoneTxt);
@@ -23,8 +25,6 @@ public class FormHelper {
     }
 
     public Contact getContact(){
-
-        Contact contact = new Contact();
 
         contact.setName(nameTxt.getText().toString());
         contact.setAddress(addressTxt.getText().toString());
@@ -34,4 +34,11 @@ public class FormHelper {
         return contact;
     }
 
+    public void fillForm(Contact contact) {
+        this.contact = contact;
+        nameTxt.setText(contact.getName());
+        addressTxt.setText(contact.getAddress());
+        phoneTxt.setText(contact.getPhone());
+        websiteTxt.setText(contact.getWebSite());
+    }
 }

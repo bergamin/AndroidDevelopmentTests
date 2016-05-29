@@ -41,6 +41,17 @@ public class ContactListActivity extends AppCompatActivity {
         });
 
         registerForContextMenu(contactsLvw);
+
+        contactsLvw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Contact contact = (Contact) contactsLvw.getItemAtPosition(position);
+                Intent intent = new Intent(ContactListActivity.this,FormActivity.class);
+                intent.putExtra("contact",contact);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

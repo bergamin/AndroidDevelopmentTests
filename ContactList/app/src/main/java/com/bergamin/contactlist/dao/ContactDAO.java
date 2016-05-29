@@ -116,4 +116,19 @@ public class ContactDAO extends SQLiteOpenHelper {
         String[] parameters = {contact.getId().toString()};
         db.delete("Contacts","id = ?",parameters);
     }
+
+    public void update(Contact contact) {
+        SQLiteDatabase db = getWritableDatabase();
+        String[] parameters = {contact.getId().toString()};
+        db.update("Contacts",getContactData(contact),"id = ?",parameters);
+    }
+
+    private ContentValues getContactData(Contact contact) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name",contact.getName());
+        contentValues.put("address",contact.getAddress());
+        contentValues.put("phone",contact.getPhone());
+        contentValues.put("webSite",contact.getWebSite());
+        return contentValues;
+    }
 }

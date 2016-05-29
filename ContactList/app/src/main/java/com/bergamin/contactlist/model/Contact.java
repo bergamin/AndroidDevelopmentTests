@@ -1,9 +1,11 @@
 package com.bergamin.contactlist.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Guilherme on 02/04/2016.
  */
-public class Contact {
+public class Contact implements Serializable {
 
     private Long id;
     private String name;
