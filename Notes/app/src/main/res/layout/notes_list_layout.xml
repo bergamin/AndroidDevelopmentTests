@@ -7,23 +7,17 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/contactsLvw"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp" />
-
+        android:id="@+id/notesList"/>
     <Button
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:text="New"
-        android:id="@+id/newContactBtn"
+        android:text="+"
+        android:id="@+id/addButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
         android:textColor="#ffffff"
-        android:background="@drawable/background"
-        android:elevation="6dp"
-        android:stateListAnimator="@null" />
+        android:background="@drawable/floating_round_button"
+        android:elevation="6dp"/>
 </RelativeLayout>
