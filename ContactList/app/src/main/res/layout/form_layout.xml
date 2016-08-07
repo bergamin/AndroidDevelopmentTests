@@ -14,7 +14,31 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="225dp">
 
+                <ImageView
+                    android:id="@+id/photoImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/person"
+                    android:background="#00A8EC"/>
+
+                <Button
+                    android:id="@+id/photoBtn"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/background"
+                    android:foreground="@drawable/ic_camera"
+                    android:foregroundGravity="center"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"/>
+
+            </RelativeLayout>
+            
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -28,6 +28,7 @@ import java.util.List;
  */
 public class ContactListActivity extends AppCompatActivity {
 
+    public static final int PHONE_CALL_REQUEST = 1;
     private ListView contactsLvw;
 
     @Override
@@ -71,7 +72,7 @@ public class ContactListActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (ActivityCompat.checkSelfPermission(ContactListActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(ContactListActivity.this,new String[]{Manifest.permission.CALL_PHONE},123);
+                    ActivityCompat.requestPermissions(ContactListActivity.this,new String[]{Manifest.permission.CALL_PHONE}, PHONE_CALL_REQUEST);
                 } else {
                     Intent intentCall = new Intent(Intent.ACTION_CALL);
                     intentCall.setData(Uri.parse("tel:" + contact.getPhone()));
@@ -138,7 +139,8 @@ public class ContactListActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == 123){ // change to a constant and check if the permission was granted
+        if (requestCode == PHONE_CALL_REQUEST){
+            // check if the permission was granted
             // perform call
         }
     }

@@ -17,17 +17,18 @@ import java.util.List;
 public class ContactDAO extends SQLiteOpenHelper {
 
     public ContactDAO(Context context) {
-        super(context, "ContactList", null, 2);
+        super(context, "ContactList", null, 3);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE Contacts (" +
-                " id      INTEGER PRIMARY KEY" +
-                ",name    TEXT NOT NULL" +
-                ",address TEXT" +
-                ",phone   TEXT" +
-                ",webSite TEXT);";
+                " id        INTEGER PRIMARY KEY" +
+                ",name      TEXT NOT NULL" +
+                ",address   TEXT" +
+                ",phone     TEXT" +
+                ",webSite   TEXT" +
+                ",photoPath TEXT);";
         db.execSQL(sql);
     }
 
@@ -70,6 +71,16 @@ public class ContactDAO extends SQLiteOpenHelper {
                 sql += "\nPRAGMA foreign_keys = ON;";
 
                 db.execSQL(sql);
+
+            case 2:
+
+                /*
+                Version 3 adds the path to the contact's photo
+                */
+
+                sql = "ALTER TABLE Contacts ADD COLUMN photoPath";
+                db.execSQL(sql);
+
         }
     }
 
@@ -82,6 +93,7 @@ public class ContactDAO extends SQLiteOpenHelper {
         data.put("address",contact.getAddress());
         data.put("phone",contact.getPhone());
         data.put("webSite",contact.getWebSite());
+        data.put("photoPath",contact.getPhotoPath());
 
         db.insert("Contacts",null,data);
 
@@ -102,6 +114,7 @@ public class ContactDAO extends SQLiteOpenHelper {
             contact.setAddress(c.getString(c.getColumnIndex("address")));
             contact.setPhone(c.getString(c.getColumnIndex("phone")));
             contact.setWebSite(c.getString(c.getColumnIndex("webSite")));
+            contact.setPhotoPath(c.getString(c.getColumnIndex("photoPath")));
 
             contacts.add(contact);
         }
@@ -129,6 +142,7 @@ public class ContactDAO extends SQLiteOpenHelper {
         contentValues.put("address",contact.getAddress());
         contentValues.put("phone",contact.getPhone());
         contentValues.put("webSite",contact.getWebSite());
+        contentValues.put("photoPath",contact.getPhotoPath());
         return contentValues;
     }
 }
