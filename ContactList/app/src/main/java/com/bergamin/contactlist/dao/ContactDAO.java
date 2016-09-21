@@ -145,4 +145,11 @@ public class ContactDAO extends SQLiteOpenHelper {
         contentValues.put("photoPath",contact.getPhotoPath());
         return contentValues;
     }
+
+    public boolean isContact(String phone){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT 1 FROM Contacts WHERE phone = ?",new String[]{phone});
+        boolean result = cursor.getCount() > 0;
+        return result;
+    }
 }

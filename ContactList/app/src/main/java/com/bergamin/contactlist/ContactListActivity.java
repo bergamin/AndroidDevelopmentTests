@@ -1,6 +1,7 @@
 package com.bergamin.contactlist;
 
 import android.Manifest;
+import android.app.Application;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bergamin.contactlist.adapter.ContactsAdapter;
 import com.bergamin.contactlist.dao.ContactDAO;
 import com.bergamin.contactlist.model.Contact;
 
@@ -29,6 +31,7 @@ import java.util.List;
 public class ContactListActivity extends AppCompatActivity {
 
     public static final int PHONE_CALL_REQUEST = 1;
+    public static final int SMS_RECEIVED_REQUEST = 2;
     private ListView contactsLvw;
 
     @Override
@@ -59,6 +62,10 @@ public class ContactListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        if(ActivityCompat.checkSelfPermission(ContactListActivity.this,Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(ContactListActivity.this,new String[]{Manifest.permission.RECEIVE_SMS},SMS_RECEIVED_REQUEST);
+        }
     }
 
     @Override
@@ -130,7 +137,7 @@ public class ContactListActivity extends AppCompatActivity {
         List<Contact> contacts = dao.getContacts();
         dao.close();
 
-        ArrayAdapter<Contact> adapter = new ArrayAdapter<Contact>(this,android.R.layout.simple_list_item_1,contacts);
+        ContactsAdapter adapter = new ContactsAdapter(this, contacts);
         contactsLvw.setAdapter(adapter);
 
     }
