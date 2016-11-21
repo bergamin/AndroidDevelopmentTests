@@ -1,25 +1,24 @@
 package com.bergamin.contactlist;
 
 import android.Manifest;
-import android.app.Application;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Browser;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bergamin.contactlist.adapter.ContactsAdapter;
+import com.bergamin.contactlist.converter.ContactConverter;
 import com.bergamin.contactlist.dao.ContactDAO;
 import com.bergamin.contactlist.model.Contact;
 
@@ -150,5 +149,21 @@ public class ContactListActivity extends AppCompatActivity {
             // check if the permission was granted
             // perform call
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.contacts_menu_list ,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.menu_send_contacts:
+                new SendContactsTask(this).execute();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
