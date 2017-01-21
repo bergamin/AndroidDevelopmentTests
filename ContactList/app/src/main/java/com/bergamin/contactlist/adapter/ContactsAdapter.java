@@ -55,10 +55,14 @@ public class ContactsAdapter extends BaseAdapter {
 
         TextView nameTxt = (TextView) convertView.findViewById(R.id.item_name);
         TextView phoneTxt = (TextView) convertView.findViewById(R.id.item_phone);
+        TextView addressTxt = (TextView) convertView.findViewById(R.id.item_address);
+        TextView webSiteTxt = (TextView) convertView.findViewById(R.id.item_website);
         ImageView photoImg = (ImageView) convertView.findViewById(R.id.item_photo);
 
         nameTxt.setText(contact.getName());
         phoneTxt.setText(contact.getPhone());
+        if(addressTxt != null) addressTxt.setText(contact.getAddress());
+        if(webSiteTxt != null) webSiteTxt.setText(contact.getWebSite());
 
         String filePath = contact.getPhotoPath();
         if(filePath != null) {

@@ -92,7 +92,7 @@ public class FormActivity extends AppCompatActivity {
 
                 dao.close();
 
-                Toast.makeText(FormActivity.this, "Contact " + contact.getName() + " successfully saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FormActivity.this, getString(R.string.contact) + " " + contact.getName() + " " + getString(R.string.saved), Toast.LENGTH_SHORT).show();
                 finish();
 
                 break;

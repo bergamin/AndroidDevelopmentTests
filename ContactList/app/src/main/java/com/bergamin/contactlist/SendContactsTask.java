@@ -20,7 +20,7 @@ Generics use:
  - params in doInBackground()
  - used during execution
  - response in onPostExecute()
- */
+*/
 public class SendContactsTask extends AsyncTask<Void, Void, String> {
 
     private Context context;

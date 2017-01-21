@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Contact List</string>
+    <string name="new_contact">NEW</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
+    <string name="website">WebSite</string>
+    <string name="call">Call</string>
+    <string name="map">Map</string>
+    <string name="sms">SMS</string>
+    <string name="delete">Delete</string>
+    <string name="deleted">has been deleted</string>
+    <string name="saved">successfully saved</string>
+    <string name="contact">Contact</string>
 </resources>

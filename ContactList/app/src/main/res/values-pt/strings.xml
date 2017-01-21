@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lista de Contatos</string>
+    <string name="new_contact">NOVO</string>
+    <string name="name">Nome</string>
+    <string name="address">Endereço</string>
+    <string name="phone">Telefone</string>
+    <string name="website">Site</string>
+    <string name="call">Telefonar</string>
+    <string name="map">Mapa</string>
+    <string name="sms">SMS</string>
+    <string name="delete">Remover</string>
+    <string name="deleted">foi removido</string>
+    <string name="saved">salvo com sucesso</string>
+    <string name="contact">Contato</string>
+</resources>

@@ -73,7 +73,7 @@ public class ContactListActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         final Contact contact = (Contact) contactsLvw.getItemAtPosition(info.position);
 
-        MenuItem miCall = menu.add("Call");
+        MenuItem miCall = menu.add(R.string.call);
         miCall.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -88,17 +88,17 @@ public class ContactListActivity extends AppCompatActivity {
             }
         });
 
-        MenuItem miFindInMap = menu.add("Find in map");
+        MenuItem miFindInMap = menu.add(R.string.map);
         Intent intentMap = new Intent(Intent.ACTION_VIEW);
         intentMap.setData(Uri.parse("geo:0,0?q=" + contact.getAddress()));
         miFindInMap.setIntent(intentMap);
 
-        MenuItem miSendSMS = menu.add("Send SMS");
+        MenuItem miSendSMS = menu.add(R.string.sms);
         Intent intentSMS = new Intent(Intent.ACTION_VIEW);
         intentSMS.setData(Uri.parse("sms:" + contact.getPhone()));
         miSendSMS.setIntent(intentSMS);
 
-        MenuItem miVisitWebSite = menu.add("Visit website");
+        MenuItem miVisitWebSite = menu.add(R.string.website);
         String webSite = contact.getWebSite();
         if(!webSite.startsWith("http://")){
             webSite = "http://" + webSite;
@@ -107,7 +107,7 @@ public class ContactListActivity extends AppCompatActivity {
         intentWebSite.setData(Uri.parse(webSite));
         miVisitWebSite.setIntent(intentWebSite);
 
-        MenuItem miDelete = menu.add("Delete");
+        MenuItem miDelete = menu.add(R.string.delete);
         miDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -117,7 +117,7 @@ public class ContactListActivity extends AppCompatActivity {
                 dao.close();
                 loadList();
 
-                Toast.makeText(ContactListActivity.this, contact.getName() + " has been deleted",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ContactListActivity.this, contact.getName() + " " + getString(R.string.deleted),Toast.LENGTH_SHORT).show();
 
                 return false;
             }
