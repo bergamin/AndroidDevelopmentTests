@@ -43,7 +43,7 @@ public class SendContactsTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPreExecute() {
-        dialog = ProgressDialog.show(context,"Please wait","Sending Contacts...",true,true);
+        dialog = ProgressDialog.show(context,context.getString(R.string.please_wait),context.getString(R.string.sending_contacts),true,true);
     }
 
     @Override

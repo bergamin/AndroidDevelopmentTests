@@ -103,7 +103,7 @@ public class ContactDAO extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM Contacts", null);
-        List<Contact> contacts = new ArrayList<Contact>();
+        List<Contact> contacts = new ArrayList<>();
 
         while(c.moveToNext()){
 

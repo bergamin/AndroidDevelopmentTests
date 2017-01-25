@@ -24,7 +24,7 @@ public class SMSReceiver extends BroadcastReceiver {
             sms = SmsMessage.createFromPdu(pdu, format);
             ContactDAO dao = new ContactDAO(context);
             if (dao.isContact(sms.getDisplayOriginatingAddress())) {
-                Toast.makeText(context, "You have a new SMS from a contact", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getString(R.string.new_sms_received), Toast.LENGTH_SHORT).show();
                 MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.msg);
                 mediaPlayer.start();
             }

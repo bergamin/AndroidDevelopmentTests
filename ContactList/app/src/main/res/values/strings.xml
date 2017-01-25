@@ -4,7 +4,7 @@
     <string name="name">Name</string>
     <string name="address">Address</string>
     <string name="phone">Phone</string>
-    <string name="website">WebSite</string>
+    <string name="website">Website</string>
     <string name="call">Call</string>
     <string name="map">Map</string>
     <string name="sms">SMS</string>
@@ -12,4 +12,7 @@
     <string name="deleted">has been deleted</string>
     <string name="saved">successfully saved</string>
     <string name="contact">Contact</string>
+    <string name="please_wait">Please wait</string>
+    <string name="sending_contacts">Sending contacts...</string>
+    <string name="new_sms_received">You have received a new SMS message</string>
 </resources>

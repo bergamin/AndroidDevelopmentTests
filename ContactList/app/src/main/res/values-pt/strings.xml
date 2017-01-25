@@ -13,4 +13,7 @@
     <string name="deleted">foi removido</string>
     <string name="saved">salvo com sucesso</string>
     <string name="contact">Contato</string>
+    <string name="please_wait">Aguarde, por favor</string>
+    <string name="sending_contacts">Enviando contatos...</string>
+    <string name="new_sms_received">Você recebeu uma nova mensagem SMS</string>
 </resources>

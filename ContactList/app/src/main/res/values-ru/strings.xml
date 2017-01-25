@@ -13,4 +13,7 @@
     <string name="deleted">был удален</string>
     <string name="saved">успешно сохранен</string>
     <string name="contact">Контакт</string>
+    <string name="please_wait">Подождите, пожалуйста</string>
+    <string name="sending_contacts">Отправка контактов...</string>
+    <string name="new_sms_received">Вы получал новое сообщение СМС</string>
 </resources>
