@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Список Контактов</string>
+    <string name="app_name">Список контактов</string>
     <string name="new_contact">НОВЫЙ</string>
     <string name="name">Имя</string>
     <string name="address">Адрес</string>
@@ -15,5 +15,5 @@
     <string name="contact">Контакт</string>
     <string name="please_wait">Подождите, пожалуйста</string>
     <string name="sending_contacts">Отправка контактов...</string>
-    <string name="new_sms_received">Вы получал новое сообщение СМС</string>
+    <string name="new_sms_received">Вы получили новое СМС</string>
 </resources>

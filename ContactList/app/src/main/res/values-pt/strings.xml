@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Lista de Contatos</string>
+    <string name="app_name">Lista de contatos</string>
     <string name="new_contact">NOVO</string>
     <string name="name">Nome</string>
     <string name="address">Endereço</string>
@@ -15,5 +15,5 @@
     <string name="contact">Contato</string>
     <string name="please_wait">Aguarde, por favor</string>
     <string name="sending_contacts">Enviando contatos...</string>
-    <string name="new_sms_received">Você recebeu uma nova mensagem SMS</string>
+    <string name="new_sms_received">Você recebeu um novo SMS</string>
 </resources>
