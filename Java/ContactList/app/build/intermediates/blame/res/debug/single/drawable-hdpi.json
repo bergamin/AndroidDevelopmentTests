@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_confirm.png",
+        "source": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\src\\main\\res\\drawable-hdpi\\ic_confirm.png"
+    },
+    {
+        "merged": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_map.png",
+        "source": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\src\\main\\res\\drawable-hdpi\\ic_map.png"
+    },
+    {
+        "merged": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_no_image.png",
+        "source": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\src\\main\\res\\drawable-hdpi\\ic_no_image.png"
+    },
+    {
+        "merged": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_launcher.png",
+        "source": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_receive.png",
+        "source": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\src\\main\\res\\drawable-hdpi\\ic_receive.png"
+    },
+    {
+        "merged": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_settings.png",
+        "source": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\src\\main\\res\\drawable-hdpi\\ic_settings.png"
+    },
+    {
+        "merged": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_send.png",
+        "source": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\src\\main\\res\\drawable-hdpi\\ic_send.png"
+    },
+    {
+        "merged": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_options.png",
+        "source": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\src\\main\\res\\drawable-hdpi\\ic_options.png"
+    },
+    {
+        "merged": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_camera.png",
+        "source": "C:\\Users\\gbergamin\\StudioProjects\\AndroidDevelopmentTests\\ContactList\\app\\src\\main\\res\\drawable-hdpi\\ic_camera.png"
+    }
+]
