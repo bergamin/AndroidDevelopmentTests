@@ -2,4 +2,7 @@
 <resources>
     <string name="app_name">Список Контактов</string>
     <string name="name">Имя</string>
+    <string name="address">Адрес</string>
+    <string name="phone">Телефон</string>
+    <string name="website">Сайт</string>
 </resources>

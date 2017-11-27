@@ -2,4 +2,8 @@
 <resources>
     <string name="app_name">Lista de Contatos</string>
     <string name="name">Nome</string>
+    <string name="address">Endereço</string>
+    <string name="phone">Telefone</string>
+    <string name="website">Site</string>
+    <string name="save">Salvar</string>
 </resources>
