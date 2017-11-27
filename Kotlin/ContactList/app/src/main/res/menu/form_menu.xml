@@ -8,5 +8,5 @@
     <item android:id="@+id/saveBtn"
         android:title="@string/save"
         android:icon="@drawable/ic_confirm"
-        app:showAsAction="always"
+        app:showAsAction="always" />
 </menu>

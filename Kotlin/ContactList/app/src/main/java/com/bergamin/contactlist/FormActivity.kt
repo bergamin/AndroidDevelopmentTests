@@ -7,8 +7,11 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import kotlinx.android.synthetic.main.activity_form.*
+import android.widget.Toast
+import com.bergamin.contactlist.dao.ContactDAO
+import com.bergamin.contactlist.model.Contact
 import java.io.File
 
 class FormActivity : AppCompatActivity(), View.OnClickListener {
@@ -45,6 +48,27 @@ class FormActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.for)
+        menuInflater.inflate(R.menu.form_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.saveBtn -> {
+                var contact = helper?.contact
+                var dao = ContactDAO(this)
+
+                if(contact!!.id > 0){
+                    dao.update(contact)
+                } else {
+                    dao.insert(contact)
+                }
+
+                dao.close()
+                Toast.makeText(this, getString(R.string.contact) + " " + contact.name + " " + getString(R.string.saved),Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

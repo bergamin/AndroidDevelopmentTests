@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.widget.ImageView
 import android.widget.TextView
+import com.bergamin.contactlist.model.Contact
 
 /**
  * Created by gbergamin on 24/11/2017.
