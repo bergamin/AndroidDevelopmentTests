@@ -1,4 +1,4 @@
-package com.bergamin.contactlist
+package com.bergamin.contactlist.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -10,6 +10,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.bergamin.contactlist.util.FormHelper
+import com.bergamin.contactlist.R
 import com.bergamin.contactlist.dao.ContactDAO
 import com.bergamin.contactlist.model.Contact
 import java.io.File
@@ -40,7 +42,7 @@ class FormActivity : AppCompatActivity(), View.OnClickListener {
         var photoFile = File(photoPath)
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile))
-        startActivityForResult(intent,CAMERA_REQUEST)
+        startActivityForResult(intent, CAMERA_REQUEST)
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK){

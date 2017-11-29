@@ -1,4 +1,4 @@
-package com.bergamin.contactlist
+package com.bergamin.contactlist.activity
 
 import android.Manifest
 import android.content.Intent
@@ -9,9 +9,11 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.view.ContextMenu
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
+import com.bergamin.contactlist.R
 import com.bergamin.contactlist.adapter.ContactsAdapter
 import com.bergamin.contactlist.dao.ContactDAO
 import com.bergamin.contactlist.model.Contact
@@ -29,7 +31,7 @@ class ContactListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_contact_list)
 
         newContactBtn.setOnClickListener {
-            intent.setClass(this,FormActivity.javaClass)
+            intent.setClass(this, FormActivity.javaClass)
             startActivity(intent)
         }
 
@@ -97,7 +99,7 @@ class ContactListActivity : AppCompatActivity() {
         loadList()
         super.onResume()
     }
-    fun loadList{
+    fun loadList() {
         var dao = ContactDAO(this)
         var contacts = dao.getContacts()
         dao.close()
@@ -110,6 +112,15 @@ class ContactListActivity : AppCompatActivity() {
         }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.)
+        menuInflater.inflate(R.menu.contact_list_menu,menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.menuBackupContacts -> {
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

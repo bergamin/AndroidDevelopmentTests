@@ -1,9 +1,11 @@
-package com.bergamin.contactlist
+package com.bergamin.contactlist.util
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.widget.ImageView
 import android.widget.TextView
+import com.bergamin.contactlist.R
+import com.bergamin.contactlist.activity.FormActivity
 import com.bergamin.contactlist.model.Contact
 
 /**
