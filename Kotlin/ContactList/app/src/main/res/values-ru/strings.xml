@@ -5,4 +5,13 @@
     <string name="address">Адрес</string>
     <string name="phone">Телефон</string>
     <string name="website">Сайт</string>
+    <string name="call">Позвонить</string>
+    <string name="contact">Контакт</string>
+    <string name="map">Карта</string>
+    <string name="saved">успешно сохранен</string>
+    <string name="save">Сохранить</string>
+    <string name="sms">СМС</string>
+    <string name="delete">Удалить</string>
+    <string name="deleted">был удален</string>
+    <string name="backup">Хранить</string>
 </resources>

@@ -5,4 +5,13 @@
     <string name="address">Indirizzo</string>
     <string name="phone">Telefono</string>
     <string name="website">Sito Web</string>
+    <string name="call">Chiamare</string>
+    <string name="contact">Contatto</string>
+    <string name="map">Carta</string>
+    <string name="saved">salvato con sucesso</string>
+    <string name="save">Salvare</string>
+    <string name="sms">SMS</string>
+    <string name="delete">Rimuovere</string>
+    <string name="deleted">è stato rimosso</string>
+    <string name="backup">Backup</string>
 </resources>

@@ -7,4 +7,10 @@
     <string name="save">Save</string>
     <string name="contact">Contact</string>
     <string name="saved">successfully saved</string>
+    <string name="call">Call</string>
+    <string name="map">Map</string>
+    <string name="sms">SMS</string>
+    <string name="delete">Delete</string>
+    <string name="deleted">has been deleted</string>
+    <string name="backup">Backup</string>
 </resources>
