@@ -17,6 +17,7 @@ import com.bergamin.contactlist.R
 import com.bergamin.contactlist.adapter.ContactsAdapter
 import com.bergamin.contactlist.dao.ContactDAO
 import com.bergamin.contactlist.model.Contact
+import com.bergamin.contactlist.util.SendContactsTask
 import kotlinx.android.synthetic.main.activity_contact_list.*
 
 class ContactListActivity : AppCompatActivity() {
@@ -118,7 +119,7 @@ class ContactListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             R.id.menuBackupContacts -> {
-
+                SendContactsTask(this).execute()
             }
         }
         return super.onOptionsItemSelected(item)

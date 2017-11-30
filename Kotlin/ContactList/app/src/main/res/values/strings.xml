@@ -13,4 +13,7 @@
     <string name="delete">Delete</string>
     <string name="deleted">has been deleted</string>
     <string name="backup">Backup</string>
+    <string name="please_wait">Please wait</string>
+    <string name="sending_contacts">Sending contacts...</string>
+    <string name="new_sms_received">You have received new SMS</string>
 </resources>

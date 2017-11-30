@@ -14,4 +14,7 @@
     <string name="delete">Eliminar</string>
     <string name="deleted">fue removido</string>
     <string name="backup">Respaldo</string>
+    <string name="please_wait">Espere, por favor</string>
+    <string name="sending_contacts">Enviando contactos...</string>
+    <string name="new_sms_received">Has recibido un nuevo SMS</string>
 </resources>

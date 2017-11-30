@@ -3,6 +3,8 @@ package com.bergamin.contactlist.util
 import android.app.ProgressDialog
 import android.content.Context
 import android.os.AsyncTask
+import android.widget.Toast
+import com.bergamin.contactlist.R
 import com.bergamin.contactlist.dao.ContactDAO
 import com.google.gson.Gson
 
@@ -27,5 +29,11 @@ class SendContactsTask(
         var json = Gson().toJson(contacts)
         return WebClient().post(json)
     }
-
+    override fun onPreExecute() {
+        dialog = ProgressDialog.show(context,context.getString(R.string.please_wait),context.getString(R.string.sending_contacts),true,true)
+    }
+    override fun onPostExecute(result: String?) {
+        dialog?.dismiss()
+        Toast.makeText(context,result,Toast.LENGTH_LONG).show()
+    }
 }

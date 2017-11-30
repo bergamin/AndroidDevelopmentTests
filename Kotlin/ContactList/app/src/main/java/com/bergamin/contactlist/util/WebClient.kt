@@ -9,7 +9,7 @@ import java.util.*
  * Created by gbergamin on 29/11/2017.
  */
 class WebClient {
-    fun post(json: String): String? {
+    fun post(json: String): String {
         var connection = URL("serverPath").openConnection() as HttpURLConnection
 
         connection.setRequestProperty("Content-type","application/json")
