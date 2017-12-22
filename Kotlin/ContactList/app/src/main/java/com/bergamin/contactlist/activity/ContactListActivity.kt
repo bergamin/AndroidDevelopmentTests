@@ -109,7 +109,7 @@ class ContactListActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == PHONE_CALL_REQUEST){
-            // TODO: check if permission was granted and then, perform call
+            TODO("check if permission was granted and then, perform call")
         }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

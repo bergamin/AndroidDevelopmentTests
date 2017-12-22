@@ -4,23 +4,33 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.webkit.URLUtil
 import com.bergamin.contactlist.R
 import com.bergamin.contactlist.model.Contact
+import java.io.BufferedReader
+import java.io.File
+import java.io.InputStreamReader
 
 /**
  * Created by gbergamin on 27/11/2017.
  */
-class ContactDAO(context: Context): SQLiteOpenHelper(context, "ContactList", null, 2) {
+class ContactDAO(var context: Context): SQLiteOpenHelper(context, "ContactList", null, 3) {
 
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(R.raw.create_database.toString())
+        var br = BufferedReader(InputStreamReader(context.resources.openRawResource(R.raw.create_database)))
+        var file = br.readText()
+        br.close()
+        db?.execSQL(file)
+
+        //db?.execSQL(this::class.java.getResource("/raw/create_database.sql").readText())
+        //db?.execSQL(R.raw.create_database.toString())
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         when(oldVersion){
             // Removes column Contact.rating
-            1 -> db?.execSQL(R.raw.db_version_2.toString())
+            1 -> db?.execSQL(this::class.java.getResource("/raw/db_version_2.sql").readText())
             // Adds column Contact.photoPath
-            in 1..2 -> db?.execSQL(R.raw.db_version_3.toString())
+            in 1..2 -> db?.execSQL(this::class.java.getResource("/raw/db_version_3.sql").readText())
         }
     }
     fun insert(contact: Contact) {
@@ -34,7 +44,7 @@ class ContactDAO(context: Context): SQLiteOpenHelper(context, "ContactList", nul
 
         writableDatabase.insert("Contacts",null,data)
     }
-    fun getContacts(): List<Contact> {
+    fun getContacts(): List<Contact>? {
         var cursor = readableDatabase.rawQuery("SELECT * FROM Contacts",null)
         var contacts: MutableList<Contact>? = null
 
@@ -51,7 +61,7 @@ class ContactDAO(context: Context): SQLiteOpenHelper(context, "ContactList", nul
             contacts?.add(contact)
         }
         cursor.close()
-        return contacts as List<Contact>
+        return contacts
     }
     fun delete(contact: Contact){
         var parameters = Array(1, { contact.id.toString() })
