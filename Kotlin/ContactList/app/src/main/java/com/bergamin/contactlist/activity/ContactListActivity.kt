@@ -32,7 +32,7 @@ class ContactListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_contact_list)
 
         newContactBtn.setOnClickListener {
-            intent.setClass(this, FormActivity.javaClass)
+            var intent = Intent(this@ContactListActivity, FormActivity::class.java)
             startActivity(intent)
         }
 
@@ -40,12 +40,12 @@ class ContactListActivity : AppCompatActivity() {
         contactsLV.setOnItemClickListener { _, _, position, _ ->
             var contact = contactsLV.getItemAtPosition(position)
 
-            intent.setClass(this, FormActivity.javaClass)
+            intent.setClass(this@ContactListActivity, FormActivity::class.java)
             intent.putExtra("contact",Array(1,{contact}))
             startActivity(intent)
         }
-        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,Array(1,{Manifest.permission.RECEIVE_SMS}), SMS_RECEIVED_REQUEST)
+        if(ActivityCompat.checkSelfPermission(this@ContactListActivity,Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this@ContactListActivity,Array(1,{Manifest.permission.RECEIVE_SMS}), SMS_RECEIVED_REQUEST)
         }
     }
 
@@ -55,8 +55,8 @@ class ContactListActivity : AppCompatActivity() {
 
         var miCall = menu?.add(R.string.call)
         miCall?.setOnMenuItemClickListener {
-            if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(this,Array(1,{Manifest.permission.CALL_PHONE}), PHONE_CALL_REQUEST)
+            if(ActivityCompat.checkSelfPermission(this@ContactListActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this@ContactListActivity,Array(1,{Manifest.permission.CALL_PHONE}), PHONE_CALL_REQUEST)
             } else {
                 intent.action = Intent.ACTION_CALL
                 intent.data = Uri.parse("tel:" + contact.phone)
@@ -86,13 +86,13 @@ class ContactListActivity : AppCompatActivity() {
 
         var miDelete = menu?.add(R.string.delete)
         miDelete?.setOnMenuItemClickListener {
-            var dao = ContactDAO(this)
+            var dao = ContactDAO(this@ContactListActivity)
 
             dao.delete(contact)
             dao.close()
             loadList()
 
-            Toast.makeText(this,contact.name + " " + getString(R.string.deleted),Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ContactListActivity,contact.name + " " + getString(R.string.deleted),Toast.LENGTH_SHORT).show()
             return@setOnMenuItemClickListener false
         }
     }

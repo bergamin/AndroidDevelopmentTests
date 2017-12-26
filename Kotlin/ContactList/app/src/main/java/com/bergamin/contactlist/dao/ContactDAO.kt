@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.webkit.URLUtil
 import com.bergamin.contactlist.R
 import com.bergamin.contactlist.model.Contact
+import com.bergamin.contactlist.util.FileHelper
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
@@ -17,20 +18,14 @@ import java.io.InputStreamReader
 class ContactDAO(var context: Context): SQLiteOpenHelper(context, "ContactList", null, 3) {
 
     override fun onCreate(db: SQLiteDatabase?) {
-        var br = BufferedReader(InputStreamReader(context.resources.openRawResource(R.raw.create_database)))
-        var file = br.readText()
-        br.close()
-        db?.execSQL(file)
-
-        //db?.execSQL(this::class.java.getResource("/raw/create_database.sql").readText())
-        //db?.execSQL(R.raw.create_database.toString())
+        db?.execSQL(FileHelper().getResourceTextByID(R.raw.create_database, context))
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         when(oldVersion){
             // Removes column Contact.rating
-            1 -> db?.execSQL(this::class.java.getResource("/raw/db_version_2.sql").readText())
+            1 -> db?.execSQL(FileHelper().getResourceTextByID(R.raw.db_version_2,context))
             // Adds column Contact.photoPath
-            in 1..2 -> db?.execSQL(this::class.java.getResource("/raw/db_version_3.sql").readText())
+            in 1..2 -> db?.execSQL(FileHelper().getResourceTextByID(R.raw.db_version_3,context))
         }
     }
     fun insert(contact: Contact) {

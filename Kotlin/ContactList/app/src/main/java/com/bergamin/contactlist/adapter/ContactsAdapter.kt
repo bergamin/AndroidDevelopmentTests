@@ -16,8 +16,8 @@ import com.bergamin.contactlist.model.Contact
  * Created by gbergamin on 28/11/2017.
  */
 class ContactsAdapter(
-        val context: Context,
-        val contacts: List<Contact>?): BaseAdapter() {
+        private val context: Context,
+        private val contacts: List<Contact>?): BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var contact = contacts!![position]
@@ -56,6 +56,6 @@ class ContactsAdapter(
     }
 
     override fun getCount(): Int {
-        return contacts!!.size
+        return contacts?.size ?: 0
     }
 }

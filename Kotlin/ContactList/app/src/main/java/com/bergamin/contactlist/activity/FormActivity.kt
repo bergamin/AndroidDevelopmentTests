@@ -30,7 +30,7 @@ class FormActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_form)
         helper?.activity = this
 
-        var contact: Contact = intent.getSerializableExtra("contact") as Contact
+        var contact: Contact? = intent.getSerializableExtra("contact") as Contact?
 
         helper?.fillForm(contact)
 
@@ -67,7 +67,7 @@ class FormActivity : AppCompatActivity(), View.OnClickListener {
                 }
 
                 dao.close()
-                Toast.makeText(this, getString(R.string.contact) + " " + contact.name + " " + getString(R.string.saved),Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@FormActivity, getString(R.string.contact) + " " + contact.name + " " + getString(R.string.saved),Toast.LENGTH_SHORT).show()
                 finish()
             }
         }

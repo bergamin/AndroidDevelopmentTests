@@ -12,14 +12,15 @@ import com.bergamin.contactlist.model.Contact
  * Created by gbergamin on 24/11/2017.
  */
 class FormHelper(
-        var activity: FormActivity,
-        var contact: Contact) {
+        var activity: FormActivity) {
 
+    var contact: Contact
     val nameTxt: TextView
     val addressTxt: TextView
     val phoneTxt: TextView
     val websiteTxt: TextView
     val photoImg: ImageView
+
 
     init {
         nameTxt = activity.findViewById(R.id.nameTxt)
@@ -28,19 +29,20 @@ class FormHelper(
         websiteTxt = activity.findViewById(R.id.websiteTxt)
         photoImg = activity.findViewById(R.id.photoImg)
 
+        contact = Contact()
         contact.name = nameTxt.text.toString()
         contact.address = addressTxt.text.toString()
         contact.phone = phoneTxt.text.toString()
         contact.webSite = websiteTxt.text.toString()
         contact.photoPath = photoImg.tag as String
     }
-    fun fillForm(contact: Contact){
-        nameTxt.text = contact.name
-        addressTxt.text = contact.address
-        phoneTxt.text = contact.phone
-        websiteTxt.text = contact.webSite
+    fun fillForm(contact: Contact?){
+        nameTxt.text = contact?.name
+        addressTxt.text = contact?.address
+        phoneTxt.text = contact?.phone
+        websiteTxt.text = contact?.webSite
 
-        loadImage(contact.photoPath)
+        loadImage(contact?.photoPath!!)
         this.contact = contact
     }
 
