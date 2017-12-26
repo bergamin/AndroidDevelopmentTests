@@ -9,7 +9,7 @@ import com.bergamin.contactlist.activity.FormActivity
 import com.bergamin.contactlist.model.Contact
 
 /**
- * Created by gbergamin on 24/11/2017.
+ * Created by Guilherme Taffarel Bergamin on 24/11/2017.
  */
 class FormHelper(
         var activity: FormActivity) {

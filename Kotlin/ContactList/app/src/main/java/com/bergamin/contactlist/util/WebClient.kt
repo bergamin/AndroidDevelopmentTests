@@ -6,7 +6,7 @@ import java.net.URL
 import java.util.*
 
 /**
- * Created by gbergamin on 29/11/2017.
+ * Created by Guilherme Taffarel Bergamin on 29/11/2017.
  */
 class WebClient {
     fun post(json: String): String {

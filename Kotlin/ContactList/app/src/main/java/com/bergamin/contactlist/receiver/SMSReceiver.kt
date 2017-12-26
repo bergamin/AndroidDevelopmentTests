@@ -10,7 +10,7 @@ import com.bergamin.contactlist.R
 import com.bergamin.contactlist.dao.ContactDAO
 
 /**
- * Created by gbergamin on 30/11/2017.
+ * Created by Guilherme Taffarel Bergamin on 30/11/2017.
  */
 class SMSReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {

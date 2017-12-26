@@ -13,7 +13,7 @@ import java.io.File
 import java.io.InputStreamReader
 
 /**
- * Created by gbergamin on 27/11/2017.
+ * Created by Guilherme Taffarel Bergamin on 27/11/2017.
  */
 class ContactDAO(var context: Context): SQLiteOpenHelper(context, "ContactList", null, 3) {
 

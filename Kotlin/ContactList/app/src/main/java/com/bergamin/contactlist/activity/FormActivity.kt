@@ -16,6 +16,10 @@ import com.bergamin.contactlist.dao.ContactDAO
 import com.bergamin.contactlist.model.Contact
 import java.io.File
 
+/**
+ * Created by Guilherme Taffarel Bergamin on 23/11/2017.
+ */
+
 class FormActivity : AppCompatActivity(), View.OnClickListener {
 
     var helper: FormHelper? = null

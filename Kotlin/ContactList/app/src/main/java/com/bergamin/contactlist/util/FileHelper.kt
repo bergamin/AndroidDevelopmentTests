@@ -5,7 +5,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 /**
- * Created by taffa on 23/12/2017.
+ * Created by Guilherme Taffarel Bergamin on 23/12/2017.
  */
 class FileHelper {
     fun getResourceTextByID(fileID: Int, context: Context): String? {

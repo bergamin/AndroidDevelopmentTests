@@ -20,6 +20,10 @@ import com.bergamin.contactlist.model.Contact
 import com.bergamin.contactlist.util.SendContactsTask
 import kotlinx.android.synthetic.main.activity_contact_list.*
 
+/**
+ * Created by Guilherme Taffarel Bergamin on 29/11/2017.
+ */
+
 class ContactListActivity : AppCompatActivity() {
 
     companion object{

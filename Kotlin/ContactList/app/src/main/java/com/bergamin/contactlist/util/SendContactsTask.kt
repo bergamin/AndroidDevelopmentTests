@@ -9,7 +9,7 @@ import com.bergamin.contactlist.dao.ContactDAO
 import com.google.gson.Gson
 
 /**
- * Created by gbergamin on 29/11/2017.
+ * Created by Guilherme Taffarel Bergamin on 29/11/2017.
  *
  * Generics use in order:
  *

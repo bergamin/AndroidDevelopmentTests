@@ -13,7 +13,7 @@ import com.bergamin.contactlist.R
 import com.bergamin.contactlist.model.Contact
 
 /**
- * Created by gbergamin on 28/11/2017.
+ * Created by Guilherme Taffarel Bergamin on 28/11/2017.
  */
 class ContactsAdapter(
         private val context: Context,

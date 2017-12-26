@@ -3,7 +3,7 @@ package com.bergamin.contactlist.model
 import java.io.Serializable
 
 /**
- * Created by gbergamin on 24/11/2017.
+ * Created by Guilherme Taffarel Bergamin on 24/11/2017.
  */
 class Contact(
         var id: Long = 0,
