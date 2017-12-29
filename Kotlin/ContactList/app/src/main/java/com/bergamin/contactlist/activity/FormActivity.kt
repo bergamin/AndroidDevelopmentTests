@@ -32,7 +32,7 @@ class FormActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form)
-        helper?.activity = this
+        helper = FormHelper(this)
 
         var contact: Contact? = intent.getSerializableExtra("contact") as Contact?
 
