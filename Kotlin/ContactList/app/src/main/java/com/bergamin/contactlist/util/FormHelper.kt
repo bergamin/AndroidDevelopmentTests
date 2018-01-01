@@ -14,44 +14,46 @@ import com.bergamin.contactlist.model.Contact
 class FormHelper(
         var activity: FormActivity) {
 
-    var contact: Contact
     val nameTxt: TextView
     val addressTxt: TextView
     val phoneTxt: TextView
     val websiteTxt: TextView
     val photoImg: ImageView
+    var contact: Contact
+        get() {
+            field.name = nameTxt.text.toString()
+            field.address = addressTxt.text.toString()
+            field.phone = phoneTxt.text.toString()
+            field.webSite = websiteTxt.text.toString()
+            field.photoPath = photoImg.tag as String? ?: ""
 
-
+            return field
+        }
     init {
+        contact = Contact()
         nameTxt = activity.findViewById(R.id.nameTxt)
         addressTxt = activity.findViewById(R.id.addressTxt)
         phoneTxt = activity.findViewById(R.id.phoneTxt)
         websiteTxt = activity.findViewById(R.id.websiteTxt)
         photoImg = activity.findViewById(R.id.photoImg)
-
-        contact = Contact()
-        contact.name = nameTxt.text.toString()
-        contact.address = addressTxt.text.toString()
-        contact.phone = phoneTxt.text.toString()
-        contact.webSite = websiteTxt.text.toString()
-        contact.photoPath = photoImg.tag as String
     }
-    fun fillForm(contact: Contact?){
-        nameTxt.text = contact?.name
-        addressTxt.text = contact?.address
-        phoneTxt.text = contact?.phone
-        websiteTxt.text = contact?.webSite
+    fun fillForm(contact: Contact){
+        nameTxt.text = contact.name
+        addressTxt.text = contact.address
+        phoneTxt.text = contact.phone
+        websiteTxt.text = contact.webSite
 
-        loadImage(contact?.photoPath!!)
+        loadImage(contact.photoPath)
         this.contact = contact
     }
+    fun loadImage(path: String?) {
+        if(path != null && path != "") {
+            var bitmap = BitmapFactory.decodeFile(path)
+            bitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, true)
 
-    fun loadImage(path: String) {
-        var bitmap = BitmapFactory.decodeFile(path)
-        bitmap = Bitmap.createScaledBitmap(bitmap,300,300, true)
-
-        photoImg.setImageBitmap(bitmap)
-        photoImg.scaleType = ImageView.ScaleType.FIT_XY
-        photoImg.tag = path
+            photoImg.setImageBitmap(bitmap)
+            photoImg.scaleType = ImageView.ScaleType.FIT_XY
+            photoImg.tag = path
+        }
     }
 }

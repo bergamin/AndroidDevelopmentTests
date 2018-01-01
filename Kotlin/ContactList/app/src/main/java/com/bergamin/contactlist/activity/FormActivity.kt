@@ -34,9 +34,9 @@ class FormActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_form)
         helper = FormHelper(this)
 
-        var contact: Contact? = intent.getSerializableExtra("contact") as Contact?
+        var contact = intent.getSerializableExtra("contact") as Contact?
 
-        helper?.fillForm(contact)
+        helper?.fillForm(contact ?: Contact())
 
     }
     override fun onClick(view: View?) {
