@@ -39,11 +39,12 @@ class ContactsAdapter(
         if(itemAddress != null) itemAddress.text = contact.address
         if(itemWebSite != null) itemWebSite.text = contact.webSite
 
-        var bitmap = BitmapFactory.decodeFile(contact.photoPath)
-        bitmap = Bitmap.createScaledBitmap(bitmap,100,100,true)
-        itemPhoto?.setImageBitmap(bitmap)
-        itemPhoto?.scaleType = ImageView.ScaleType.FIT_XY
-
+        if(contact.photoPath != "") {
+            var bitmap = BitmapFactory.decodeFile(contact.photoPath)
+            bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true)
+            itemPhoto?.setImageBitmap(bitmap)
+            itemPhoto?.scaleType = ImageView.ScaleType.FIT_XY
+        }
         return view!!
     }
 

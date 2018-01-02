@@ -14,13 +14,14 @@ import com.bergamin.contactlist.util.FormHelper
 import com.bergamin.contactlist.R
 import com.bergamin.contactlist.dao.ContactDAO
 import com.bergamin.contactlist.model.Contact
+import kotlinx.android.synthetic.main.activity_form.*
 import java.io.File
 
 /**
  * Created by Guilherme Taffarel Bergamin on 23/11/2017.
  */
 
-class FormActivity : AppCompatActivity(), View.OnClickListener {
+class FormActivity : AppCompatActivity() {
 
     var helper: FormHelper? = null
     var photoPath: String? = null
@@ -35,24 +36,27 @@ class FormActivity : AppCompatActivity(), View.OnClickListener {
         helper = FormHelper(this)
 
         var contact = intent.getSerializableExtra("contact") as Contact?
+        if(contact != null) {
+            helper?.fillForm(contact)
+        }
 
-        helper?.fillForm(contact ?: Contact())
+        photoBtn.setOnClickListener {
+            photoPath = getExternalFilesDir(null).path + "/" + System.currentTimeMillis() + ".jpg"
 
+            intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            var photoFile = File(photoPath)
+
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile))
+            startActivityForResult(intent, CAMERA_REQUEST)
+        }
     }
-    override fun onClick(view: View?) {
-        photoPath = getExternalFilesDir(null).path + "/" + System.currentTimeMillis() + ".jpg"
 
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        var photoFile = File(photoPath)
-
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile))
-        startActivityForResult(intent, CAMERA_REQUEST)
-    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK){
             helper?.loadImage(photoPath!!)
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.form_menu,menu)
         return super.onCreateOptionsMenu(menu)
