@@ -22,16 +22,18 @@ class SendContactsTask(
 
     var dialog: ProgressDialog? = null
 
-    override fun doInBackground(vararg params: Void?): String {
+    override fun doInBackground(vararg params: Void?): String? {
         var dao = ContactDAO(context)
         var contacts = dao.getContacts()
         dao.close()
         var json = Gson().toJson(contacts)
         return WebClient().post(json)
     }
+
     override fun onPreExecute() {
         dialog = ProgressDialog.show(context,context.getString(R.string.please_wait),context.getString(R.string.sending_contacts),true,true)
     }
+
     override fun onPostExecute(result: String?) {
         dialog?.dismiss()
         Toast.makeText(context,result,Toast.LENGTH_LONG).show()

@@ -6,10 +6,12 @@ import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.support.v4.content.FileProvider
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.bergamin.contactlist.BuildConfig
 import com.bergamin.contactlist.util.FormHelper
 import com.bergamin.contactlist.R
 import com.bergamin.contactlist.dao.ContactDAO
@@ -35,6 +37,7 @@ class FormActivity : AppCompatActivity() {
         setContentView(R.layout.activity_form)
         helper = FormHelper(this)
 
+        var intent = intent
         var contact = intent.getSerializableExtra("contact") as Contact?
         if(contact != null) {
             helper?.fillForm(contact)
@@ -42,11 +45,12 @@ class FormActivity : AppCompatActivity() {
 
         photoBtn.setOnClickListener {
             photoPath = getExternalFilesDir(null).path + "/" + System.currentTimeMillis() + ".jpg"
+            var uri = FileProvider.getUriForFile(this@FormActivity,BuildConfig.APPLICATION_ID + ".provider",File(photoPath))
 
             intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            var photoFile = File(photoPath)
+            intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
 
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile))
             startActivityForResult(intent, CAMERA_REQUEST)
         }
     }

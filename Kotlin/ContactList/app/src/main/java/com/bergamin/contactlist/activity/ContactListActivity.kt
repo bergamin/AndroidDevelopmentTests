@@ -36,16 +36,15 @@ class ContactListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_contact_list)
 
         newContactBtn.setOnClickListener {
-            var intent = Intent(this@ContactListActivity, FormActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this@ContactListActivity, FormActivity::class.java))
         }
 
         registerForContextMenu(contactsLV)
         contactsLV.setOnItemClickListener { _, _, position, _ ->
-            var contact = contactsLV.getItemAtPosition(position)
+            var contact = contactsLV.getItemAtPosition(position) as Contact
+            var intent = Intent(this@ContactListActivity,FormActivity::class.java)
 
-            intent.setClass(this@ContactListActivity, FormActivity::class.java)
-            intent.putExtra("contact",Array(1,{contact}))
+            intent.putExtra("contact",contact)
             startActivity(intent)
         }
         if(ActivityCompat.checkSelfPermission(this@ContactListActivity,Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED){
@@ -62,31 +61,31 @@ class ContactListActivity : AppCompatActivity() {
             if(ActivityCompat.checkSelfPermission(this@ContactListActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(this@ContactListActivity,Array(1,{Manifest.permission.CALL_PHONE}), PHONE_CALL_REQUEST)
             } else {
-                intent.action = Intent.ACTION_CALL
-                intent.data = Uri.parse("tel:" + contact.phone)
-                startActivity(intent)
+                var intentCall = Intent(Intent.ACTION_CALL)
+                intentCall.data = Uri.parse("tel:" + contact.phone)
+                startActivity(intentCall)
             }
             return@setOnMenuItemClickListener false
         }
 
         var miFindInMap = menu?.add(R.string.map)
-        intent.action = Intent.ACTION_VIEW
-        intent.data = Uri.parse("geo:0,0?q=" + contact.address)
-        miFindInMap?.intent = intent
+        var intentMap = Intent(Intent.ACTION_VIEW)
+        intentMap.data = Uri.parse("geo:0,0?q=" + contact.address)
+        miFindInMap?.intent = intentMap
 
         var miSendSMS = menu?.add(R.string.sms)
-        intent.action = Intent.ACTION_VIEW
-        intent.data = Uri.parse("sms:" + contact.phone)
-        miSendSMS?.intent = intent
+        var intentSMS = Intent(Intent.ACTION_VIEW)
+        intentSMS.data = Uri.parse("sms:" + contact.phone)
+        miSendSMS?.intent = intentSMS
 
         var miWebSite = menu?.add(R.string.website)
         var webSite = contact.webSite
+        var intentWebSite = Intent(Intent.ACTION_VIEW)
         if(!webSite.startsWith("http://") && !webSite.startsWith("https://")){
             webSite = "http://" + webSite
         }
-        intent.action = Intent.ACTION_VIEW
-        intent.data = Uri.parse(webSite)
-        miWebSite?.intent = intent
+        intentWebSite.data = Uri.parse(webSite)
+        miWebSite?.intent = intentWebSite
 
         var miDelete = menu?.add(R.string.delete)
         miDelete?.setOnMenuItemClickListener {
@@ -100,26 +99,31 @@ class ContactListActivity : AppCompatActivity() {
             return@setOnMenuItemClickListener false
         }
     }
+
     override fun onResume() {
         loadList()
         super.onResume()
     }
+
     fun loadList() {
         var dao = ContactDAO(this)
         var contacts = dao.getContacts()
         dao.close()
         contactsLV.adapter = ContactsAdapter(this,contacts)
     }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == PHONE_CALL_REQUEST){
             TODO("check if permission was granted and then, perform call")
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.contact_list_menu,menu)
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             R.id.menuBackupContacts -> {
