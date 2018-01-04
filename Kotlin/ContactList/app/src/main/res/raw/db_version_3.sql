@@ -1,0 +1,1 @@
+ALTER TABLE Contacts ADD COLUMN photoPath;

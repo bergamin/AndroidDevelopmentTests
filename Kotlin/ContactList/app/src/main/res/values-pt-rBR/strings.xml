@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lista de Contatos</string>
+    <string name="name">Nome</string>
+    <string name="address">Endereço</string>
+    <string name="phone">Telefone</string>
+    <string name="website">Site</string>
+    <string name="contact">Contato</string>
+    <string name="call">Telefonar</string>
+    <string name="map">Mapa</string>
+    <string name="saved">salvo com sucesso</string>
+    <string name="save">Salvar</string>
+    <string name="sms">SMS</string>
+    <string name="delete">Remover</string>
+    <string name="deleted">foi removido</string>
+    <string name="backup">Backup</string>
+    <string name="please_wait">Aguarde, por favor</string>
+    <string name="sending_contacts">Enviando contatos...</string>
+    <string name="new_sms_received">Você recebeu um novo SMS</string>
+</resources>
