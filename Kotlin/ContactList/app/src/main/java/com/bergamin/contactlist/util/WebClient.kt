@@ -13,7 +13,8 @@ import java.util.*
 class WebClient {
     fun post(json: String): String? {
         try {
-            var connection = URL("serverPath").openConnection() as HttpURLConnection
+            val serverPath = "Fill in this String with your own server path"
+            val connection = URL(serverPath).openConnection() as HttpURLConnection
 
             connection.setRequestProperty("Content-type", "application/json")
             connection.setRequestProperty("Accept", "application/json")

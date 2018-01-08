@@ -2,14 +2,12 @@ package com.bergamin.contactlist.activity
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import com.bergamin.contactlist.BuildConfig
 import com.bergamin.contactlist.util.FormHelper
@@ -22,11 +20,10 @@ import java.io.File
 /**
  * Created by Guilherme Taffarel Bergamin on 23/11/2017.
  */
-
 class FormActivity : AppCompatActivity() {
 
-    var helper: FormHelper? = null
-    var photoPath: String? = null
+    private var helper: FormHelper? = null
+    private var photoPath: String? = null
 
     companion object {
         val CAMERA_REQUEST = 1
@@ -38,14 +35,14 @@ class FormActivity : AppCompatActivity() {
         helper = FormHelper(this)
 
         var intent = intent
-        var contact = intent.getSerializableExtra("contact") as Contact?
+        val contact = intent.getSerializableExtra("contact") as Contact?
         if(contact != null) {
             helper?.fillForm(contact)
         }
 
         photoBtn.setOnClickListener {
             photoPath = getExternalFilesDir(null).path + "/" + System.currentTimeMillis() + ".jpg"
-            var uri = FileProvider.getUriForFile(this@FormActivity,BuildConfig.APPLICATION_ID + ".provider",File(photoPath))
+            val uri = FileProvider.getUriForFile(this@FormActivity,BuildConfig.APPLICATION_ID + ".provider",File(photoPath))
 
             intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
@@ -69,8 +66,8 @@ class FormActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             R.id.saveBtn -> {
-                var contact = helper?.contact
-                var dao = ContactDAO(this)
+                val contact = helper?.contact
+                val dao = ContactDAO(this)
 
                 if(contact!!.id > 0){
                     dao.update(contact)
