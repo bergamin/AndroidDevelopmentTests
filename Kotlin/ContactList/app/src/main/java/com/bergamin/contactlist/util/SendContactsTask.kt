@@ -18,15 +18,16 @@ import com.google.gson.Gson
  * - response in onPostExecute
  */
 class SendContactsTask(
-        val context: Context): AsyncTask<Void, Void, String>() {
+        private val context: Context): AsyncTask<Void, Void, String>() {
 
+    //TODO: replace this Progress Dialog by something more user friendly
     var dialog: ProgressDialog? = null
 
     override fun doInBackground(vararg params: Void?): String? {
-        var dao = ContactDAO(context)
-        var contacts = dao.getContacts()
+        val dao = ContactDAO(context)
+        val contacts = dao.getContacts()
         dao.close()
-        var json = Gson().toJson(contacts)
+        val json = Gson().toJson(contacts)
         return WebClient().post(json)
     }
 

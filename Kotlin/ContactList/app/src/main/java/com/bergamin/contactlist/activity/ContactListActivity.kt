@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_contact_list.*
 /**
  * Created by Guilherme Taffarel Bergamin on 29/11/2017.
  */
-
 class ContactListActivity : AppCompatActivity() {
 
     companion object{
@@ -41,8 +40,8 @@ class ContactListActivity : AppCompatActivity() {
 
         registerForContextMenu(contactsLV)
         contactsLV.setOnItemClickListener { _, _, position, _ ->
-            var contact = contactsLV.getItemAtPosition(position) as Contact
-            var intent = Intent(this@ContactListActivity,FormActivity::class.java)
+            val contact = contactsLV.getItemAtPosition(position) as Contact
+            val intent = Intent(this@ContactListActivity,FormActivity::class.java)
 
             intent.putExtra("contact",contact)
             startActivity(intent)
@@ -53,43 +52,43 @@ class ContactListActivity : AppCompatActivity() {
     }
 
     override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
-        var info = menuInfo as AdapterView.AdapterContextMenuInfo
+        val info = menuInfo as AdapterView.AdapterContextMenuInfo
         val contact = contactsLV.getItemAtPosition(info.position) as Contact
 
-        var miCall = menu?.add(R.string.call)
+        val miCall = menu?.add(R.string.call)
         miCall?.setOnMenuItemClickListener {
             if(ActivityCompat.checkSelfPermission(this@ContactListActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(this@ContactListActivity,Array(1,{Manifest.permission.CALL_PHONE}), PHONE_CALL_REQUEST)
             } else {
-                var intentCall = Intent(Intent.ACTION_CALL)
+                val intentCall = Intent(Intent.ACTION_CALL)
                 intentCall.data = Uri.parse("tel:" + contact.phone)
                 startActivity(intentCall)
             }
             return@setOnMenuItemClickListener false
         }
 
-        var miFindInMap = menu?.add(R.string.map)
-        var intentMap = Intent(Intent.ACTION_VIEW)
+        val miFindInMap = menu?.add(R.string.map)
+        val intentMap = Intent(Intent.ACTION_VIEW)
         intentMap.data = Uri.parse("geo:0,0?q=" + contact.address)
         miFindInMap?.intent = intentMap
 
-        var miSendSMS = menu?.add(R.string.sms)
-        var intentSMS = Intent(Intent.ACTION_VIEW)
+        val miSendSMS = menu?.add(R.string.sms)
+        val intentSMS = Intent(Intent.ACTION_VIEW)
         intentSMS.data = Uri.parse("sms:" + contact.phone)
         miSendSMS?.intent = intentSMS
 
-        var miWebSite = menu?.add(R.string.website)
+        val miWebSite = menu?.add(R.string.website)
         var webSite = contact.webSite
-        var intentWebSite = Intent(Intent.ACTION_VIEW)
+        val intentWebSite = Intent(Intent.ACTION_VIEW)
         if(!webSite.startsWith("http://") && !webSite.startsWith("https://")){
             webSite = "http://" + webSite
         }
         intentWebSite.data = Uri.parse(webSite)
         miWebSite?.intent = intentWebSite
 
-        var miDelete = menu?.add(R.string.delete)
+        val miDelete = menu?.add(R.string.delete)
         miDelete?.setOnMenuItemClickListener {
-            var dao = ContactDAO(this@ContactListActivity)
+            val dao = ContactDAO(this@ContactListActivity)
 
             dao.delete(contact)
             dao.close()
@@ -105,9 +104,9 @@ class ContactListActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    fun loadList() {
-        var dao = ContactDAO(this)
-        var contacts = dao.getContacts()
+    private fun loadList() {
+        val dao = ContactDAO(this)
+        val contacts = dao.getContacts()
         dao.close()
         contactsLV.adapter = ContactsAdapter(this,contacts)
     }
@@ -115,7 +114,7 @@ class ContactListActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == PHONE_CALL_REQUEST){
-            TODO("check if permission was granted and then, perform call")
+            //TODO: check if permission was granted and then, perform call
         }
     }
 

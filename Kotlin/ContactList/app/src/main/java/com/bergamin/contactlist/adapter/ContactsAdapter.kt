@@ -20,19 +20,19 @@ class ContactsAdapter(
         private val contacts: List<Contact>?): BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var contact = contacts!![position]
-        var inflater = LayoutInflater.from(context)
+        val contact = contacts!![position]
+        val inflater = LayoutInflater.from(context)
         var view = convertView
 
         if(convertView == null){
             view = inflater.inflate(R.layout.list_item,null)
         }
 
-        var itemName: TextView? = view?.findViewById(R.id.itemName)
-        var itemPhone: TextView? = view?.findViewById(R.id.itemPhone)
-        var itemPhoto: ImageView? = view?.findViewById(R.id.itemPhoto)
-        var itemAddress: TextView? = view?.findViewById(R.id.itemAddress)
-        var itemWebSite: TextView? = view?.findViewById(R.id.itemWebSite)
+        val itemName: TextView? = view?.findViewById(R.id.itemName)
+        val itemPhone: TextView? = view?.findViewById(R.id.itemPhone)
+        val itemPhoto: ImageView? = view?.findViewById(R.id.itemPhoto)
+        val itemAddress: TextView? = view?.findViewById(R.id.itemAddress)
+        val itemWebSite: TextView? = view?.findViewById(R.id.itemWebSite)
 
         itemName?.text = contact.name
         itemPhone?.text = contact.phone

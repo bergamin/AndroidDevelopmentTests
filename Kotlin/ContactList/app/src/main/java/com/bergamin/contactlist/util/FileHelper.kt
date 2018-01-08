@@ -9,8 +9,8 @@ import java.io.InputStreamReader
  */
 class FileHelper {
     fun getResourceTextByID(fileID: Int, context: Context): String? {
-        var br = BufferedReader(InputStreamReader(context.resources.openRawResource(fileID)))
-        var text = br.readText()
+        val br = BufferedReader(InputStreamReader(context.resources.openRawResource(fileID)))
+        val text = br.readText()
         br.close()
         return text
     }
