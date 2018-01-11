@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.bergamin.contactlist.R
 import com.bergamin.contactlist.model.Contact
 import com.bergamin.contactlist.util.FileHelper
@@ -21,12 +22,11 @@ class ContactDAO(
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         val helper = FileHelper()
-        when(oldVersion){
-            // Removes column Contact.rating
-            1 -> db?.execSQL(helper.getResourceTextByID(R.raw.db_version_2,context))
-            // Adds column Contact.photoPath
-            in 1..2 -> db?.execSQL(helper.getResourceTextByID(R.raw.db_version_3,context))
-        }
+
+        // Removes column Contact.rating
+        if(oldVersion == 1) db?.execSQL(helper.getResourceTextByID(R.raw.db_version_2,context))
+        // Adds column Contact.photoPath
+        if(oldVersion in 1..2) db?.execSQL(helper.getResourceTextByID(R.raw.db_version_3,context))
     }
 
     fun insert(contact: Contact) {
