@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Finanza</string>
+    <string name="add_expense">Nuova spesa</string>
+    <string name="add_revenue">Nuovo fatturato</string>
+    <string name="april">Aprile</string>
+    <string name="august">Agosto</string>
+    <string name="bills">Fatture</string>
+    <string name="category">Categoria</string>
+    <string name="clothing">Vestiti</string>
+    <string name="communications">Comunicazioni</string>
+    <string name="date">Data</string>
+    <string name="december">Dicembre</string>
+    <string name="entertainment">Divertimento</string>
+    <string name="expense">Spesa</string>
+    <string name="february">Febbraio</string>
+    <string name="food">Cibo</string>
+    <string name="gift">Regalo</string>
+    <string name="health">Salute</string>
+    <string name="home">Casa</string>
+    <string name="income">Reddito</string>
+    <string name="revenue">Fatturato</string>
+    <string name="january">Gennaio</string>
+    <string name="july">Luglio</string>
+    <string name="june">Giugno</string>
+    <string name="loan">Prestito</string>
+    <string name="march">Marzo</string>
+    <string name="may">Maggio</string>
+    <string name="november">Novembre</string>
+    <string name="october">Ottobre</string>
+    <string name="payment">Pagamento</string>
+    <string name="savings">Risparmi</string>
+    <string name="selling">Vendita</string>
+    <string name="september">Settembre</string>
+    <string name="supermarket">Supermercato</string>
+    <string name="total">Totale</string>
+    <string name="transportation">Transporto</string>
+    <string name="undefined">Indefinito</string>
+    <string name="value">Valore</string>
+</resources>
