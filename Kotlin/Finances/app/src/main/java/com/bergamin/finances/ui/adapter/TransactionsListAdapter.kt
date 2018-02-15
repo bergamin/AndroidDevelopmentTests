@@ -22,7 +22,7 @@ class TransactionsListAdapter(transactions: List<Transaction>,
         val transactionItem = LayoutInflater.from(context).inflate(R.layout.transaction_item, parent, false)
         val transaction = transactions[position]
 
-        transactionItem.transaction_value.text = transaction.value
+        transactionItem.transaction_value.text = transaction.value.toString()
 
         return transactionItem
     }
