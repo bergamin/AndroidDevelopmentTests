@@ -6,7 +6,7 @@ import java.util.Calendar
 /**
  * Created by taffa on 12/02/2018.
  */
-class Transaction(val value: BigDecimal,
-                  val category: String,
-                  val date: Calendar) {
-}
+class Transaction(val value: BigDecimal
+                 ,val category: String = "Undefined"
+                 ,val date: Calendar = Calendar.getInstance()
+                 ,val type: Type)
