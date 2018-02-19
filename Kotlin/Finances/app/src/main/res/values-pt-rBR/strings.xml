@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Finanças</string>
-    <string name="add_expense">Nova despesa</string>
-    <string name="add_revenue">Nova receita</string>
+    <string name="add_expense">Adicionar despesa</string>
+    <string name="add_revenue">Adicionar receita</string>
     <string name="april">Abril</string>
     <string name="august">Agosto</string>
     <string name="bills">Contas</string>

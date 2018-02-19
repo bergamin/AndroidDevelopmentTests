@@ -18,13 +18,18 @@ class TransactionsListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transactions_list)
 
-        val transactions = listOf(Transaction(value = BigDecimal(20.5)
-                                             ,category = "Food"
-                                             ,type = Type.EXPENSE)
-                                 ,Transaction(value = BigDecimal(100)
-                                             ,category = "Savings"
-                                             ,type = Type.REVENUE))
+        val transactions = exampleData()
 
         transactions_listview.adapter = TransactionsListAdapter(transactions,this)
+    }
+
+    private fun exampleData(): List<Transaction>{
+        return listOf(Transaction(value = BigDecimal(20.5)
+                                 ,category = "Food"
+                                 ,type = Type.EXPENSE)
+                     ,Transaction(value = BigDecimal(100)
+                                 ,category = "Savings"
+                                 ,type = Type.REVENUE)
+                     )
     }
 }

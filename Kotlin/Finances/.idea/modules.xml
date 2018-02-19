@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Finances.iml" filepath="$PROJECT_DIR$/Finances.iml" />
-      <module fileurl="file://D:\Projetos\AndroidDevelopmentTests\Kotlin\Finances\Finances.iml" filepath="D:\Projetos\AndroidDevelopmentTests\Kotlin\Finances\Finances.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\Projetos\AndroidDevelopmentTests\Kotlin\Finances\app\app.iml" filepath="D:\Projetos\AndroidDevelopmentTests\Kotlin\Finances\app\app.iml" />
     </modules>
   </component>
 </project>

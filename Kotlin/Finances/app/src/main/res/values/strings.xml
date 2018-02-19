@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Finances</string>
-    <string name="add_revenue">New revenue</string>
-    <string name="add_expense">New expense</string>
+    <string name="add_revenue">Add revenue</string>
+    <string name="add_expense">Add expense</string>
     <string name="value">Value</string>
     <string name="date">Date</string>
     <string name="category">Category</string>

@@ -9,6 +9,7 @@ import android.widget.BaseAdapter
 import com.bergamin.finances.R
 import com.bergamin.finances.extension.efFormatCurrency
 import com.bergamin.finances.extension.efFormat
+import com.bergamin.finances.extension.efLimitsIn
 import com.bergamin.finances.model.Transaction
 import com.bergamin.finances.model.Type
 import kotlinx.android.synthetic.main.transaction_item.view.*
@@ -16,29 +17,33 @@ import kotlinx.android.synthetic.main.transaction_item.view.*
 /**
  * Created by Guilherme Taffarel Bergamin on 12/02/2018.
  */
-class TransactionsListAdapter(transactions: List<Transaction>,
-                              context: Context) : BaseAdapter() {
+class TransactionsListAdapter(private val transactions: List<Transaction>,
+                              private val context: Context) : BaseAdapter() {
 
-    private val transactions = transactions
-    private val context = context
+    private val categoryLimit = 14
 
     override fun getView(position: Int, view: View?, parent: ViewGroup?): View {
         val transactionItem = LayoutInflater.from(context).inflate(R.layout.transaction_item, parent, false)
         val transaction = transactions[position]
 
+        var valueColour: Int
+        var transactionIcon: Int
+
         when(transaction.type){
             Type.REVENUE -> {
-                transactionItem.transaction_value.setTextColor(ContextCompat.getColor(context,R.color.revenue))
-                transactionItem.transaction_icon.setBackgroundResource(R.drawable.ic_transaction_item_revenue)
+                valueColour = ContextCompat.getColor(context,R.color.revenue)
+                transactionIcon = R.drawable.ic_transaction_item_revenue
             }
             Type.EXPENSE -> {
-                transactionItem.transaction_value.setTextColor(ContextCompat.getColor(context,R.color.expense))
-                transactionItem.transaction_icon.setBackgroundResource(R.drawable.ic_transaction_item_expense)
+                valueColour = ContextCompat.getColor(context,R.color.expense)
+                transactionIcon = R.drawable.ic_transaction_item_expense
             }
         }
 
+        transactionItem.transaction_icon.setBackgroundResource(transactionIcon)
+        transactionItem.transaction_value.setTextColor(valueColour)
         transactionItem.transaction_value.text = transaction.value.efFormatCurrency()
-        transactionItem.transaction_category.text = transaction.category
+        transactionItem.transaction_category.text = transaction.category.efLimitsIn(categoryLimit)
         transactionItem.transaction_date.text = transaction.date.efFormat(context)
 
         return transactionItem
