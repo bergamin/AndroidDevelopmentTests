@@ -1,4 +1,4 @@
-package com.bergamin.finances.extension
+package com.bergamin.finances.util
 
 import java.math.BigDecimal
 import java.text.DecimalFormat

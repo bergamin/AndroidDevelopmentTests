@@ -1,4 +1,4 @@
-package com.bergamin.finances.extension
+package com.bergamin.finances.util
 
 /**
  * Created by Guilherme Taffarel Bergamin on 17/02/2018.

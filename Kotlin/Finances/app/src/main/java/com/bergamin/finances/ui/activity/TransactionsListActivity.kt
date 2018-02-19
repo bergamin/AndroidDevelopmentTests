@@ -3,12 +3,10 @@ package com.bergamin.finances.ui.activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.bergamin.finances.R
-import com.bergamin.finances.model.Transaction
-import com.bergamin.finances.model.Type
+import com.bergamin.finances.ui.ViewAbstract
 import com.bergamin.finances.ui.adapter.TransactionsListAdapter
+import com.bergamin.finances.util.createExampleData
 import kotlinx.android.synthetic.main.activity_transactions_list.*
-import java.math.BigDecimal
-import java.util.*
 
 /**
  * Created by Guilherme Taffarel Bergamin on 12/01/2018.
@@ -18,18 +16,9 @@ class TransactionsListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transactions_list)
 
-        val transactions = exampleData()
+        val transactions = createExampleData()
 
+        ViewAbstract(this, window.decorView).calculateTotals(transactions)
         transactions_listview.adapter = TransactionsListAdapter(transactions,this)
-    }
-
-    private fun exampleData(): List<Transaction>{
-        return listOf(Transaction(value = BigDecimal(20.5)
-                                 ,category = "Food"
-                                 ,type = Type.EXPENSE)
-                     ,Transaction(value = BigDecimal(100)
-                                 ,category = "Savings"
-                                 ,type = Type.REVENUE)
-                     )
     }
 }

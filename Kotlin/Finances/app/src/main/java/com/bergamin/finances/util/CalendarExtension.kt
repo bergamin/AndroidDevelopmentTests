@@ -1,4 +1,4 @@
-package com.bergamin.finances.extension
+package com.bergamin.finances.util
 
 import android.content.Context
 import com.bergamin.finances.R

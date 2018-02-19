@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.bergamin.finances.R
-import com.bergamin.finances.extension.efFormatCurrency
-import com.bergamin.finances.extension.efFormat
-import com.bergamin.finances.extension.efLimitsIn
+import com.bergamin.finances.util.efFormatCurrency
+import com.bergamin.finances.util.efFormat
+import com.bergamin.finances.util.efLimitsIn
 import com.bergamin.finances.model.Transaction
 import com.bergamin.finances.model.Type
 import kotlinx.android.synthetic.main.transaction_item.view.*
