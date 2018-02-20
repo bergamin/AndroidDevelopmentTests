@@ -14,34 +14,42 @@ import java.math.BigDecimal
  * Created by Guilherme Taffarel Bergamin on 19/02/2018.
  */
 class ViewAbstract(private val context: Context
-                  ,private val view: View) {
-    fun calculateTotals(transactions: List<Transaction>){
-        var total = BigDecimal.ZERO
-        var revenue = BigDecimal.ZERO
-        var expense = BigDecimal.ZERO
+                  ,private val view: View
+                  ,private val transactions: List<Transaction>) {
 
-        for(transaction in transactions){
-            when(transaction.type){
-                Type.REVENUE -> {
-                    total += transaction.value
-                    revenue +=transaction.value
-                }
-                Type.EXPENSE -> {
-                    total -= transaction.value
-                    expense += transaction.value
-                }
-            }
-        }
-        view.card_revenue_abstract.text = revenue.efFormatCurrency()
-        view.card_expense_abstract.text = expense.efFormatCurrency()
-        view.card_total_abstract.text = total.efFormatCurrency()
+    private val revenueColour = ContextCompat.getColor(context, R.color.revenue)
+    private val expenseColour = ContextCompat.getColor(context, R.color.expense)
 
-        view.card_revenue_abstract.setTextColor(ContextCompat.getColor(context,R.color.revenue))
-        view.card_expense_abstract.setTextColor(ContextCompat.getColor(context,R.color.expense))
-        if(total < BigDecimal.ZERO) {
-            view.card_total_abstract.setTextColor(ContextCompat.getColor(context,R.color.expense))
-        }else{
-            view.card_total_abstract.setTextColor(ContextCompat.getColor(context,R.color.revenue))
+    fun updateTotals(){
+        val revenue = sumByType(Type.REVENUE)
+        val expense = sumByType(Type.EXPENSE)
+        val total = revenue - expense
+
+        with(view.card_revenue_abstract){
+            text = revenue.efFormatCurrency()
+            setTextColor(revenueColour)
         }
+        with(view.card_expense_abstract){
+            text = expense.efFormatCurrency()
+            setTextColor(expenseColour)
+        }
+        with(view.card_total_abstract){
+            text = total.efFormatCurrency()
+            setTextColor(colourByValue(total))
+        }
+    }
+
+    private fun colourByValue(value: BigDecimal): Int{
+        if(value < BigDecimal.ZERO) {
+            return expenseColour
+        }
+        return revenueColour
+    }
+
+    private fun sumByType(type: Type): BigDecimal{
+        val sum = transactions
+                .filter { it.type == type }
+                .sumByDouble { it.value.toDouble() }
+        return BigDecimal(sum)
     }
 }

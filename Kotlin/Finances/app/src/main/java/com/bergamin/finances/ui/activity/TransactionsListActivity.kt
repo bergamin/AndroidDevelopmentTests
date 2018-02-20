@@ -18,7 +18,7 @@ class TransactionsListActivity : AppCompatActivity() {
 
         val transactions = createExampleData()
 
-        ViewAbstract(this, window.decorView).calculateTotals(transactions)
+        ViewAbstract(this, window.decorView, transactions).updateTotals()
         transactions_listview.adapter = TransactionsListAdapter(transactions,this)
     }
 }

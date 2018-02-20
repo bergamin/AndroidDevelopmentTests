@@ -49,15 +49,7 @@ class TransactionsListAdapter(private val transactions: List<Transaction>,
         return transactionItem
     }
 
-    override fun getItem(position: Int): Transaction {
-        return transactions[position]
-    }
-
-    override fun getItemId(id: Int): Long {
-        return 0
-    }
-
-    override fun getCount(): Int {
-        return transactions.size
-    }
+    override fun getItem(position: Int): Transaction = transactions[position]
+    override fun getItemId(id: Int): Long = 0
+    override fun getCount(): Int = transactions.size
 }
