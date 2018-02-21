@@ -13,3 +13,7 @@ fun Calendar.efFormat(context: Context): String {
     val dateFormat = SimpleDateFormat(context.getString(R.string.date_format)) // TODO: change this automatically based on location
     return dateFormat.format(this.time)
 }
+
+fun Calendar.efDay() = this.get(Calendar.DAY_OF_MONTH)
+fun Calendar.efMonth() = this.get(Calendar.MONTH)
+fun Calendar.efYear() = this.get(Calendar.YEAR)

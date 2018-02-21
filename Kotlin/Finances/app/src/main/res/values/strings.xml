@@ -37,4 +37,6 @@
     <string name="november">November</string>
     <string name="december">December</string>
     <string name="date_format">dd/MM/yyyy</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
 </resources>
