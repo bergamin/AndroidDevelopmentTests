@@ -2,6 +2,7 @@ package com.bergamin.finances.util
 
 import android.content.Context
 import com.bergamin.finances.R
+import com.bergamin.finances.util.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -10,7 +11,7 @@ import java.util.*
  */
 
 fun Calendar.efFormat(context: Context): String {
-    val dateFormat = SimpleDateFormat(context.getString(R.string.date_format)) // TODO: change this automatically based on location
+    val dateFormat = localeDateFormat(context)
     return dateFormat.format(this.time)
 }
 

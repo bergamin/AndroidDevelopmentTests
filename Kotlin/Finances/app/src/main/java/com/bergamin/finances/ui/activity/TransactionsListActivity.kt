@@ -1,6 +1,7 @@
 package com.bergamin.finances.ui.activity
 
 import android.app.DatePickerDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -10,11 +11,14 @@ import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.Toast
 import com.bergamin.finances.R
+import com.bergamin.finances.model.Transaction
+import com.bergamin.finances.model.Type
 import com.bergamin.finances.ui.ViewAbstract
 import com.bergamin.finances.ui.adapter.TransactionsListAdapter
 import com.bergamin.finances.util.*
 import kotlinx.android.synthetic.main.activity_transactions_list.*
 import kotlinx.android.synthetic.main.form_transaction.view.*
+import java.math.BigDecimal
 import java.util.*
 
 /**
@@ -55,7 +59,16 @@ class TransactionsListActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                     .setTitle(R.string.add_revenue)
                     .setView(addRevenueDialog)
-                    .setPositiveButton(R.string.add, null)
+                    .setPositiveButton(R.string.add, { dialogInterface, i ->
+                        val value = BigDecimal(addRevenueDialog.form_transaction_value.text.toString())
+                        val date = addRevenueDialog.form_transaction_date.text.toString().efParseCalendar(this)
+                        val category = addRevenueDialog.form_transaction_category.selectedItem.toString()
+                        val transaction = Transaction(
+                                 type = Type.REVENUE
+                                ,value = value
+                                ,date = date
+                                ,category = category)
+                    })
                     .setNegativeButton(R.string.cancel, null)
                     .show()
         }
