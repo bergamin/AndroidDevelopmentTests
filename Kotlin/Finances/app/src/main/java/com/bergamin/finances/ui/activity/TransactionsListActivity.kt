@@ -25,16 +25,16 @@ import java.util.*
  * Created by Guilherme Taffarel Bergamin on 12/01/2018.
  */
 class TransactionsListActivity : AppCompatActivity() {
+
+    private var transactions: MutableList<Transaction> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transactions_list)
 
         val today = Calendar.getInstance()
 
-        val transactions = createExampleData()
-
-        ViewAbstract(this, window.decorView, transactions).updateTotals()
-        transactions_listview.adapter = TransactionsListAdapter(transactions,this)
+        updateTotals()
 
         transactions_add_revenue.setOnClickListener {
 
@@ -60,17 +60,60 @@ class TransactionsListActivity : AppCompatActivity() {
                     .setTitle(R.string.add_revenue)
                     .setView(addRevenueDialog)
                     .setPositiveButton(R.string.add, { dialogInterface, i ->
-                        val value = BigDecimal(addRevenueDialog.form_transaction_value.text.toString())
+
+                        val value = try {
+                            BigDecimal(addRevenueDialog.form_transaction_value.text.toString())
+                        } catch(nfe: NumberFormatException) {
+                            BigDecimal.ZERO
+                        }
                         val date = addRevenueDialog.form_transaction_date.text.toString().efParseCalendar(this)
                         val category = addRevenueDialog.form_transaction_category.selectedItem.toString()
-                        val transaction = Transaction(
-                                 type = Type.REVENUE
-                                ,value = value
-                                ,date = date
-                                ,category = category)
+
+                        add(Transaction(
+                                type = Type.REVENUE
+                               ,value = value
+                               ,date = date
+                               ,category = category))
                     })
                     .setNegativeButton(R.string.cancel, null)
                     .show()
         }
+    }
+
+    private fun updateTotals() {
+        ViewAbstract(this, window.decorView, transactions).updateTotals()
+        transactions_listview.adapter = TransactionsListAdapter(transactions,this)
+    }
+
+    private fun add(transaction: Transaction) {
+        if(isValid(transaction)) {
+            transactions.add(transaction)
+            updateTotals()
+            transactions_add_menu.close(true)
+        }
+    }
+
+    private fun isValid(transaction: Transaction): Boolean{
+        val errorMessages = mutableListOf<String>()
+        if(transaction.value == BigDecimal.ZERO){
+            errorMessages.add(this@TransactionsListActivity.getString(R.string.required_value))
+        }
+        if(transaction.value < BigDecimal.ZERO){
+            errorMessages.add(this@TransactionsListActivity.getString(R.string.negative_value))
+        }
+
+        if(errorMessages.size > 0) {
+            var fullMessage = ""
+            if(errorMessages.size == 1) {
+                fullMessage = errorMessages[0]
+            }else{
+                for(message in errorMessages){
+                    fullMessage += "- $message\n"
+                }
+            }
+            Toast.makeText(this@TransactionsListActivity,fullMessage.trim(),Toast.LENGTH_LONG).show()
+            return false
+        }
+        return true
     }
 }

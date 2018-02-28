@@ -39,4 +39,5 @@
     <string name="date_format">dd/MM/yyyy</string>
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
+    <string name="required_value">Value field is required</string>
 </resources>
