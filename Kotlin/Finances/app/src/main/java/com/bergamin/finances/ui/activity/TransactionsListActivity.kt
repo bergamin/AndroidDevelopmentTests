@@ -32,51 +32,10 @@ class TransactionsListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transactions_list)
 
-        val today = Calendar.getInstance()
-
         updateTotals()
 
         transactions_add_revenue.setOnClickListener {
-
-            val addRevenueDialog = LayoutInflater.from(this)
-                    .inflate(R.layout.form_transaction, window.decorView as ViewGroup, false)
-
-            with(addRevenueDialog.form_transaction_date){
-                setText(today.efFormat(this@TransactionsListActivity))
-                setOnClickListener {
-                    DatePickerDialog(this@TransactionsListActivity, DatePickerDialog.OnDateSetListener { view, year, month, day ->
-                        val selectedDate = Calendar.getInstance()
-                        selectedDate.set(year, month, day)
-                        this.setText(selectedDate.efFormat(this@TransactionsListActivity))
-                    }, today.efYear(), today.efMonth(), today.efDay())
-                            .show()
-                }
-            }
-
-            val adapter = ArrayAdapter.createFromResource(this, R.array.revenue_categories,android.R.layout.simple_spinner_dropdown_item)
-            addRevenueDialog.form_transaction_category.adapter = adapter
-
-            AlertDialog.Builder(this)
-                    .setTitle(R.string.add_revenue)
-                    .setView(addRevenueDialog)
-                    .setPositiveButton(R.string.add, { dialogInterface, i ->
-
-                        val value = try {
-                            BigDecimal(addRevenueDialog.form_transaction_value.text.toString())
-                        } catch(nfe: NumberFormatException) {
-                            BigDecimal.ZERO
-                        }
-                        val date = addRevenueDialog.form_transaction_date.text.toString().efParseCalendar(this)
-                        val category = addRevenueDialog.form_transaction_category.selectedItem.toString()
-
-                        add(Transaction(
-                                type = Type.REVENUE
-                               ,value = value
-                               ,date = date
-                               ,category = category))
-                    })
-                    .setNegativeButton(R.string.cancel, null)
-                    .show()
+            createTransactionDialog()
         }
     }
 
