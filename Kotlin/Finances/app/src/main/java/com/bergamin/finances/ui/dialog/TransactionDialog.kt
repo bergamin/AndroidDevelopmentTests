@@ -71,7 +71,7 @@ class TransactionDialog(private val viewGroup: ViewGroup,
                     val date = date.text.toString().efParseCalendar(context)
                     val category = category.selectedItem.toString()
                     val transaction = Transaction(
-                            type = Type.REVENUE,
+                            type = type,
                             value = value,
                             date = date,
                             category = category)
