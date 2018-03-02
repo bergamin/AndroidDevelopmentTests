@@ -1,25 +1,18 @@
 package com.bergamin.finances.ui.activity
 
-import android.app.DatePickerDialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.DatePicker
 import android.widget.Toast
 import com.bergamin.finances.R
+import com.bergamin.finances.delegate.TransactionDelegate
 import com.bergamin.finances.model.Transaction
 import com.bergamin.finances.model.Type
 import com.bergamin.finances.ui.ViewAbstract
 import com.bergamin.finances.ui.adapter.TransactionsListAdapter
-import com.bergamin.finances.util.*
+import com.bergamin.finances.ui.dialog.TransactionDialog
 import kotlinx.android.synthetic.main.activity_transactions_list.*
-import kotlinx.android.synthetic.main.form_transaction.view.*
 import java.math.BigDecimal
-import java.util.*
 
 /**
  * Created by Guilherme Taffarel Bergamin on 12/01/2018.
@@ -33,10 +26,25 @@ class TransactionsListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_transactions_list)
 
         updateTotals()
+        configFabAddTransaction()
+    }
 
+    private fun configFabAddTransaction() {
         transactions_add_revenue.setOnClickListener {
-            createTransactionDialog()
+            callTransactionDialog(Type.REVENUE)
         }
+        transactions_add_expense.setOnClickListener {
+            callTransactionDialog(Type.EXPENSE)
+        }
+    }
+
+    private fun callTransactionDialog(type: Type) {
+        TransactionDialog(window.decorView as ViewGroup, this)
+                .show(type, object : TransactionDelegate {
+                    override fun delegate(transaction: Transaction) {
+                        add(transaction)
+                    }
+                })
     }
 
     private fun updateTotals() {

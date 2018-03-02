@@ -7,18 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import com.bergamin.finances.R
-import com.bergamin.finances.R.id.transactions_add_menu
-import com.bergamin.finances.R.id.transactions_listview
+import com.bergamin.finances.delegate.TransactionDelegate
 import com.bergamin.finances.model.Transaction
 import com.bergamin.finances.model.Type
-import com.bergamin.finances.ui.ViewAbstract
-import com.bergamin.finances.ui.adapter.TransactionsListAdapter
 import com.bergamin.finances.util.*
-import kotlinx.android.synthetic.main.activity_transactions_list.*
 import kotlinx.android.synthetic.main.form_transaction.view.*
-import java.math.BigDecimal
 import java.util.*
 
 /**
@@ -28,11 +22,14 @@ class TransactionDialog(private val viewGroup: ViewGroup,
                         private val context: Context) {
 
     private val dialog = createLayout()
+    private val value = dialog.form_transaction_value
+    private val date = dialog.form_transaction_date
+    private val category = dialog.form_transaction_category
 
-    private fun create() {
+    fun show(type: Type, delegate: TransactionDelegate) {
         configDateField()
-        configCategoryField()
-        configForm()
+        configCategoryField(type)
+        configForm(type, delegate)
     }
 
     private fun createLayout(): View {
@@ -44,10 +41,10 @@ class TransactionDialog(private val viewGroup: ViewGroup,
     private fun configDateField() {
         val today = Calendar.getInstance()
 
-        with(dialog.form_transaction_date) {
+        with(date) {
             setText(today.efFormat(context))
             setOnClickListener {
-                DatePickerDialog(context, DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                DatePickerDialog(context, { _, year, month, day ->
                     val selectedDate = Calendar.getInstance()
                     selectedDate.set(year, month, day)
                     this.setText(selectedDate.efFormat(context))
@@ -57,27 +54,45 @@ class TransactionDialog(private val viewGroup: ViewGroup,
         }
     }
 
-    private fun configCategoryField() {
-        val adapter = ArrayAdapter.createFromResource(context, R.array.revenue_categories, android.R.layout.simple_spinner_dropdown_item)
-        dialog.form_transaction_category.adapter = adapter
+    private fun configCategoryField(type: Type) {
+        val categories = categoriesByType(type)
+        val adapter = ArrayAdapter.createFromResource(context, categories, android.R.layout.simple_spinner_dropdown_item)
+        category.adapter = adapter
     }
 
-    private fun configForm() {
+    private fun configForm(type: Type, delegate: TransactionDelegate) {
+        val title = titleByType(type)
+
         AlertDialog.Builder(context)
-                .setTitle(R.string.add_revenue)
+                .setTitle(title)
                 .setView(dialog)
                 .setPositiveButton(R.string.add, { _, _ ->
-                    val value = dialog.form_transaction_value.text.toString().efParseBigDecimal()
-                    val date = dialog.form_transaction_date.text.toString().efParseCalendar(context)
-                    val category = dialog.form_transaction_category.selectedItem.toString()
-
-                    add(Transaction(
+                    val value = value.text.toString().efParseBigDecimal()
+                    val date = date.text.toString().efParseCalendar(context)
+                    val category = category.selectedItem.toString()
+                    val transaction = Transaction(
                             type = Type.REVENUE,
                             value = value,
                             date = date,
-                            category = category))
+                            category = category)
+
+                    delegate.delegate(transaction)
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .show()
+    }
+
+    private fun titleByType(type: Type): Int {
+        if (type == Type.REVENUE) {
+            return R.string.add_revenue
+        }
+        return R.string.add_expense
+    }
+
+    private fun categoriesByType(type: Type): Int {
+        if (type == Type.REVENUE) {
+            return R.array.revenue_categories
+        }
+        return R.array.expense_categories
     }
 }
