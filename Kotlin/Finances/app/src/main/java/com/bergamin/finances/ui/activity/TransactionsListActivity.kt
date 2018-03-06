@@ -11,6 +11,7 @@ import com.bergamin.finances.model.Type
 import com.bergamin.finances.ui.ViewAbstract
 import com.bergamin.finances.ui.adapter.TransactionsListAdapter
 import com.bergamin.finances.ui.dialog.TransactionDialog
+import com.bergamin.finances.util.efEqualsIgnoreScale
 import kotlinx.android.synthetic.main.activity_transactions_list.*
 import java.math.BigDecimal
 
@@ -53,32 +54,33 @@ class TransactionsListActivity : AppCompatActivity() {
     }
 
     private fun add(transaction: Transaction) {
-        if(isValid(transaction)) {
+        if(isValid(transaction, true)) {
             transactions.add(transaction)
             updateTotals()
             transactions_add_menu.close(true)
         }
     }
 
-    private fun isValid(transaction: Transaction): Boolean{
+    private fun isValid(transaction: Transaction, showMessage: Boolean = false): Boolean{
         val errorMessages = mutableListOf<String>()
-        if(transaction.value == BigDecimal.ZERO){
+
+        if(transaction.value.efEqualsIgnoreScale(BigDecimal.ZERO))
             errorMessages.add(this@TransactionsListActivity.getString(R.string.required_value))
-        }
-        if(transaction.value < BigDecimal.ZERO){
+        if(transaction.value < BigDecimal.ZERO)
             errorMessages.add(this@TransactionsListActivity.getString(R.string.negative_value))
-        }
 
         if(errorMessages.size > 0) {
-            var fullMessage = ""
-            if(errorMessages.size == 1) {
-                fullMessage = errorMessages[0]
-            }else{
-                for(message in errorMessages){
-                    fullMessage += "- $message\n"
+            if(showMessage) {
+                var fullMessage = ""
+                if (errorMessages.size == 1) {
+                    fullMessage = errorMessages[0]
+                } else {
+                    for (message in errorMessages) {
+                        fullMessage += "- $message\n"
+                    }
                 }
+                Toast.makeText(this@TransactionsListActivity, fullMessage.trim(), Toast.LENGTH_LONG).show()
             }
-            Toast.makeText(this@TransactionsListActivity,fullMessage.trim(),Toast.LENGTH_LONG).show()
             return false
         }
         return true

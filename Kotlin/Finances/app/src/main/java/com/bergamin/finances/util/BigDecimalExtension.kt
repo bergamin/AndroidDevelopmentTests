@@ -12,3 +12,7 @@ fun BigDecimal.efFormatCurrency(): String{
     val currencyFormat = DecimalFormat.getCurrencyInstance(Locale.getDefault())
     return currencyFormat.format(this)
 }
+
+fun BigDecimal.efEqualsIgnoreScale(other: BigDecimal): Boolean {
+    return this.unscaledValue() == other.unscaledValue()
+}
