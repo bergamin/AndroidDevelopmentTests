@@ -7,6 +7,6 @@ import com.bergamin.finances.model.Transaction
  */
 interface TransactionDelegate {
 
-    fun delegate(transaction: Transaction)
+    fun delegate(transaction: Transaction): Boolean
 
 }

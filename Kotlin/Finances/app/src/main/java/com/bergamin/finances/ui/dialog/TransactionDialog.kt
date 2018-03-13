@@ -62,24 +62,31 @@ class TransactionDialog(private val viewGroup: ViewGroup,
 
     private fun configForm(type: Type, delegate: TransactionDelegate) {
         val title = titleByType(type)
-
-        AlertDialog.Builder(context)
+        val alertDialog = AlertDialog.Builder(context)
                 .setTitle(title)
                 .setView(dialog)
-                .setPositiveButton(R.string.add, { _, _ ->
-                    val value = value.text.toString().efParseBigDecimal()
-                    val date = date.text.toString().efParseCalendar(context)
-                    val category = category.selectedItem.toString()
-                    val transaction = Transaction(
-                            type = type,
-                            value = value,
-                            date = date,
-                            category = category)
-
-                    delegate.delegate(transaction)
-                })
+                .setPositiveButton(R.string.add, null)
                 .setNegativeButton(R.string.cancel, null)
-                .show()
+                .create()
+
+        alertDialog.setOnShowListener {
+            val button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            button.setOnClickListener {
+                val value = value.text.toString().efParseBigDecimal()
+                val date = date.text.toString().efParseCalendar(context)
+                val category = category.selectedItem.toString()
+                val transaction = Transaction(
+                        type = type,
+                        value = value,
+                        date = date,
+                        category = category)
+
+                if(delegate.delegate(transaction)){
+                    alertDialog.dismiss()
+                }
+            }
+        }
+        alertDialog.show()
     }
 
     private fun titleByType(type: Type): Int {

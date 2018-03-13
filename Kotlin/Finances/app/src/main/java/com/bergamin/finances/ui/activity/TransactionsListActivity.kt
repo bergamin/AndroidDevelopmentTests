@@ -42,8 +42,8 @@ class TransactionsListActivity : AppCompatActivity() {
     private fun callTransactionDialog(type: Type) {
         TransactionDialog(window.decorView as ViewGroup, this)
                 .show(type, object : TransactionDelegate {
-                    override fun delegate(transaction: Transaction) {
-                        add(transaction)
+                    override fun delegate(transaction: Transaction): Boolean {
+                        return add(transaction)
                     }
                 })
     }
@@ -53,12 +53,14 @@ class TransactionsListActivity : AppCompatActivity() {
         transactions_listview.adapter = TransactionsListAdapter(transactions,this)
     }
 
-    private fun add(transaction: Transaction) {
+    private fun add(transaction: Transaction): Boolean {
         if(isValid(transaction, true)) {
             transactions.add(transaction)
             updateTotals()
             transactions_add_menu.close(true)
+            return true
         }
+        return false
     }
 
     private fun isValid(transaction: Transaction, showMessage: Boolean = false): Boolean{
