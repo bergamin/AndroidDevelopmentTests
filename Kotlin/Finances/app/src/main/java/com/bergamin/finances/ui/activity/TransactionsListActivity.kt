@@ -11,6 +11,7 @@ import com.bergamin.finances.model.Type
 import com.bergamin.finances.ui.ViewAbstract
 import com.bergamin.finances.ui.adapter.TransactionsListAdapter
 import com.bergamin.finances.ui.dialog.TransactionDialog
+import com.bergamin.finances.ui.dialog.UpdateTransactionDialog
 import com.bergamin.finances.util.efEqualsIgnoreScale
 import kotlinx.android.synthetic.main.activity_transactions_list.*
 import java.math.BigDecimal
@@ -51,11 +52,31 @@ class TransactionsListActivity : AppCompatActivity() {
     private fun updateTotals() {
         ViewAbstract(this, window.decorView, transactions).updateTotals()
         transactions_listview.adapter = TransactionsListAdapter(transactions,this)
+        transactions_listview.setOnItemClickListener { parent, view, position, id ->
+            val transaction = transactions[position]
+            UpdateTransactionDialog(window.decorView as ViewGroup, this)
+                    .show(transaction, object : TransactionDelegate {
+                            override fun delegate(transaction: Transaction): Boolean {
+                                return update(position, transaction)
+                            }
+
+                    })
+        }
     }
 
     private fun add(transaction: Transaction): Boolean {
         if(isValid(transaction, true)) {
             transactions.add(transaction)
+            updateTotals()
+            transactions_add_menu.close(true)
+            return true
+        }
+        return false
+    }
+
+    private fun update(position: Int, transaction: Transaction): Boolean {
+        if(isValid(transaction, true)) {
+            transactions[position] = transaction
             updateTotals()
             transactions_add_menu.close(true)
             return true

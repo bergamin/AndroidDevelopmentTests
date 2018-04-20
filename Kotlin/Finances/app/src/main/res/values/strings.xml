@@ -41,4 +41,7 @@
     <string name="cancel">Cancel</string>
     <string name="required_value">Value field is required</string>
     <string name="negative_value">Value should be positive</string>
+    <string name="update">Update</string>
+    <string name="update_revenue">Update revenue</string>
+    <string name="update_expense">Update expense</string>
 </resources>
