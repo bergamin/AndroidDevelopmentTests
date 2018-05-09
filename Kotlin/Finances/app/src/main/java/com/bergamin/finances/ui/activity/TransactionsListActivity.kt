@@ -2,6 +2,7 @@ package com.bergamin.finances.ui.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.bergamin.finances.R
@@ -22,10 +23,13 @@ import java.math.BigDecimal
 class TransactionsListActivity : AppCompatActivity() {
 
     private var transactions: MutableList<Transaction> = mutableListOf()
+    private lateinit var activityView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transactions_list)
+
+        activityView = window.decorView
 
         updateTotals()
         configFabAddTransaction()
@@ -40,35 +44,44 @@ class TransactionsListActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateTotals() {
+        ViewAbstract(this, activityView, transactions).updateTotals()
+        with(transactions_listview) {
+            adapter = TransactionsListAdapter(transactions,this@TransactionsListActivity)
+            setOnItemClickListener { _, _, position, _ ->
+                val transaction = transactions[position]
+                callUpdateDialog(transaction, position)
+            }
+        }
+    }
+
     private fun callTransactionDialog(type: Type) {
-        TransactionDialog(window.decorView as ViewGroup, this)
+        TransactionDialog(activityView as ViewGroup, this)
                 .show(type, object : TransactionDelegate {
-                    override fun delegate(transaction: Transaction): Boolean {
-                        return add(transaction)
+                    override fun delegate(transaction: Transaction) {
+                        if(add(transaction)) {
+                            transactions_add_menu.close(true)
+                        }
                     }
                 })
     }
 
-    private fun updateTotals() {
-        ViewAbstract(this, window.decorView, transactions).updateTotals()
-        transactions_listview.adapter = TransactionsListAdapter(transactions,this)
-        transactions_listview.setOnItemClickListener { parent, view, position, id ->
-            val transaction = transactions[position]
-            UpdateTransactionDialog(window.decorView as ViewGroup, this)
-                    .show(transaction, object : TransactionDelegate {
-                            override fun delegate(transaction: Transaction): Boolean {
-                                return update(position, transaction)
-                            }
+    private fun callUpdateDialog(transaction: Transaction, position: Int) {
+        UpdateTransactionDialog(activityView as ViewGroup, this)
+                .show(transaction, object : TransactionDelegate {
+                    override fun delegate(transaction: Transaction) {
+                        if (update(position, transaction)) {
+                            transactions_add_menu.close(true)
+                        }
+                    }
 
-                    })
-        }
+                })
     }
 
     private fun add(transaction: Transaction): Boolean {
         if(isValid(transaction, true)) {
             transactions.add(transaction)
             updateTotals()
-            transactions_add_menu.close(true)
             return true
         }
         return false
@@ -78,7 +91,6 @@ class TransactionsListActivity : AppCompatActivity() {
         if(isValid(transaction, true)) {
             transactions[position] = transaction
             updateTotals()
-            transactions_add_menu.close(true)
             return true
         }
         return false

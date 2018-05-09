@@ -13,9 +13,9 @@ import java.math.BigDecimal
 /**
  * Created by Guilherme Taffarel Bergamin on 19/02/2018.
  */
-class ViewAbstract(private val context: Context
-                  ,private val view: View
-                  ,private val transactions: List<Transaction>) {
+class ViewAbstract(context: Context
+                   , private val view: View
+                   , private val transactions: List<Transaction>) {
 
     private val revenueColour = ContextCompat.getColor(context, R.color.revenue)
     private val expenseColour = ContextCompat.getColor(context, R.color.expense)
