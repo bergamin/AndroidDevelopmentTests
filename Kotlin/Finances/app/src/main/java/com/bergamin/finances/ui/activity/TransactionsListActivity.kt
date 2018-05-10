@@ -23,13 +23,13 @@ import java.math.BigDecimal
 class TransactionsListActivity : AppCompatActivity() {
 
     private var transactions: MutableList<Transaction> = mutableListOf()
-    private lateinit var activityView: View
+    // initializes by the time of first usage
+    private val activityView by lazy { window.decorView }
+    private val activityViewGroup by lazy { activityView as ViewGroup }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transactions_list)
-
-        activityView = window.decorView
 
         updateTotals()
         configFabAddTransaction()
@@ -56,7 +56,7 @@ class TransactionsListActivity : AppCompatActivity() {
     }
 
     private fun callTransactionDialog(type: Type) {
-        TransactionDialog(activityView as ViewGroup, this)
+        TransactionDialog(activityViewGroup, this)
                 .show(type, object : TransactionDelegate {
                     override fun delegate(transaction: Transaction) {
                         if(add(transaction)) {
@@ -67,7 +67,7 @@ class TransactionsListActivity : AppCompatActivity() {
     }
 
     private fun callUpdateDialog(transaction: Transaction, position: Int) {
-        UpdateTransactionDialog(activityView as ViewGroup, this)
+        UpdateTransactionDialog(activityViewGroup, this)
                 .show(transaction, object : TransactionDelegate {
                     override fun delegate(transaction: Transaction) {
                         if (update(position, transaction)) {
