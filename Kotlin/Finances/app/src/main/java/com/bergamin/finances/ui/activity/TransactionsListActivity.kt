@@ -58,10 +58,8 @@ class TransactionsListActivity : AppCompatActivity() {
     private fun callTransactionDialog(type: Type) {
         TransactionDialog(activityViewGroup, this)
                 .show(type, object : TransactionDelegate {
-                    override fun delegate(transaction: Transaction) {
-                        if(add(transaction)) {
-                            transactions_add_menu.close(true)
-                        }
+                    override fun delegate(transaction: Transaction): Boolean {
+                        return add(transaction)
                     }
                 })
     }
@@ -69,10 +67,8 @@ class TransactionsListActivity : AppCompatActivity() {
     private fun callUpdateDialog(transaction: Transaction, position: Int) {
         UpdateTransactionDialog(activityViewGroup, this)
                 .show(transaction, object : TransactionDelegate {
-                    override fun delegate(transaction: Transaction) {
-                        if (update(position, transaction)) {
-                            transactions_add_menu.close(true)
-                        }
+                    override fun delegate(transaction: Transaction): Boolean {
+                        return update(position, transaction)
                     }
 
                 })
@@ -82,6 +78,7 @@ class TransactionsListActivity : AppCompatActivity() {
         if(isValid(transaction, true)) {
             transactions.add(transaction)
             updateTotals()
+            transactions_add_menu.close(true)
             return true
         }
         return false
@@ -91,6 +88,7 @@ class TransactionsListActivity : AppCompatActivity() {
         if(isValid(transaction, true)) {
             transactions[position] = transaction
             updateTotals()
+            transactions_add_menu.close(true)
             return true
         }
         return false
