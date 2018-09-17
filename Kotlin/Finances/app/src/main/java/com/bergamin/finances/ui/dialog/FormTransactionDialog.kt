@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.bergamin.finances.R
-import com.bergamin.finances.delegate.TransactionDelegate
 import com.bergamin.finances.model.Transaction
 import com.bergamin.finances.model.Type
 import com.bergamin.finances.util.*
@@ -28,7 +27,7 @@ abstract class FormTransactionDialog(private val viewGroup: ViewGroup,
 
     protected abstract val positiveButtonTitle: Int
 
-    fun show(type: Type, delegate: TransactionDelegate) {
+    fun show(type: Type, delegate: (transaction: Transaction) -> Unit) {
         configDateField()
         configCategoryField(type)
         configForm(type, delegate)
@@ -62,7 +61,7 @@ abstract class FormTransactionDialog(private val viewGroup: ViewGroup,
         category.adapter = adapter
     }
 
-    private fun configForm(type: Type, delegate: TransactionDelegate) {
+    private fun configForm(type: Type, delegate: (transaction: Transaction) -> Unit) {
         val title = titleByType(type)
         val alertDialog = AlertDialog.Builder(context)
                 .setTitle(title)
@@ -83,9 +82,10 @@ abstract class FormTransactionDialog(private val viewGroup: ViewGroup,
                         date = date,
                         category = category)
 
-                if(delegate.delegate(transaction)){
-                    alertDialog.dismiss()
-                }
+                delegate(transaction)
+//                if(delegate.delegate(transaction)){
+//                    alertDialog.dismiss()
+//                }
             }
         }
         alertDialog.show()

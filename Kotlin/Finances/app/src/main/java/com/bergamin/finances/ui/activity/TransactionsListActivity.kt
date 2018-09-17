@@ -2,11 +2,9 @@ package com.bergamin.finances.ui.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.bergamin.finances.R
-import com.bergamin.finances.delegate.TransactionDelegate
 import com.bergamin.finances.model.Transaction
 import com.bergamin.finances.model.Type
 import com.bergamin.finances.ui.ViewAbstract
@@ -47,7 +45,7 @@ class TransactionsListActivity : AppCompatActivity() {
     private fun updateTotals() {
         ViewAbstract(this, activityView, transactions).updateTotals()
         with(transactions_listview) {
-            adapter = TransactionsListAdapter(transactions,this@TransactionsListActivity)
+            adapter = TransactionsListAdapter(transactions, this@TransactionsListActivity)
             setOnItemClickListener { _, _, position, _ ->
                 val transaction = transactions[position]
                 callUpdateDialog(transaction, position)
@@ -57,25 +55,20 @@ class TransactionsListActivity : AppCompatActivity() {
 
     private fun callTransactionDialog(type: Type) {
         TransactionDialog(activityViewGroup, this)
-                .show(type, object : TransactionDelegate {
-                    override fun delegate(transaction: Transaction): Boolean {
-                        return add(transaction)
-                    }
-                })
+                .show(type) {
+                    add(it)
+                }
     }
 
     private fun callUpdateDialog(transaction: Transaction, position: Int) {
         UpdateTransactionDialog(activityViewGroup, this)
-                .show(transaction, object : TransactionDelegate {
-                    override fun delegate(transaction: Transaction): Boolean {
-                        return update(position, transaction)
-                    }
-
-                })
+                .show(transaction) {
+                    update(position, it)
+                }
     }
 
     private fun add(transaction: Transaction): Boolean {
-        if(isValid(transaction, true)) {
+        if (isValid(transaction, true)) {
             transactions.add(transaction)
             updateTotals()
             transactions_add_menu.close(true)
@@ -85,7 +78,7 @@ class TransactionsListActivity : AppCompatActivity() {
     }
 
     private fun update(position: Int, transaction: Transaction): Boolean {
-        if(isValid(transaction, true)) {
+        if (isValid(transaction, true)) {
             transactions[position] = transaction
             updateTotals()
             transactions_add_menu.close(true)
@@ -94,16 +87,16 @@ class TransactionsListActivity : AppCompatActivity() {
         return false
     }
 
-    private fun isValid(transaction: Transaction, showMessage: Boolean = false): Boolean{
+    private fun isValid(transaction: Transaction, showMessage: Boolean = false): Boolean {
         val errorMessages = mutableListOf<String>()
 
-        if(transaction.value.efEqualsIgnoreScale(BigDecimal.ZERO))
+        if (transaction.value.efEqualsIgnoreScale(BigDecimal.ZERO))
             errorMessages.add(this@TransactionsListActivity.getString(R.string.required_value))
-        if(transaction.value < BigDecimal.ZERO)
+        if (transaction.value < BigDecimal.ZERO)
             errorMessages.add(this@TransactionsListActivity.getString(R.string.negative_value))
 
-        if(errorMessages.size > 0) {
-            if(showMessage) {
+        if (errorMessages.size > 0) {
+            if (showMessage) {
                 var fullMessage = ""
                 if (errorMessages.size == 1) {
                     fullMessage = errorMessages[0]

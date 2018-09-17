@@ -3,7 +3,6 @@ package com.bergamin.finances.ui.dialog
 import android.content.Context
 import android.view.ViewGroup
 import com.bergamin.finances.R
-import com.bergamin.finances.delegate.TransactionDelegate
 import com.bergamin.finances.model.Transaction
 import com.bergamin.finances.model.Type
 import com.bergamin.finances.util.efFormat
@@ -16,7 +15,7 @@ class UpdateTransactionDialog(viewGroup: ViewGroup,
 
     override val positiveButtonTitle = R.string.update
 
-    fun show(transaction: Transaction, delegate: TransactionDelegate) {
+    fun show(transaction: Transaction, delegate: (transaction: Transaction) -> Unit) {
         val type = transaction.type
         val categories = context.resources.getStringArray(categoriesByType(type))
         val position = categories.indexOf(transaction.category)
