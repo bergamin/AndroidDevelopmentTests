@@ -2,7 +2,10 @@ package com.bergamin.finances.ui.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
 import com.bergamin.finances.R
 import com.bergamin.finances.model.Transaction
@@ -47,10 +50,30 @@ class TransactionsListActivity : AppCompatActivity() {
         with(transactions_listview) {
             adapter = TransactionsListAdapter(transactions, this@TransactionsListActivity)
             setOnItemClickListener { _, _, position, _ ->
-                val transaction = transactions[position]
-                callUpdateDialog(transaction, position)
+                callUpdateDialog(position)
+            }
+            setOnCreateContextMenuListener { menu, _, _ ->
+                menu.add(Menu.NONE, 1, 1, R.string.remove)
+                menu.add(Menu.NONE, 2, 2, R.string.update)
             }
         }
+    }
+
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+        val menuID = item?.itemId
+        val adapterMenuInfo = item?.menuInfo as AdapterView.AdapterContextMenuInfo
+        val position = adapterMenuInfo.position
+
+        when(menuID) {
+            1 -> remove(position)
+            2 -> callUpdateDialog(position)
+        }
+        return super.onContextItemSelected(item)
+    }
+
+    private fun remove(position: Int) {
+        transactions.removeAt(position)
+        updateTotals()
     }
 
     private fun callTransactionDialog(type: Type) {
@@ -60,7 +83,9 @@ class TransactionsListActivity : AppCompatActivity() {
                 }
     }
 
-    private fun callUpdateDialog(transaction: Transaction, position: Int) {
+    private fun callUpdateDialog(position: Int) {
+        val transaction = transactions[position]
+
         UpdateTransactionDialog(activityViewGroup, this)
                 .show(transaction) {
                     update(position, it)

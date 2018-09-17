@@ -44,4 +44,5 @@
     <string name="update">Update</string>
     <string name="update_revenue">Update revenue</string>
     <string name="update_expense">Update expense</string>
+    <string name="remove">Remove</string>
 </resources>
