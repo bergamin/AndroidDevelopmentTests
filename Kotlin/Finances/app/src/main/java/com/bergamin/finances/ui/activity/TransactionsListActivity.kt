@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
 import com.bergamin.finances.R
+import com.bergamin.finances.dao.TransactionDAO
 import com.bergamin.finances.model.Transaction
 import com.bergamin.finances.model.Type
 import com.bergamin.finances.ui.ViewAbstract
@@ -23,7 +24,8 @@ import java.math.BigDecimal
  */
 class TransactionsListActivity : AppCompatActivity() {
 
-    private var transactions: MutableList<Transaction> = mutableListOf()
+    private val dao = TransactionDAO()
+    private var transactions = dao.transactions
     // initializes by the time of first usage
     private val activityView by lazy { window.decorView }
     private val activityViewGroup by lazy { activityView as ViewGroup }
@@ -72,7 +74,7 @@ class TransactionsListActivity : AppCompatActivity() {
     }
 
     private fun remove(position: Int) {
-        transactions.removeAt(position)
+        dao.remove(position)
         updateTotals()
     }
 
@@ -94,7 +96,7 @@ class TransactionsListActivity : AppCompatActivity() {
 
     private fun add(transaction: Transaction): Boolean {
         if (isValid(transaction, true)) {
-            transactions.add(transaction)
+            dao.add(transaction)
             updateTotals()
             transactions_add_menu.close(true)
             return true
@@ -104,7 +106,7 @@ class TransactionsListActivity : AppCompatActivity() {
 
     private fun update(position: Int, transaction: Transaction): Boolean {
         if (isValid(transaction, true)) {
-            transactions[position] = transaction
+            dao.update(transaction, position)
             updateTotals()
             transactions_add_menu.close(true)
             return true
