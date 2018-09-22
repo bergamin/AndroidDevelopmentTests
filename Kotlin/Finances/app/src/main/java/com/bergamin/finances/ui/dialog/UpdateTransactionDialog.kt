@@ -15,7 +15,7 @@ class UpdateTransactionDialog(viewGroup: ViewGroup,
 
     override val positiveButtonTitle = R.string.update
 
-    fun show(transaction: Transaction, delegate: (transaction: Transaction) -> Unit) {
+    fun show(transaction: Transaction, delegate: (transaction: Transaction) -> Boolean) {
         val type = transaction.type
         val categories = context.resources.getStringArray(categoriesByType(type))
         val position = categories.indexOf(transaction.category)

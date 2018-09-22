@@ -27,7 +27,7 @@ abstract class FormTransactionDialog(private val viewGroup: ViewGroup,
 
     protected abstract val positiveButtonTitle: Int
 
-    fun show(type: Type, delegate: (transaction: Transaction) -> Unit) {
+    fun show(type: Type, delegate: (transaction: Transaction) -> Boolean) {
         configDateField()
         configCategoryField(type)
         configForm(type, delegate)
@@ -61,7 +61,7 @@ abstract class FormTransactionDialog(private val viewGroup: ViewGroup,
         category.adapter = adapter
     }
 
-    private fun configForm(type: Type, delegate: (transaction: Transaction) -> Unit) {
+    private fun configForm(type: Type, delegate: (transaction: Transaction) -> Boolean) {
         val title = titleByType(type)
         val alertDialog = AlertDialog.Builder(context)
                 .setTitle(title)
@@ -82,10 +82,9 @@ abstract class FormTransactionDialog(private val viewGroup: ViewGroup,
                         date = date,
                         category = category)
 
-                delegate(transaction)
-//                if(delegate.delegate(transaction)){
-//                    alertDialog.dismiss()
-//                }
+                if(delegate(transaction)){
+                    alertDialog.dismiss()
+                }
             }
         }
         alertDialog.show()
