@@ -9,29 +9,37 @@ import android.widget.Button
 import android.widget.EditText
 import com.bergamin.roomexample.R
 import com.bergamin.roomexample.database.DatabaseGenerator
+import com.bergamin.roomexample.database.converter.DateConverter
 import com.bergamin.roomexample.delegate.ExamsDelegate
 import com.bergamin.roomexample.model.Exam
 
 class FormExamsFragment : Fragment() {
 
-    var exam = Exam()
-    val delegate: ExamsDelegate by lazy { activity as ExamsDelegate }
-    lateinit var subjectField: EditText
+    private val delegate: ExamsDelegate by lazy { activity as ExamsDelegate }
+    private var exam = Exam()
+
+    private lateinit var addButton: Button
+    private lateinit var subjectField: EditText
+    private lateinit var dateField: EditText
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_form_exams, container, false)
 
-        subjectField = view.findViewById(R.id.form_exam_subject)
-
-        configAddButton(view)
+        getFieldsFromView(view)
+        configAddButton()
         loadExam()
 
         return view
     }
 
-    private fun configAddButton(view: View) {
-        val add: Button = view.findViewById(R.id.form_exam_add)
-        add.setOnClickListener {
+    private fun getFieldsFromView(view: View) {
+        addButton = view.findViewById(R.id.form_exam_add)
+        subjectField = view.findViewById(R.id.form_exam_subject)
+        dateField = view.findViewById(R.id.form_exam_date)
+    }
+
+    private fun configAddButton() {
+        addButton.setOnClickListener {
             update()
             persistExam()
             delegate.goBack()
@@ -55,11 +63,13 @@ class FormExamsFragment : Fragment() {
         if (arguments != null) {
             exam = arguments.getSerializable("exam") as Exam
             subjectField.setText(exam.subject)
+            dateField.setText(DateConverter.toString(exam.date))
         }
     }
 
     private fun update() {
         exam.subject = subjectField.text.toString()
+        exam.date = DateConverter.toCalendar(dateField.text.toString())
     }
 
     override fun onResume() {
