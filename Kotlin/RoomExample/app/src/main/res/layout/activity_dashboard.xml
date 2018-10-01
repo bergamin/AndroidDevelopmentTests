@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/colorPrimary"
+    android:gravity="center"
+    android:padding="35dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/dash_message"
+        android:textColor="@color/colorWhite"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/dash_btn_student"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/colorBtnGreen"
+        android:text="@string/dash_btn_student"
+        android:textColor="@color/colorWhite" />
+
+    <Button
+        android:id="@+id/dash_btn_exams"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorBtnGreen"
+        android:text="@string/dash_btn_exam"
+        android:textColor="@color/colorWhite" />
+
+    <Button
+        android:id="@+id/dash_btn_score"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorBtnGreen"
+        android:text="@string/dash_btn_score"
+        android:textColor="@color/colorWhite"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/dash_btn_ranking"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorBtnGreen"
+        android:text="@string/dash_btn_ranking"
+        android:textColor="@color/colorWhite"
+        android:visibility="gone" />
+</LinearLayout>
