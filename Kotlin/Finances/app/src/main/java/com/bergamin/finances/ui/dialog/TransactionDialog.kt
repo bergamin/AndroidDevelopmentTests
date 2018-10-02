@@ -5,9 +5,6 @@ import android.view.ViewGroup
 import com.bergamin.finances.R
 import com.bergamin.finances.model.Type
 
-/**
- * Created by Guilherme Taffarel Bergamin on 01/03/2018.
- */
 class TransactionDialog(viewGroup: ViewGroup,
                         context: Context) : FormTransactionDialog(viewGroup, context) {
 

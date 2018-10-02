@@ -1,12 +1,17 @@
 package com.bergamin.finances.model
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+import java.io.Serializable
 import java.math.BigDecimal
-import java.util.Calendar
+import java.util.*
 
-/**
- * Created by Guilherme Taffarel Bergamin on 12/02/2018.
- */
-class Transaction(val value: BigDecimal
-                 ,val category: String = "Undefined"
-                 ,val date: Calendar = Calendar.getInstance()
-                 ,val type: Type)
+@Entity
+class Transaction(var value: BigDecimal
+                 ,var category: String = "Undefined"
+                 ,var date: Calendar = Calendar.getInstance()
+                 ,var type: Type) : Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+}
