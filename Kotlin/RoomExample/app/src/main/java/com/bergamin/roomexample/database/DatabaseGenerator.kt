@@ -9,13 +9,19 @@ class DatabaseGenerator {
     fun generate(context: Context): Database {
         return Room.databaseBuilder(context, Database::class.java, "RoomExampleDatabase")
                 .allowMainThreadQueries()
-                .addMigrations(Migration_2_3())
+                .addMigrations(
+                        Migration0102(),
+                        Migration0203())
                 .build()
     }
 }
 
-class Migration_2_3 : Migration(2,3) {
+class Migration0203 : Migration(2,3) {
     override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL("ALTER TABLE Exam ADD COLUMN date INTEGER;")
     }
+}
+
+class Migration0102 : Migration(1,2) {
+    override fun migrate(database: SupportSQLiteDatabase) {}
 }

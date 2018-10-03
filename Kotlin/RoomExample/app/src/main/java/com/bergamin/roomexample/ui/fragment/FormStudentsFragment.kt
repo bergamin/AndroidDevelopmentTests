@@ -14,10 +14,10 @@ import com.bergamin.roomexample.model.Student
 
 class FormStudentsFragment : Fragment() {
 
-    var student = Student()
-    val delegate: StudentsDelegate by lazy { activity as StudentsDelegate }
-    lateinit var nameField: EditText
-    lateinit var emailField: EditText
+    private var student = Student()
+    private val delegate: StudentsDelegate by lazy { activity as StudentsDelegate }
+    private lateinit var nameField: EditText
+    private lateinit var emailField: EditText
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_form_students, container, false)

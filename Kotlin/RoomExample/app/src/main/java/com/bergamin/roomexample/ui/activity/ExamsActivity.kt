@@ -18,7 +18,7 @@ class ExamsActivity : AppCompatActivity(), ExamsDelegate {
         show(ExamsListFragment(), false)
     }
 
-    fun show(fragment: Fragment, stack: Boolean) {
+    private fun show(fragment: Fragment, stack: Boolean) {
         val fragmentManager = supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
 

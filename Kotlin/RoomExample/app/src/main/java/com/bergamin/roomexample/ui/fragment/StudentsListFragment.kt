@@ -16,7 +16,7 @@ import com.bergamin.roomexample.model.Student
 
 class StudentsListFragment : Fragment() {
 
-    val delegate: StudentsDelegate by lazy { activity as StudentsDelegate }
+    private val delegate: StudentsDelegate by lazy { activity as StudentsDelegate }
     private lateinit var fab: FloatingActionButton
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -35,17 +35,17 @@ class StudentsListFragment : Fragment() {
 
         val list: ListView = view.findViewById(R.id.fragment_list)
         val students = dao.getAll()
-        val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, students)
+        val adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, students)
 
         list.adapter = adapter
         list.setOnItemClickListener { _, _, position, _ ->
             val student: Student = list.getItemAtPosition(position) as Student
             delegate.selectStudent(student)
         }
-        list.setOnItemLongClickListener { _, _, position, id ->
+        list.setOnItemLongClickListener { _, _, position, _ ->
             val student: Student = list.getItemAtPosition(position) as Student
 
-            Snackbar.make(fab, R.string.form_student_question_remove_student, Snackbar.LENGTH_LONG)
+            Snackbar.make(fab, "${getString(R.string.form_student_question_remove_student)} ${student.name}?", Snackbar.LENGTH_LONG)
                     .setAction(R.string.form_student_yes) {
                         dao.delete(student)
                         adapter.remove(student)

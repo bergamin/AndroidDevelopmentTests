@@ -1,6 +1,7 @@
 package com.bergamin.roomexample.database.converter
 
 import android.arch.persistence.room.TypeConverter
+import android.widget.EditText
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,6 +40,10 @@ class DateConverter {
 
         fun toString(date: Calendar): String {
             return formatter.format(date.time)
+        }
+
+        fun toCalendar(editText: EditText): Calendar {
+            return toCalendar(editText.text.toString())
         }
     }
 }

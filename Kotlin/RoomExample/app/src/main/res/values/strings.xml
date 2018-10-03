@@ -14,10 +14,16 @@
     <string name="form_exam_btn">Add</string>
     <string name="form_list_title">Students List</string>
     <string name="form_student_title">Add Student</string>
-    <string name="form_student_question_remove_student">Remove student ${student.name}?</string>
+    <string name="form_student_question_remove_student">Remove student</string>
     <string name="form_student_yes">Yes</string>
     <string name="form_exam_title">Add Exam</string>
     <string name="form_exam_question_remove_exam">Remove exam?</string>
     <string name="form_exam_yes">Yes</string>
     <string name="form_list_exams_title">Exams List</string>
+    <string name="list_exams_menu_search">Search</string>
+    <string name="menu_exams_list_start">Start</string>
+    <string name="menu_exams_list_end">End</string>
+    <string name="menu_exams_list_message">Type both dates to search</string>
+    <string name="menu_exams_list_search">Search</string>
+    <string name="menu_exams_list_cancel">Cancel</string>
 </resources>
