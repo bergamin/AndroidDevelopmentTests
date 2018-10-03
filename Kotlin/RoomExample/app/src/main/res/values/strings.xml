@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Room Example</string>
+    <string name="dash_message">What do you want to do?</string>
+    <string name="dash_btn_student">Add student</string>
+    <string name="dash_btn_exam">Add exam</string>
+    <string name="dash_btn_score">Add score</string>
+    <string name="dash_btn_ranking">Ranking</string>
+    <string name="form_student_name">Name</string>
+    <string name="form_student_birthday">Birthday</string>
+    <string name="form_student_email">Email</string>
+    <string name="form_student_add">Add</string>
+    <string name="form_exam_subject">Subject</string>
+    <string name="form_exam_date">Date</string>
+    <string name="form_exam_btn">Add</string>
+    <string name="form_list_title">Students List</string>
+    <string name="form_student_title">Add Student</string>
+    <string name="form_student_question_remove_student">Remove student</string>
+    <string name="form_student_yes">Yes</string>
+    <string name="form_exam_title">Add Exam</string>
+    <string name="form_exam_question_remove_exam">Remove exam?</string>
+    <string name="form_exam_yes">Yes</string>
+    <string name="form_list_exams_title">Exams List</string>
+    <string name="list_exams_menu_search">Search</string>
+    <string name="menu_exams_list_start">Start</string>
+    <string name="menu_exams_list_end">End</string>
+    <string name="menu_exams_list_message">Type both dates to search</string>
+    <string name="menu_exams_list_search">Search</string>
+    <string name="menu_exams_list_cancel">Cancel</string>
+</resources>
