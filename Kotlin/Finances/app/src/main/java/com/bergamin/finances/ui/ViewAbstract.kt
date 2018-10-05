@@ -4,18 +4,15 @@ import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.view.View
 import com.bergamin.finances.R
-import com.bergamin.finances.util.efFormatCurrency
 import com.bergamin.finances.model.Transaction
 import com.bergamin.finances.model.Type
+import com.bergamin.finances.util.efFormatCurrency
 import kotlinx.android.synthetic.main.card_abstract.view.*
 import java.math.BigDecimal
 
-/**
- * Created by Guilherme Taffarel Bergamin on 19/02/2018.
- */
-class ViewAbstract(context: Context
-                   , private val view: View
-                   , private val transactions: List<Transaction>) {
+class ViewAbstract(context: Context,
+                   private val view: View,
+                   private val transactions: List<Transaction>) {
 
     private val revenueColour = ContextCompat.getColor(context, R.color.revenue)
     private val expenseColour = ContextCompat.getColor(context, R.color.expense)

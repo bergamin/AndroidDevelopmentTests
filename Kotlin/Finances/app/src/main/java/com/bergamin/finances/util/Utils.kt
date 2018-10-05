@@ -1,16 +1,8 @@
 package com.bergamin.finances.util
 
-import android.content.Context
-import com.bergamin.finances.R
 import com.bergamin.finances.model.Transaction
 import com.bergamin.finances.model.Type
 import java.math.BigDecimal
-import java.text.SimpleDateFormat
-
-/**
- * Created by Guilherme Taffarel Bergamin on 19/02/2018.
- */
-
 
 fun createExampleData(): MutableList<Transaction>{
     return mutableListOf(Transaction(value = BigDecimal(20.5)
@@ -29,9 +21,4 @@ fun createExampleData(): MutableList<Transaction>{
                                     ,category = "Salary"
                                     ,type = Type.REVENUE)
     )
-}
-
-fun localeDateFormat(context: Context): SimpleDateFormat {
-    // TODO: change this automatically based on location
-    return SimpleDateFormat(context.getString(R.string.date_format))
 }

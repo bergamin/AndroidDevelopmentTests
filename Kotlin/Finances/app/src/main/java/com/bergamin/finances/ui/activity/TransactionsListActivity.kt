@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
 import com.bergamin.finances.R
-import com.bergamin.finances.dao.TransactionDAO
+import com.bergamin.finances.database.DatabaseGenerator
+import com.bergamin.finances.database.dao.TransactionDAO
 import com.bergamin.finances.model.Transaction
 import com.bergamin.finances.model.Type
 import com.bergamin.finances.ui.ViewAbstract
@@ -19,13 +20,10 @@ import com.bergamin.finances.util.efEqualsIgnoreScale
 import kotlinx.android.synthetic.main.activity_transactions_list.*
 import java.math.BigDecimal
 
-/**
- * Created by Guilherme Taffarel Bergamin on 12/01/2018.
- */
 class TransactionsListActivity : AppCompatActivity() {
 
-    private val dao = TransactionDAO()
-    private var transactions = dao.transactions
+    private lateinit var dao: TransactionDAO
+    private lateinit var transactions: List<Transaction>
     // initializes by the time of first usage
     private val activityView by lazy { window.decorView }
     private val activityViewGroup by lazy { activityView as ViewGroup }
@@ -33,6 +31,8 @@ class TransactionsListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transactions_list)
+
+        dao = DatabaseGenerator().generate(this).getTransactionDAO()
 
         updateTotals()
         configFabAddTransaction()
@@ -48,11 +48,12 @@ class TransactionsListActivity : AppCompatActivity() {
     }
 
     private fun updateTotals() {
+        transactions = dao.getAll()
         ViewAbstract(this, activityView, transactions).updateTotals()
         with(transactions_listview) {
             adapter = TransactionsListAdapter(transactions, this@TransactionsListActivity)
             setOnItemClickListener { _, _, position, _ ->
-                callUpdateDialog(position)
+                callUpdateDialog(transactions[position])
             }
             setOnCreateContextMenuListener { menu, _, _ ->
                 menu.add(Menu.NONE, 1, 1, R.string.remove)
@@ -67,14 +68,14 @@ class TransactionsListActivity : AppCompatActivity() {
         val position = adapterMenuInfo.position
 
         when(menuID) {
-            1 -> remove(position)
-            2 -> callUpdateDialog(position)
+            1 -> remove(transactions[position])
+            2 -> callUpdateDialog(transactions[position])
         }
         return super.onContextItemSelected(item)
     }
 
-    private fun remove(position: Int) {
-        dao.remove(position)
+    private fun remove(transaction: Transaction) {
+        dao.delete(transaction)
         updateTotals()
     }
 
@@ -85,18 +86,17 @@ class TransactionsListActivity : AppCompatActivity() {
                 }
     }
 
-    private fun callUpdateDialog(position: Int) {
-        val transaction = transactions[position]
-
+    private fun callUpdateDialog(transaction: Transaction) {
         UpdateTransactionDialog(activityViewGroup, this)
                 .show(transaction) {
-                    update(position, it)
+                    it.id = transaction.id
+                    update(it)
                 }
     }
 
     private fun add(transaction: Transaction): Boolean {
         if (isValid(transaction, true)) {
-            dao.add(transaction)
+            dao.insert(transaction)
             updateTotals()
             transactions_add_menu.close(true)
             return true
@@ -104,9 +104,9 @@ class TransactionsListActivity : AppCompatActivity() {
         return false
     }
 
-    private fun update(position: Int, transaction: Transaction): Boolean {
+    private fun update(transaction: Transaction): Boolean {
         if (isValid(transaction, true)) {
-            dao.update(transaction, position)
+            dao.update(transaction)
             updateTotals()
             transactions_add_menu.close(true)
             return true
