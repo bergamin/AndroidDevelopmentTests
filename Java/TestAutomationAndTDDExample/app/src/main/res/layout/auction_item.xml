@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_margin="80dp">
+
+    <ImageView
+        android:id="@+id/auction_item_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="@string/auction_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/img_unavailable" />
+
+    <TextView
+        android:id="@+id/auction_item_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/auction_item_highest_bid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/auction_item_image"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Wabbajack" />
+
+    <TextView
+        android:id="@+id/auction_item_highest_bid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@id/auction_item_description"
+        app:layout_constraintStart_toStartOf="@id/auction_item_description"
+        tools:text="1330 gold" />
+</android.support.constraint.ConstraintLayout>

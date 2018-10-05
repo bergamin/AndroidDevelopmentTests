@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.activity.AuctionBidsActivity">
+
+        <ImageView
+            android:id="@+id/auction_bids_image"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:contentDescription="@string/auction_image"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/img_unavailable" />
+
+        <TextView
+            android:id="@+id/auction_bids_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/auction_bids_image"
+            tools:text="@string/auctioned_product_detailed_description" />
+
+        <TextView
+            android:id="@+id/auction_bids_highest_bid_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/highest_bid"
+            app:layout_constraintEnd_toEndOf="@id/auction_bids_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/auction_bids_description" />
+
+        <TextView
+            android:id="@+id/auction_bids_highest_bid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/auction_bids_highest_bid_title"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/auction_bids_highest_bid_title"
+            app:layout_constraintTop_toBottomOf="@id/auction_bids_highest_bid_title"
+            tools:text="such monies very bucks" />
+
+        <TextView
+            android:id="@+id/auction_bids_lowest_bid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/lowest_bid"
+            app:layout_constraintEnd_toEndOf="@id/auction_bids_highest_bid_title"
+            app:layout_constraintStart_toStartOf="@id/auction_bids_highest_bid_title"
+            app:layout_constraintTop_toBottomOf="@id/auction_bids_highest_bid" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@id/auction_bids_lowest_bid"
+            app:layout_constraintStart_toStartOf="@id/auction_bids_lowest_bid"
+            app:layout_constraintTop_toBottomOf="@id/auction_bids_lowest_bid"
+            tools:text="gibe moni plox" />
+
+        <TextView
+            android:id="@+id/auction_bids_highest_bids_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/highest_bids"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/auction_bids_lowest_bid" />
+
+        <TextView
+            android:id="@+id/auction_bids_highest_bids"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@id/auction_bids_highest_bids_title"
+            app:layout_constraintStart_toStartOf="@id/auction_bids_highest_bids_title"
+            app:layout_constraintTop_toBottomOf="@id/auction_bids_highest_bids_title"
+            tools:text="no monies were harmed during the development of this app" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Auction</string>
+    <string name="auction_image">Auction Image</string>
+    <string name="auctioned_product_detailed_description">Auctioned product detailed description</string>
+    <string name="highest_bid">Highest bid:</string>
+    <string name="lowest_bid">Lowest bid:</string>
+    <string name="highest_bids">Highest bids</string>
+</resources>
