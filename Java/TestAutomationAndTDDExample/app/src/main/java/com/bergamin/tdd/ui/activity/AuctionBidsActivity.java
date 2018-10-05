@@ -21,6 +21,10 @@ public class AuctionBidsActivity extends AppCompatActivity {
             Auction auction = (Auction) intent.getSerializableExtra("auction");
             TextView description = findViewById(R.id.auction_bids_description);
             description.setText(auction.getDescription());
+            TextView highestBid = findViewById(R.id.auction_bids_highest_bid);
+            highestBid.setText(String.valueOf(auction.getHighestBid()));
+            TextView lowestBid = findViewById(R.id.auction_bids_lowest_bid);
+            lowestBid.setText(String.valueOf(auction.getLowestBid()));
         }
     }
 }

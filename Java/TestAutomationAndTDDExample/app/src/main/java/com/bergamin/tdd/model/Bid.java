@@ -11,4 +11,8 @@ public class Bid implements Serializable {
         this.user = user;
         this.value = value;
     }
+
+    public double getValue() {
+        return value;
+    }
 }

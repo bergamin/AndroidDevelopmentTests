@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.bergamin.tdd.R;
 import com.bergamin.tdd.model.Auction;
+import com.bergamin.tdd.model.Bid;
+import com.bergamin.tdd.model.User;
 import com.bergamin.tdd.ui.recyclerview.adapter.AuctionsListAdapter;
 
 import java.util.ArrayList;
@@ -36,6 +38,8 @@ public class AuctionsListActivity extends AppCompatActivity {
 
     private List<Auction> getSampleAuctions() {
         Auction console = new Auction("Console");
+        console.bid(new Bid(new User("Alex"), 200));
+        console.bid(new Bid(new User("Fran"), 300));
         return new ArrayList<>(Arrays.asList(console));
     }
 }

@@ -57,11 +57,13 @@ public class AuctionsListAdapter extends RecyclerView.Adapter<AuctionsListAdapte
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView description;
+        private final TextView highestBid;
         private Auction auction;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             description = itemView.findViewById(R.id.auction_item_description);
+            highestBid = itemView.findViewById(R.id.auction_item_highest_bid);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -73,6 +75,7 @@ public class AuctionsListAdapter extends RecyclerView.Adapter<AuctionsListAdapte
         public void bind(Auction auction) {
             this.auction = auction;
             description.setText(auction.getDescription());
+            highestBid.setText(String.valueOf(auction.getHighestBid()));
         }
     }
 }
