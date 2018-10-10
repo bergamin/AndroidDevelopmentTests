@@ -2,6 +2,8 @@ package com.bergamin.tdd.model;
 
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class AuctionTest {
@@ -9,11 +11,16 @@ public class AuctionTest {
     // Delta means the difference between floating point numbers.
     // If it is higher, it means that the values are equal.
     // It is used for solving rounding problems
-    private String description = "Console";
-    private Auction auction = new Auction(description);
-    private double delta = 0.0001;
-    private double lowestValue = 100.0;
-    private double highestValue = 200.0;
+    private final String DESCRIPTION = "Console";
+    private final Auction AUCTION = new Auction(DESCRIPTION);
+
+    private final User ALEX = new User("Alex");
+    private final User FRAN = new User("Fran");
+
+    private final double DELTA = 0.0001;
+    private final double LOWEST_VALUE = 100.0;
+    private final double MIDDLE_VALUE = 200.0;
+    private final double HIGHEST_VALUE = 300.0;
 
     // test methods names should follow the following pattern:
     // should_[expected result]_[test state]
@@ -22,46 +29,55 @@ public class AuctionTest {
 
     @Test
     public void should_returnDescription_whenReceivesDescription() { // or getDescription_receivesDescription_returnsDescription
-        assertEquals(description, auction.getDescription());
+        assertEquals(DESCRIPTION, AUCTION.getDescription());
     }
 
     @Test
     public void should_returnHighestBid_whenReceivesOneValue() { // or getHighestBid_receivesOneValue_returnsHighest
-        auction.bid(new Bid(new User("Alex"), highestValue));
-        assertEquals(highestValue, auction.getHighestBid(), delta);
+        AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
+        assertEquals(HIGHEST_VALUE, AUCTION.getHighestBid(), DELTA);
     }
 
     @Test
-    public void should_returnHighestBid_whenReceivesTwoValuesLowestToHighest() { // or getHighestBid_receivesTwoValuesLowestToHighest_returnsHighest
-        auction.bid(new Bid(new User("Alex"), lowestValue));
-        auction.bid(new Bid(new User("Fran"), highestValue));
-        assertEquals(highestValue, auction.getHighestBid(), delta);
+    public void should_returnHighestBid_whenReceivesTwoValuesAscending() { // or getHighestBid_receivesTwoValuesLowestToHighest_returnsHighest
+        AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
+        AUCTION.bid(new Bid(FRAN, HIGHEST_VALUE));
+        assertEquals(HIGHEST_VALUE, AUCTION.getHighestBid(), DELTA);
     }
 
     @Test
-    public void should_returnHighestBid_whenReceivesTwoValuesHighestToLowest() { // or getHighestBid_receivesTwoValuesHighestToLowest_returnsHighest
-        auction.bid(new Bid(new User("Fran"), highestValue));
-        auction.bid(new Bid(new User("Alex"), lowestValue));
-        assertEquals(highestValue, auction.getHighestBid(), delta);
+    public void should_returnHighestBid_whenReceivesTwoValuesDescending() { // or getHighestBid_receivesTwoValuesHighestToLowest_returnsHighest
+        AUCTION.bid(new Bid(FRAN, HIGHEST_VALUE));
+        AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
+        assertEquals(HIGHEST_VALUE, AUCTION.getHighestBid(), DELTA);
     }
 
     @Test
     public void should_returnLowestBid_whenReceivesOneValue() {
-        auction.bid(new Bid(new User("Alex"), lowestValue));
-        assertEquals(lowestValue, auction.getLowestBid(), delta);
+        AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
+        assertEquals(LOWEST_VALUE, AUCTION.getLowestBid(), DELTA);
     }
 
     @Test
     public void should_returnLowestBid_whenReceivesTwoValuesLowestToHighest() { // or getHighestBid_receivesTwoValuesLowestToHighest_returnsHighest
-        auction.bid(new Bid(new User("Alex"), lowestValue));
-        auction.bid(new Bid(new User("Fran"), highestValue));
-        assertEquals(lowestValue, auction.getLowestBid(), delta);
+        AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
+        AUCTION.bid(new Bid(FRAN, HIGHEST_VALUE));
+        assertEquals(LOWEST_VALUE, AUCTION.getLowestBid(), DELTA);
     }
 
     @Test
     public void should_returnLowestBid_whenReceivesTwoValuesHighestToLowest() { // or getHighestBid_receivesTwoValuesHighestToLowest_returnsHighest
-        auction.bid(new Bid(new User("Fran"), highestValue));
-        auction.bid(new Bid(new User("Alex"), lowestValue));
-        assertEquals(lowestValue, auction.getLowestBid(), delta);
+        AUCTION.bid(new Bid(FRAN, HIGHEST_VALUE));
+        AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
+        assertEquals(LOWEST_VALUE, AUCTION.getLowestBid(), DELTA);
+    }
+
+    @Test
+    public void should_returnThreeHighestBids_whenReceivesThreeBids() {
+        AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
+        AUCTION.bid(new Bid(FRAN, MIDDLE_VALUE));
+        AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
+        List<Bid> bids = AUCTION.getThreeHighestBids();
+        assertEquals(3, bids.size());
     }
 }

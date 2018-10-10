@@ -17,12 +17,12 @@ public class Auction implements Serializable {
     }
 
     public void bid(Bid bid) {
-        double bidValue = bid.getValue();
-        if (bidValue > highestBid) {
-            highestBid = bidValue;
+        bids.add(bid);
+        if (bid.getValue() > highestBid) {
+            highestBid = bid.getValue();
         }
-        if (bidValue < lowestBid) {
-            lowestBid = bidValue;
+        if (bid.getValue() < lowestBid) {
+            lowestBid = bid.getValue();
         }
     }
 
@@ -36,5 +36,9 @@ public class Auction implements Serializable {
 
     public double getLowestBid() {
         return lowestBid;
+    }
+
+    public List<Bid> getThreeHighestBids() {
+        return bids.subList(0, 3);
     }
 }
