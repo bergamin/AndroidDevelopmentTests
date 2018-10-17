@@ -2,6 +2,7 @@ package com.bergamin.tdd.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Auction implements Serializable {
@@ -18,6 +19,7 @@ public class Auction implements Serializable {
 
     public void bid(Bid bid) {
         bids.add(bid);
+        Collections.sort(bids);
         if (bid.getValue() > highestBid) {
             highestBid = bid.getValue();
         }
@@ -39,6 +41,6 @@ public class Auction implements Serializable {
     }
 
     public List<Bid> getThreeHighestBids() {
-        return bids.subList(0, 3);
+        return bids.subList(0, bids.size());
     }
 }

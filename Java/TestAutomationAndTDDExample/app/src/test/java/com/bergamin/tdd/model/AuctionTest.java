@@ -74,10 +74,51 @@ public class AuctionTest {
 
     @Test
     public void should_returnThreeHighestBids_whenReceivesThreeBids() {
-        AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
-        AUCTION.bid(new Bid(FRAN, MIDDLE_VALUE));
+        AUCTION.bid(new Bid(ALEX, MIDDLE_VALUE));
+        AUCTION.bid(new Bid(FRAN, LOWEST_VALUE));
         AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
         List<Bid> bids = AUCTION.getThreeHighestBids();
         assertEquals(3, bids.size());
+        assertEquals(HIGHEST_VALUE, bids.get(0).getValue(), DELTA);
+        assertEquals(MIDDLE_VALUE, bids.get(1).getValue(), DELTA);
+        assertEquals(LOWEST_VALUE, bids.get(2).getValue(), DELTA);
+    }
+
+    @Test
+    public void should_returnThreeHighestBids_whenDoesNotReceiveBids() {
+        List<Bid> bids = AUCTION.getThreeHighestBids();
+        assertEquals(0, bids.size());
+    }
+
+    @Test
+    public void should_returnThreeHighestBids_whenReceivesOneBid() {
+        AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
+        List<Bid> bids = AUCTION.getThreeHighestBids();
+        assertEquals(1, bids.size());
+        assertEquals(HIGHEST_VALUE, bids.get(0).getValue(), DELTA);
+    }
+
+    @Test
+    public void should_returnThreeHighestBids_whenReceivesTwoBids() {
+        AUCTION.bid(new Bid(FRAN, MIDDLE_VALUE));
+        AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
+        List<Bid> bids = AUCTION.getThreeHighestBids();
+        assertEquals(2, bids.size());
+        assertEquals(HIGHEST_VALUE, bids.get(0).getValue(), DELTA);
+        assertEquals(LOWEST_VALUE, bids.get(1).getValue(), DELTA);
+    }
+
+    @Test
+    public void should_returnThreeHighestBids_whenReceivesFourBids() {
+        double newLow = 50d;
+        AUCTION.bid(new Bid(FRAN, newLow));
+        AUCTION.bid(new Bid(ALEX, MIDDLE_VALUE));
+        AUCTION.bid(new Bid(FRAN, HIGHEST_VALUE));
+        AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
+        List<Bid> bids = AUCTION.getThreeHighestBids();
+        assertEquals(3, bids.size());
+        assertEquals(HIGHEST_VALUE, bids.get(0).getValue(), DELTA);
+        assertEquals(MIDDLE_VALUE, bids.get(1).getValue(), DELTA);
+        assertEquals(LOWEST_VALUE, bids.get(2).getValue(), DELTA);
     }
 }
