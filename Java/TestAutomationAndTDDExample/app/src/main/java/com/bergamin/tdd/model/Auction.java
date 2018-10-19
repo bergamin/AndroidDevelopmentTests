@@ -18,30 +18,14 @@ public class Auction implements Serializable {
     }
 
     public void bid(Bid bid) {
-        double bidValue = bid.getValue();
-
-        if (highestBid > bidValue) {
+        if (!isBidValid(bid)) {
             return;
         }
-        if (!bids.isEmpty()) {
-            User bidUser = bid.getUser();
-            User highestBidder = bids.get(0).getUser();
-            if (highestBidder.equals(bidUser)) {
-                return;
-            }
-            int userBidsCount = 0;
-            for (Bid b : bids) {
-                if (bidUser.equals(b.getUser())) {
-                    userBidsCount++;
-                    if (userBidsCount == 5) {
-                        return;
-                    }
-                }
-            }
-        }
 
+        double bidValue = bid.getValue();
         bids.add(bid);
         Collections.sort(bids);
+
         if (bids.size() == 1) {
             highestBid = bidValue;
             lowestBid = bidValue;
@@ -53,6 +37,39 @@ public class Auction implements Serializable {
         if (bidValue < lowestBid) {
             lowestBid = bidValue;
         }
+    }
+
+    private boolean isBidValid(Bid bid) {
+        return isHigherThanHighest(bid)
+                && !isDoubledBid(bid.getUser())
+                && isUserUnderLimit(bid.getUser());
+    }
+
+    private boolean isUserUnderLimit(User user) {
+        if (!bids.isEmpty()) {
+            int userBidsCount = 0;
+            for (Bid bid : bids) {
+                if (user.equals(bid.getUser())) {
+                    userBidsCount++;
+                    if (userBidsCount == 5) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean isDoubledBid(User user) {
+        if (!bids.isEmpty()) {
+            User highestBidder = bids.get(0).getUser();
+            return highestBidder.equals(user);
+        }
+        return false;
+    }
+
+    private boolean isHigherThanHighest(Bid bid) {
+        return (highestBid < bid.getValue());
     }
 
     public String getDescription() {

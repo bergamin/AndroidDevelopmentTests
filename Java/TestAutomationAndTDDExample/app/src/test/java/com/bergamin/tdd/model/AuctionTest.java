@@ -165,4 +165,12 @@ public class AuctionTest {
 
         assertEquals(10, AUCTION.getNumberOfBids());
     }
+
+    @Test
+    public void shouldNot_addBid_whenSameValueAsLastBid() {
+        AUCTION.bid(new Bid(ALEX, 100));
+        AUCTION.bid(new Bid(FRAN, 100));
+
+        assertEquals(1, AUCTION.getNumberOfBids());
+    }
 }
