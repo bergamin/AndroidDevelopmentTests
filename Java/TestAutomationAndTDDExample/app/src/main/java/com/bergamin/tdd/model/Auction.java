@@ -9,8 +9,8 @@ public class Auction implements Serializable {
 
     private final String description;
     private final List<Bid> bids;
-    private double highestBid = Double.NEGATIVE_INFINITY;
-    private double lowestBid = Double.POSITIVE_INFINITY;
+    private double highestBid = 0.0;
+    private double lowestBid = 0.0;
 
     public Auction(String description) {
         this.description = description;
@@ -18,13 +18,19 @@ public class Auction implements Serializable {
     }
 
     public void bid(Bid bid) {
+        double value = bid.getValue();
         bids.add(bid);
         Collections.sort(bids);
-        if (bid.getValue() > highestBid) {
-            highestBid = bid.getValue();
+        if (bids.size() == 1) {
+            highestBid = value;
+            lowestBid = value;
+            return;
         }
-        if (bid.getValue() < lowestBid) {
-            lowestBid = bid.getValue();
+        if (value > highestBid) {
+            highestBid = value;
+        }
+        if (value < lowestBid) {
+            lowestBid = value;
         }
     }
 

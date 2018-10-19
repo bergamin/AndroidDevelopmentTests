@@ -121,4 +121,14 @@ public class AuctionTest {
         assertEquals(MIDDLE_VALUE, bids.get(1).getValue(), DELTA);
         assertEquals(LOWEST_VALUE, bids.get(2).getValue(), DELTA);
     }
+
+    @Test
+    public void should_returnHighestBidValueZero_whenThereAreNoBids() {
+        assertEquals(0.0, AUCTION.getHighestBid(), DELTA);
+    }
+
+    @Test
+    public void should_returnLowestBidValueZero_whenThereAreNoBids() {
+        assertEquals(0.0, AUCTION.getLowestBid(), DELTA);
+    }
 }
