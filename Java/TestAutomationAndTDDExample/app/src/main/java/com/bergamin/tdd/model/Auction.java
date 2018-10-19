@@ -19,6 +19,11 @@ public class Auction implements Serializable {
 
     public void bid(Bid bid) {
         double value = bid.getValue();
+
+        if (highestBid > value) {
+            return;
+        }
+
         bids.add(bid);
         Collections.sort(bids);
         if (bids.size() == 1) {
@@ -52,5 +57,9 @@ public class Auction implements Serializable {
             maxBids = 3;
         }
         return bids.subList(0, maxBids);
+    }
+
+    public int getNumberOfBids() {
+        return bids.size();
     }
 }
