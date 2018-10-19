@@ -28,4 +28,8 @@ public class Bid implements Serializable, Comparable {
         }
         return 0;
     }
+
+    public User getUser() {
+        return user;
+    }
 }

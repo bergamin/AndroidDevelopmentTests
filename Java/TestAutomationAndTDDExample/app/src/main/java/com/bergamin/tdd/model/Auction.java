@@ -23,6 +23,12 @@ public class Auction implements Serializable {
         if (highestBid > value) {
             return;
         }
+        if (!bids.isEmpty()) {
+            User highestUser = bids.get(0).getUser();
+            if (highestUser.equals(bid.getUser())) {
+                return;
+            }
+        }
 
         bids.add(bid);
         Collections.sort(bids);

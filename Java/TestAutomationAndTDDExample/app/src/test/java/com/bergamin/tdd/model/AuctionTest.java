@@ -35,6 +35,7 @@ public class AuctionTest {
     @Test
     public void should_returnHighestBid_whenReceivesOneValue() { // or getHighestBid_receivesOneValue_returnsHighest
         AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
+
         assertEquals(HIGHEST_VALUE, AUCTION.getHighestBid(), DELTA);
     }
 
@@ -42,12 +43,14 @@ public class AuctionTest {
     public void should_returnHighestBid_whenReceivesTwoValues() { // or getHighestBid_receivesTwoValuesLowestToHighest_returnsHighest
         AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
         AUCTION.bid(new Bid(FRAN, HIGHEST_VALUE));
+
         assertEquals(HIGHEST_VALUE, AUCTION.getHighestBid(), DELTA);
     }
 
     @Test
     public void should_returnLowestBid_whenReceivesOneValue() {
         AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
+
         assertEquals(LOWEST_VALUE, AUCTION.getLowestBid(), DELTA);
     }
 
@@ -55,15 +58,18 @@ public class AuctionTest {
     public void should_returnLowestBid_whenReceivesTwoValues() { // or getHighestBid_receivesTwoValuesLowestToHighest_returnsHighest
         AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
         AUCTION.bid(new Bid(FRAN, HIGHEST_VALUE));
+
         assertEquals(LOWEST_VALUE, AUCTION.getLowestBid(), DELTA);
     }
 
     @Test
     public void should_returnThreeHighestBids_whenReceivesThreeBids() {
-        AUCTION.bid(new Bid(FRAN, LOWEST_VALUE));
-        AUCTION.bid(new Bid(ALEX, MIDDLE_VALUE));
+        AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
+        AUCTION.bid(new Bid(FRAN, MIDDLE_VALUE));
         AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
+
         List<Bid> bids = AUCTION.getThreeHighestBids();
+
         assertEquals(3, bids.size());
         assertEquals(HIGHEST_VALUE, bids.get(0).getValue(), DELTA);
         assertEquals(MIDDLE_VALUE, bids.get(1).getValue(), DELTA);
@@ -73,13 +79,16 @@ public class AuctionTest {
     @Test
     public void should_returnThreeHighestBids_whenDoesNotReceiveBids() {
         List<Bid> bids = AUCTION.getThreeHighestBids();
+
         assertEquals(0, bids.size());
     }
 
     @Test
     public void should_returnThreeHighestBids_whenReceivesOneBid() {
         AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
+
         List<Bid> bids = AUCTION.getThreeHighestBids();
+
         assertEquals(1, bids.size());
         assertEquals(HIGHEST_VALUE, bids.get(0).getValue(), DELTA);
     }
@@ -88,7 +97,9 @@ public class AuctionTest {
     public void should_returnThreeHighestBids_whenReceivesTwoBids() {
         AUCTION.bid(new Bid(FRAN, LOWEST_VALUE));
         AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
+
         List<Bid> bids = AUCTION.getThreeHighestBids();
+
         assertEquals(2, bids.size());
         assertEquals(HIGHEST_VALUE, bids.get(0).getValue(), DELTA);
         assertEquals(LOWEST_VALUE, bids.get(1).getValue(), DELTA);
@@ -97,11 +108,14 @@ public class AuctionTest {
     @Test
     public void should_returnThreeHighestBids_whenReceivesFourBids() {
         double newLow = 50d;
-        AUCTION.bid(new Bid(FRAN, newLow));
-        AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
+
+        AUCTION.bid(new Bid(ALEX, newLow));
+        AUCTION.bid(new Bid(FRAN, LOWEST_VALUE));
         AUCTION.bid(new Bid(ALEX, MIDDLE_VALUE));
         AUCTION.bid(new Bid(FRAN, HIGHEST_VALUE));
+
         List<Bid> bids = AUCTION.getThreeHighestBids();
+
         assertEquals(3, bids.size());
         assertEquals(HIGHEST_VALUE, bids.get(0).getValue(), DELTA);
         assertEquals(MIDDLE_VALUE, bids.get(1).getValue(), DELTA);
@@ -122,6 +136,14 @@ public class AuctionTest {
     public void shouldNot_addBid_whenLowerThanHighestBid() {
         AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
         AUCTION.bid(new Bid(FRAN, LOWEST_VALUE));
+
+        assertEquals(1, AUCTION.getNumberOfBids());
+    }
+
+    @Test
+    public void shouldNot_addBid_whenSameUserAsLastBid() {
+        AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
+        AUCTION.bid(new Bid(new User("Alex"), HIGHEST_VALUE));
 
         assertEquals(1, AUCTION.getNumberOfBids());
     }
