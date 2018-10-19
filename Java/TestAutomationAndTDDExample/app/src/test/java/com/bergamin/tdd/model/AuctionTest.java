@@ -147,4 +147,22 @@ public class AuctionTest {
 
         assertEquals(1, AUCTION.getNumberOfBids());
     }
+
+    @Test
+    public void shouldNot_addBid_whenUserBidsOverFiveTimes() {
+        AUCTION.bid(new Bid(ALEX, 100));
+        AUCTION.bid(new Bid(FRAN, 200));
+        AUCTION.bid(new Bid(ALEX, 300));
+        AUCTION.bid(new Bid(FRAN, 400));
+        AUCTION.bid(new Bid(ALEX, 500));
+        AUCTION.bid(new Bid(FRAN, 600));
+        AUCTION.bid(new Bid(ALEX, 700));
+        AUCTION.bid(new Bid(FRAN, 800));
+        AUCTION.bid(new Bid(ALEX, 900));
+        AUCTION.bid(new Bid(FRAN, 1000));
+        AUCTION.bid(new Bid(ALEX, 1100));
+        AUCTION.bid(new Bid(FRAN, 1200));
+
+        assertEquals(10, AUCTION.getNumberOfBids());
+    }
 }

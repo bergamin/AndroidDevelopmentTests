@@ -18,30 +18,40 @@ public class Auction implements Serializable {
     }
 
     public void bid(Bid bid) {
-        double value = bid.getValue();
+        double bidValue = bid.getValue();
 
-        if (highestBid > value) {
+        if (highestBid > bidValue) {
             return;
         }
         if (!bids.isEmpty()) {
-            User highestUser = bids.get(0).getUser();
-            if (highestUser.equals(bid.getUser())) {
+            User bidUser = bid.getUser();
+            User highestBidder = bids.get(0).getUser();
+            if (highestBidder.equals(bidUser)) {
                 return;
+            }
+            int userBidsCount = 0;
+            for (Bid b : bids) {
+                if (bidUser.equals(b.getUser())) {
+                    userBidsCount++;
+                    if (userBidsCount == 5) {
+                        return;
+                    }
+                }
             }
         }
 
         bids.add(bid);
         Collections.sort(bids);
         if (bids.size() == 1) {
-            highestBid = value;
-            lowestBid = value;
+            highestBid = bidValue;
+            lowestBid = bidValue;
             return;
         }
-        if (value > highestBid) {
-            highestBid = value;
+        if (bidValue > highestBid) {
+            highestBid = bidValue;
         }
-        if (value < lowestBid) {
-            lowestBid = value;
+        if (bidValue < lowestBid) {
+            lowestBid = bidValue;
         }
     }
 
