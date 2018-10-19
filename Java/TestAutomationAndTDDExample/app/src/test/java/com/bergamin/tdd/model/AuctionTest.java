@@ -100,8 +100,8 @@ public class AuctionTest {
 
     @Test
     public void should_returnThreeHighestBids_whenReceivesTwoBids() {
-        AUCTION.bid(new Bid(FRAN, MIDDLE_VALUE));
-        AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
+        AUCTION.bid(new Bid(FRAN, LOWEST_VALUE));
+        AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
         List<Bid> bids = AUCTION.getThreeHighestBids();
         assertEquals(2, bids.size());
         assertEquals(HIGHEST_VALUE, bids.get(0).getValue(), DELTA);

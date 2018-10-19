@@ -38,8 +38,20 @@ public class AuctionsListActivity extends AppCompatActivity {
 
     private List<Auction> getSampleAuctions() {
         Auction console = new Auction("Console");
-        console.bid(new Bid(new User("Alex"), 200));
-        console.bid(new Bid(new User("Fran"), 300));
-        return new ArrayList<>(Arrays.asList(console));
+        console.bid(new Bid(new User("Alex"), 100));
+        console.bid(new Bid(new User("Fran"), 200));
+
+        Auction console2 = new Auction("Console 2");
+        console2.bid(new Bid(new User("Alex"), 300));
+        console2.bid(new Bid(new User("Fran"), 400));
+        console2.bid(new Bid(new User("Alex"), 500));
+
+        Auction console3 = new Auction("Console 3");
+        console3.bid(new Bid(new User("Alex"), 600));
+        console3.bid(new Bid(new User("Fran"), 700));
+        console3.bid(new Bid(new User("Alex"), 800));
+        console3.bid(new Bid(new User("Fran"), 900));
+
+        return new ArrayList<>(Arrays.asList(console, console2, console3));
     }
 }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bergamin.tdd.R;
 import com.bergamin.tdd.model.Auction;
+import com.bergamin.tdd.model.Bid;
 
 public class AuctionBidsActivity extends AppCompatActivity {
 
@@ -19,12 +20,22 @@ public class AuctionBidsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra("auction")) {
             Auction auction = (Auction) intent.getSerializableExtra("auction");
+
             TextView description = findViewById(R.id.auction_bids_description);
             description.setText(auction.getDescription());
+
             TextView highestBid = findViewById(R.id.auction_bids_highest_bid);
             highestBid.setText(String.valueOf(auction.getHighestBid()));
+
             TextView lowestBid = findViewById(R.id.auction_bids_lowest_bid);
             lowestBid.setText(String.valueOf(auction.getLowestBid()));
+
+            TextView highestBids = findViewById(R.id.auction_bids_highest_bids);
+            StringBuilder sb = new StringBuilder();
+            for (Bid bid : auction.getThreeHighestBids()) {
+                sb.append(bid.getValue() + "\n");
+            }
+            highestBids.setText(sb.toString());
         }
     }
 }

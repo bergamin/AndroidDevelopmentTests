@@ -41,6 +41,10 @@ public class Auction implements Serializable {
     }
 
     public List<Bid> getThreeHighestBids() {
-        return bids.subList(0, bids.size());
+        int maxBids = bids.size();
+        if (maxBids > 3) {
+            maxBids = 3;
+        }
+        return bids.subList(0, maxBids);
     }
 }
