@@ -5,18 +5,13 @@ import com.bergamin.tdd.exception.NewBidLowerThanHighestBidException;
 import com.bergamin.tdd.exception.UserBidsTwiceInARowException;
 import com.bergamin.tdd.exception.UserExceedsNumberOfBidsLimitException;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class AuctionTest {
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     // Delta means the difference between floating point numbers.
     // If it is higher, it means that the values are equal.
@@ -142,26 +137,20 @@ public class AuctionTest {
         assertEquals(0.0, AUCTION.getLowestBid(), DELTA);
     }
 
-    @Test
+    @Test(expected = NewBidLowerThanHighestBidException.class)
     public void shouldNot_addBid_whenLowerThanHighestBid() {
-        exception.expect(NewBidLowerThanHighestBidException.class);
-
         AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
         AUCTION.bid(new Bid(FRAN, LOWEST_VALUE));
     }
 
-    @Test
+    @Test(expected = UserBidsTwiceInARowException.class)
     public void shouldNot_addBid_whenSameUserAsLastBid() {
-        exception.expect(UserBidsTwiceInARowException.class);
-
         AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
         AUCTION.bid(new Bid(new User("Alex"), HIGHEST_VALUE));
     }
 
-    @Test
+    @Test(expected = UserExceedsNumberOfBidsLimitException.class)
     public void shouldNot_addBid_whenUserBidsOverFiveTimes() {
-        exception.expect(UserExceedsNumberOfBidsLimitException.class);
-
         AUCTION.bid(new Bid(ALEX, 100));
         AUCTION.bid(new Bid(FRAN, 200));
         AUCTION.bid(new Bid(ALEX, 300));
@@ -175,10 +164,8 @@ public class AuctionTest {
         AUCTION.bid(new Bid(ALEX, 1100));
     }
 
-    @Test
+    @Test(expected = NewBidEqualsToHighestBidException.class)
     public void shouldNot_addBid_whenSameValueAsLastBid() {
-        exception.expect(NewBidEqualsToHighestBidException.class);
-
         AUCTION.bid(new Bid(ALEX, 100));
         AUCTION.bid(new Bid(FRAN, 100));
     }
