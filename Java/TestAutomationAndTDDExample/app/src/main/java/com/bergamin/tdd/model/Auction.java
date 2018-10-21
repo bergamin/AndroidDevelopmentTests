@@ -23,7 +23,7 @@ public class Auction implements Serializable {
     }
 
     public void bid(Bid bid) {
-        checkBidValid(bid);
+        validate(bid);
 
         double bidValue = bid.getValue();
         bids.add(bid);
@@ -37,37 +37,32 @@ public class Auction implements Serializable {
         if (bidValue > highestBid) {
             highestBid = bidValue;
         }
-        if (bidValue < lowestBid) {
-            lowestBid = bidValue;
+    }
+
+    private void validate(Bid bid) {
+        checkLowerOrEqualToHighest(bid);
+        if (!bids.isEmpty()) {
+            checkDoubledBid(bid.getUser());
+            checkUserUnderLimit(bid.getUser());
         }
     }
 
-    private void checkBidValid(Bid bid) {
-        checkLowerOrEqualToHighest(bid);
-        checkDoubledBid(bid.getUser());
-        checkUserUnderLimit(bid.getUser());
-    }
-
     private void checkUserUnderLimit(User user) {
-        if (!bids.isEmpty()) {
-            int userBidsCount = 0;
-            for (Bid bid : bids) {
-                if (user.equals(bid.getUser())) {
-                    userBidsCount++;
-                    if (userBidsCount == 5) {
-                        throw new UserExceedsNumberOfBidsLimitException();
-                    }
+        int userBidsCount = 0;
+        for (Bid bid : bids) {
+            if (user.equals(bid.getUser())) {
+                userBidsCount++;
+                if (userBidsCount == 5) {
+                    throw new UserExceedsNumberOfBidsLimitException();
                 }
             }
         }
     }
 
     private void checkDoubledBid(User user) {
-        if (!bids.isEmpty()) {
-            User highestBidder = bids.get(0).getUser();
-            if (highestBidder.equals(user)) {
-                throw new UserBidsTwiceInARowException();
-            }
+        User highestBidder = bids.get(0).getUser();
+        if (highestBidder.equals(user)) {
+            throw new UserBidsTwiceInARowException();
         }
     }
 
