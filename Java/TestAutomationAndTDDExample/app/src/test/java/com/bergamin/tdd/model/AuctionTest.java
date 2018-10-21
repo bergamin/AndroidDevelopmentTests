@@ -1,12 +1,22 @@
 package com.bergamin.tdd.model;
 
+import com.bergamin.tdd.exception.NewBidEqualsToHighestBidException;
+import com.bergamin.tdd.exception.NewBidLowerThanHighestBidException;
+import com.bergamin.tdd.exception.UserBidsTwiceInARowException;
+import com.bergamin.tdd.exception.UserExceedsNumberOfBidsLimitException;
+
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class AuctionTest {
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     // Delta means the difference between floating point numbers.
     // If it is higher, it means that the values are equal.
@@ -134,28 +144,24 @@ public class AuctionTest {
 
     @Test
     public void shouldNot_addBid_whenLowerThanHighestBid() {
+        exception.expect(NewBidLowerThanHighestBidException.class);
+
         AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
-        try {
-            AUCTION.bid(new Bid(FRAN, LOWEST_VALUE));
-            fail("Expected RuntimeException, which didn't happen");
-        } catch(RuntimeException re) {
-            assertEquals("Bid is lower than current highest", re.getMessage());
-        }
+        AUCTION.bid(new Bid(FRAN, LOWEST_VALUE));
     }
 
     @Test
     public void shouldNot_addBid_whenSameUserAsLastBid() {
+        exception.expect(UserBidsTwiceInARowException.class);
+
         AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
-        try {
-            AUCTION.bid(new Bid(new User("Alex"), HIGHEST_VALUE));
-            fail("Expected RuntimeException, which didn't happen");
-        } catch(RuntimeException re) {
-            assertEquals("User performed two bids in a row", re.getMessage());
-        }
+        AUCTION.bid(new Bid(new User("Alex"), HIGHEST_VALUE));
     }
 
     @Test
     public void shouldNot_addBid_whenUserBidsOverFiveTimes() {
+        exception.expect(UserExceedsNumberOfBidsLimitException.class);
+
         AUCTION.bid(new Bid(ALEX, 100));
         AUCTION.bid(new Bid(FRAN, 200));
         AUCTION.bid(new Bid(ALEX, 300));
@@ -166,22 +172,14 @@ public class AuctionTest {
         AUCTION.bid(new Bid(FRAN, 800));
         AUCTION.bid(new Bid(ALEX, 900));
         AUCTION.bid(new Bid(FRAN, 1000));
-        try {
-            AUCTION.bid(new Bid(ALEX, 1100));
-            fail("Expected RuntimeException, which didn't happen");
-        } catch(RuntimeException re) {
-            assertEquals("User exceeded 5 bids limit", re.getMessage());
-        }
+        AUCTION.bid(new Bid(ALEX, 1100));
     }
 
     @Test
     public void shouldNot_addBid_whenSameValueAsLastBid() {
+        exception.expect(NewBidEqualsToHighestBidException.class);
+
         AUCTION.bid(new Bid(ALEX, 100));
-        try {
-            AUCTION.bid(new Bid(FRAN, 100));
-            fail("Expected RuntimeException, which didn't happen");
-        } catch(RuntimeException re) {
-            assertEquals("Bid is equal to current highest", re.getMessage());
-        }
+        AUCTION.bid(new Bid(FRAN, 100));
     }
 }

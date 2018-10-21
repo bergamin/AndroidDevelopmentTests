@@ -1,5 +1,10 @@
 package com.bergamin.tdd.model;
 
+import com.bergamin.tdd.exception.NewBidEqualsToHighestBidException;
+import com.bergamin.tdd.exception.NewBidLowerThanHighestBidException;
+import com.bergamin.tdd.exception.UserBidsTwiceInARowException;
+import com.bergamin.tdd.exception.UserExceedsNumberOfBidsLimitException;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,7 +55,7 @@ public class Auction implements Serializable {
                 if (user.equals(bid.getUser())) {
                     userBidsCount++;
                     if (userBidsCount == 5) {
-                        throw new RuntimeException("User exceeded 5 bids limit");
+                        throw new UserExceedsNumberOfBidsLimitException();
                     }
                 }
             }
@@ -61,20 +66,16 @@ public class Auction implements Serializable {
         if (!bids.isEmpty()) {
             User highestBidder = bids.get(0).getUser();
             if (highestBidder.equals(user)) {
-                throw new RuntimeException("User performed two bids in a row");
+                throw new UserBidsTwiceInARowException();
             }
         }
     }
 
     private void checkLowerOrEqualToHighest(Bid bid) {
-        String errorMessage = null;
         if (highestBid > bid.getValue()) {
-            errorMessage = "Bid is lower than current highest";
+            throw new NewBidLowerThanHighestBidException();
         } else if (highestBid == bid.getValue()) {
-            errorMessage = "Bid is equal to current highest";
-        }
-        if (errorMessage != null) {
-            throw new RuntimeException(errorMessage);
+            throw new NewBidEqualsToHighestBidException();
         }
     }
 
