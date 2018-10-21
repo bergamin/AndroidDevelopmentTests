@@ -5,11 +5,17 @@ import com.bergamin.tdd.exception.NewBidLowerThanHighestBidException;
 import com.bergamin.tdd.exception.UserBidsTwiceInARowException;
 import com.bergamin.tdd.exception.UserExceedsNumberOfBidsLimitException;
 
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.core.CombinableMatcher.both;
+import static org.hamcrest.number.IsCloseTo.closeTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class AuctionTest {
 
@@ -34,14 +40,14 @@ public class AuctionTest {
 
     @Test
     public void should_returnDescription_whenReceivesDescription() { // or getDescription_receivesDescription_returnsDescription
-        assertEquals(DESCRIPTION, AUCTION.getDescription());
+        assertThat(AUCTION.getDescription(), is(DESCRIPTION));
     }
 
     @Test
     public void should_returnHighestBid_whenReceivesOneValue() { // or getHighestBid_receivesOneValue_returnsHighest
         AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
 
-        assertEquals(HIGHEST_VALUE, AUCTION.getHighestBid(), DELTA);
+        assertThat(AUCTION.getHighestBid(), closeTo(HIGHEST_VALUE, DELTA));
     }
 
     @Test
@@ -69,16 +75,22 @@ public class AuctionTest {
 
     @Test
     public void should_returnThreeHighestBids_whenReceivesThreeBids() {
-        AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
-        AUCTION.bid(new Bid(FRAN, MIDDLE_VALUE));
-        AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
+        Bid highest = new Bid(ALEX, HIGHEST_VALUE);
+        Bid middle = new Bid(FRAN, MIDDLE_VALUE);
+        Bid lowest = new Bid(ALEX, LOWEST_VALUE);
+
+        AUCTION.bid(lowest);
+        AUCTION.bid(middle);
+        AUCTION.bid(highest);
 
         List<Bid> bids = AUCTION.getThreeHighestBids();
 
-        assertEquals(3, bids.size());
-        assertEquals(HIGHEST_VALUE, bids.get(0).getValue(), DELTA);
-        assertEquals(MIDDLE_VALUE, bids.get(1).getValue(), DELTA);
-        assertEquals(LOWEST_VALUE, bids.get(2).getValue(), DELTA);
+//        assertThat(bids, hasSize(3));
+//        assertThat(bids, contains(highest, middle, lowest));
+//      OR
+        assertThat(bids, both(Matchers.<Bid>hasSize(3))
+                .and(contains(highest, middle, lowest)));
+
     }
 
     @Test
