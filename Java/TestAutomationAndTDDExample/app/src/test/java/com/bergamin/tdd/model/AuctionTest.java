@@ -135,17 +135,23 @@ public class AuctionTest {
     @Test
     public void shouldNot_addBid_whenLowerThanHighestBid() {
         AUCTION.bid(new Bid(ALEX, HIGHEST_VALUE));
-        AUCTION.bid(new Bid(FRAN, LOWEST_VALUE));
-
-        assertEquals(1, AUCTION.getNumberOfBids());
+        try {
+            AUCTION.bid(new Bid(FRAN, LOWEST_VALUE));
+            fail("Expected RuntimeException, which didn't happen");
+        } catch(RuntimeException re) {
+            assertEquals("Bid is lower than current highest", re.getMessage());
+        }
     }
 
     @Test
     public void shouldNot_addBid_whenSameUserAsLastBid() {
         AUCTION.bid(new Bid(ALEX, LOWEST_VALUE));
-        AUCTION.bid(new Bid(new User("Alex"), HIGHEST_VALUE));
-
-        assertEquals(1, AUCTION.getNumberOfBids());
+        try {
+            AUCTION.bid(new Bid(new User("Alex"), HIGHEST_VALUE));
+            fail("Expected RuntimeException, which didn't happen");
+        } catch(RuntimeException re) {
+            assertEquals("User performed two bids in a row", re.getMessage());
+        }
     }
 
     @Test
@@ -160,17 +166,22 @@ public class AuctionTest {
         AUCTION.bid(new Bid(FRAN, 800));
         AUCTION.bid(new Bid(ALEX, 900));
         AUCTION.bid(new Bid(FRAN, 1000));
-        AUCTION.bid(new Bid(ALEX, 1100));
-        AUCTION.bid(new Bid(FRAN, 1200));
-
-        assertEquals(10, AUCTION.getNumberOfBids());
+        try {
+            AUCTION.bid(new Bid(ALEX, 1100));
+            fail("Expected RuntimeException, which didn't happen");
+        } catch(RuntimeException re) {
+            assertEquals("User exceeded 5 bids limit", re.getMessage());
+        }
     }
 
     @Test
     public void shouldNot_addBid_whenSameValueAsLastBid() {
         AUCTION.bid(new Bid(ALEX, 100));
-        AUCTION.bid(new Bid(FRAN, 100));
-
-        assertEquals(1, AUCTION.getNumberOfBids());
+        try {
+            AUCTION.bid(new Bid(FRAN, 100));
+            fail("Expected RuntimeException, which didn't happen");
+        } catch(RuntimeException re) {
+            assertEquals("Bid is equal to current highest", re.getMessage());
+        }
     }
 }

@@ -18,9 +18,7 @@ public class Auction implements Serializable {
     }
 
     public void bid(Bid bid) {
-        if (!isBidValid(bid)) {
-            return;
-        }
+        checkBidValid(bid);
 
         double bidValue = bid.getValue();
         bids.add(bid);
@@ -39,37 +37,45 @@ public class Auction implements Serializable {
         }
     }
 
-    private boolean isBidValid(Bid bid) {
-        return isHigherThanHighest(bid)
-                && !isDoubledBid(bid.getUser())
-                && isUserUnderLimit(bid.getUser());
+    private void checkBidValid(Bid bid) {
+        checkLowerOrEqualToHighest(bid);
+        checkDoubledBid(bid.getUser());
+        checkUserUnderLimit(bid.getUser());
     }
 
-    private boolean isUserUnderLimit(User user) {
+    private void checkUserUnderLimit(User user) {
         if (!bids.isEmpty()) {
             int userBidsCount = 0;
             for (Bid bid : bids) {
                 if (user.equals(bid.getUser())) {
                     userBidsCount++;
                     if (userBidsCount == 5) {
-                        return false;
+                        throw new RuntimeException("User exceeded 5 bids limit");
                     }
                 }
             }
         }
-        return true;
     }
 
-    private boolean isDoubledBid(User user) {
+    private void checkDoubledBid(User user) {
         if (!bids.isEmpty()) {
             User highestBidder = bids.get(0).getUser();
-            return highestBidder.equals(user);
+            if (highestBidder.equals(user)) {
+                throw new RuntimeException("User performed two bids in a row");
+            }
         }
-        return false;
     }
 
-    private boolean isHigherThanHighest(Bid bid) {
-        return (highestBid < bid.getValue());
+    private void checkLowerOrEqualToHighest(Bid bid) {
+        String errorMessage = null;
+        if (highestBid > bid.getValue()) {
+            errorMessage = "Bid is lower than current highest";
+        } else if (highestBid == bid.getValue()) {
+            errorMessage = "Bid is equal to current highest";
+        }
+        if (errorMessage != null) {
+            throw new RuntimeException(errorMessage);
+        }
     }
 
     public String getDescription() {
