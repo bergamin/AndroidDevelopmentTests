@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bergamin.tdd.R;
+import com.bergamin.tdd.formatter.CurrencyFormatter;
 import com.bergamin.tdd.model.Auction;
 
 import java.util.List;
@@ -17,11 +18,13 @@ public class AuctionsListAdapter extends RecyclerView.Adapter<AuctionsListAdapte
 
     private final List<Auction> auctions;
     private final Context context;
+    private final CurrencyFormatter formatter;
     private OnItemClickListener onItemClickListener;
 
     public AuctionsListAdapter(Context context, List<Auction> auctions) {
         this.context = context;
         this.auctions = auctions;
+        this.formatter = new CurrencyFormatter();
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -46,7 +49,7 @@ public class AuctionsListAdapter extends RecyclerView.Adapter<AuctionsListAdapte
         return auctions.size();
     }
 
-    public Auction getAuctionAt(int position) {
+    private Auction getAuctionAt(int position) {
         return this.auctions.get(position);
     }
 
@@ -60,7 +63,7 @@ public class AuctionsListAdapter extends RecyclerView.Adapter<AuctionsListAdapte
         private final TextView highestBid;
         private Auction auction;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             description = itemView.findViewById(R.id.auction_item_description);
             highestBid = itemView.findViewById(R.id.auction_item_highest_bid);
@@ -72,10 +75,10 @@ public class AuctionsListAdapter extends RecyclerView.Adapter<AuctionsListAdapte
             });
         }
 
-        public void bind(Auction auction) {
+        void bind(Auction auction) {
             this.auction = auction;
             description.setText(auction.getDescription());
-            highestBid.setText(String.valueOf(auction.getHighestBid()));
+            highestBid.setText(formatter.format(auction.getHighestBid()));
         }
     }
 }
