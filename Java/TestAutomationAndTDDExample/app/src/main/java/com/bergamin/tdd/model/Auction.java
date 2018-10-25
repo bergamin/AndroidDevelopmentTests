@@ -12,31 +12,20 @@ import java.util.List;
 
 public class Auction implements Serializable {
 
+    private final long id;
     private final String description;
     private final List<Bid> bids;
-    private double highestBid = 0.0;
-    private double lowestBid = 0.0;
 
     public Auction(String description) {
+        this.id = 0L;
         this.description = description;
         this.bids = new ArrayList<>();
     }
 
     public void bid(Bid bid) {
         validate(bid);
-
-        double bidValue = bid.getValue();
         bids.add(bid);
         Collections.sort(bids);
-
-        if (bids.size() == 1) {
-            highestBid = bidValue;
-            lowestBid = bidValue;
-            return;
-        }
-        if (bidValue > highestBid) {
-            highestBid = bidValue;
-        }
     }
 
     private void validate(Bid bid) {
@@ -67,23 +56,29 @@ public class Auction implements Serializable {
     }
 
     private void checkLowerOrEqualToHighest(Bid bid) {
-        if (highestBid > bid.getValue()) {
+        if (getHighestBid() > bid.getValue()) {
             throw new NewBidLowerThanHighestBidException();
-        } else if (highestBid == bid.getValue()) {
+        } else if (getHighestBid() == bid.getValue()) {
             throw new NewBidEqualsToHighestBidException();
         }
     }
 
-    public String getDescription() {
-        return description;
+    public double getLowestBid() {
+        if (bids.isEmpty()) {
+            return 0.0;
+        }
+        return bids.get(bids.size() - 1).getValue();
     }
 
     public double getHighestBid() {
-        return highestBid;
+        if (bids.isEmpty()) {
+            return 0.0;
+        }
+        return bids.get(0).getValue();
     }
 
-    public double getLowestBid() {
-        return lowestBid;
+    public String getDescription() {
+        return description;
     }
 
     public List<Bid> getThreeHighestBids() {
@@ -94,7 +89,7 @@ public class Auction implements Serializable {
         return bids.subList(0, maxBids);
     }
 
-    public int getNumberOfBids() {
-        return bids.size();
+    public Long getId() {
+        return id;
     }
 }
