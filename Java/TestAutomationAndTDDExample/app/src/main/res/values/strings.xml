@@ -20,4 +20,7 @@
     <string name="alert_title_new_bid">New Bid</string>
     <string name="bid">Bid</string>
     <string name="cancel">Cancel</string>
+    <string name="appbar_title_auctions">Auctions</string>
+    <string name="message_alert_load_auctions_error">Unable to load auctions</string>
+    <string name="users">Users</string>
 </resources>

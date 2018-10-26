@@ -12,6 +12,7 @@ import com.bergamin.tdd.R;
 import com.bergamin.tdd.formatter.CurrencyFormatter;
 import com.bergamin.tdd.model.Auction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AuctionsListAdapter extends RecyclerView.Adapter<AuctionsListAdapter.ViewHolder> {
@@ -21,9 +22,9 @@ public class AuctionsListAdapter extends RecyclerView.Adapter<AuctionsListAdapte
     private final CurrencyFormatter formatter;
     private OnItemClickListener onItemClickListener;
 
-    public AuctionsListAdapter(Context context, List<Auction> auctions) {
+    public AuctionsListAdapter(Context context) {
         this.context = context;
-        this.auctions = auctions;
+        this.auctions = new ArrayList<>();
         this.formatter = new CurrencyFormatter();
     }
 
@@ -47,6 +48,12 @@ public class AuctionsListAdapter extends RecyclerView.Adapter<AuctionsListAdapte
     @Override
     public int getItemCount() {
         return auctions.size();
+    }
+
+    public void update(List<Auction> auctions) {
+        this.auctions.clear();
+        this.auctions.addAll(auctions);
+        notifyDataSetChanged();
     }
 
     private Auction getAuctionAt(int position) {
