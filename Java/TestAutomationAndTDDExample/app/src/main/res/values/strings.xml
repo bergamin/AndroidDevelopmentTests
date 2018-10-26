@@ -23,4 +23,7 @@
     <string name="appbar_title_auctions">Auctions</string>
     <string name="message_alert_load_auctions_error">Unable to load auctions</string>
     <string name="users">Users</string>
+    <string name="name">Name</string>
+    <string name="alert_title_new_user">New User</string>
+    <string name="add">Add</string>
 </resources>
