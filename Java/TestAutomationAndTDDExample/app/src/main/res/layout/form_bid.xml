@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/form_bid_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/value"
+            android:inputType="number" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/form_bid_user_field_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/user"
+        app:layout_constraintEnd_toEndOf="@id/form_bid_value"
+        app:layout_constraintStart_toStartOf="@id/form_bid_value"
+        app:layout_constraintTop_toBottomOf="@id/form_bid_value" />
+
+    <Spinner
+        android:id="@+id/form_bid_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/form_bid_user_field_title"
+        app:layout_constraintStart_toStartOf="@id/form_bid_user_field_title"
+        app:layout_constraintTop_toBottomOf="@id/form_bid_user_field_title" />
+</android.support.constraint.ConstraintLayout>
