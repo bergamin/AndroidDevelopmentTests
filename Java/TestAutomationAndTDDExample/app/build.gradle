@@ -16,6 +16,7 @@ ext {
     retrofit_version = "2.4.0"
     log_interceptor_version = "3.10.0"
     gson_version = "2.4.0"
+    mockito_version = "2.23.0"
 }
 
 android {
@@ -51,6 +52,7 @@ dependencies {
 
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.hamcrest:hamcrest-all:$hamcrest_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
 
     androidTestImplementation "com.android.support.test:runner:$runner_version"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"

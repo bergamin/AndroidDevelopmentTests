@@ -53,6 +53,11 @@ public class AuctionsListAdapter extends RecyclerView.Adapter<AuctionsListAdapte
     public void update(List<Auction> auctions) {
         this.auctions.clear();
         this.auctions.addAll(auctions);
+        refreshList();
+    }
+
+    // extracted for being used by Mockito
+    void refreshList() {
         notifyDataSetChanged();
     }
 
