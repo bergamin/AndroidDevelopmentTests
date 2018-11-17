@@ -57,7 +57,7 @@ public class AuctionsListAdapter extends RecyclerView.Adapter<AuctionsListAdapte
     }
 
     // extracted for being used by Mockito
-    void refreshList() {
+    public void refreshList() {
         notifyDataSetChanged();
     }
 

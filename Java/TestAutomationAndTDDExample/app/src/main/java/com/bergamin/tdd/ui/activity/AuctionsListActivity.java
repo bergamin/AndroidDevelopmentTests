@@ -62,6 +62,10 @@ public class AuctionsListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        getAuctions(adapter, client);
+    }
+
+    public void getAuctions(final AuctionsListAdapter adapter, AuctionWebClient client) {
         client.all(new ResponseListener<List<Auction>>() {
             @Override
             public void success(List<Auction> auctions) {
