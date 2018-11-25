@@ -59,7 +59,7 @@ public class AuctionsListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        AuctionsRefresher.getAuctions(adapter, client, this);
+        new AuctionsRefresher().getAuctions(adapter, client, this);
     }
 
     @Override

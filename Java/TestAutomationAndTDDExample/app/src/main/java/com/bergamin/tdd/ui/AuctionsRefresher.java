@@ -12,7 +12,7 @@ import com.bergamin.tdd.ui.recyclerview.adapter.AuctionsListAdapter;
 import java.util.List;
 
 public class AuctionsRefresher {
-    public static void getAuctions(final AuctionsListAdapter adapter, AuctionWebClient client, final Context context) {
+    public void getAuctions(final AuctionsListAdapter adapter, AuctionWebClient client, final Context context) {
         client.all(new ResponseListener<List<Auction>>() {
             @Override
             public void success(List<Auction> auctions) {
@@ -21,10 +21,14 @@ public class AuctionsRefresher {
 
             @Override
             public void failure(String message) {
-                Toast.makeText(context,
-                        R.string.message_alert_load_auctions_error,
-                        Toast.LENGTH_SHORT).show();
+                showFailureMessage(context);
             }
         });
+    }
+
+    public void showFailureMessage(Context context) {
+        Toast.makeText(context,
+                R.string.message_alert_load_auctions_error,
+                Toast.LENGTH_SHORT).show();
     }
 }
