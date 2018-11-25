@@ -1,4 +1,6 @@
-package com.bergamin.tdd.ui.activity;
+package com.bergamin.tdd.ui;
+
+import android.content.Context;
 
 import com.bergamin.tdd.api.retrofit.client.AuctionWebClient;
 import com.bergamin.tdd.api.retrofit.client.ResponseListener;
@@ -7,9 +9,7 @@ import com.bergamin.tdd.ui.recyclerview.adapter.AuctionsListAdapter;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
@@ -23,16 +23,16 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AuctionsListActivityTest {
-
+public class AuctionsRefresherTest {
     @Mock
     private AuctionWebClient client;
     @Mock
     private AuctionsListAdapter adapter;
+    @Mock
+    private Context context;
 
     @Test
     public void shouldUpdateAuctionsList_whenGetsAuctionsFromAPI() {
-        AuctionsListActivity activity = new AuctionsListActivity();
         final ArrayList<Auction> auctions = new ArrayList<>(Arrays.asList(
                 new Auction("Computer"),
                 new Auction("Car")
@@ -46,7 +46,7 @@ public class AuctionsListActivityTest {
             }
         }).when(client).all(any(ResponseListener.class));
 
-        activity.getAuctions(adapter, client);
+        AuctionsRefresher.getAuctions(adapter, client, context);
 
         verify(client).all(any(ResponseListener.class));
         verify(adapter).update(auctions);

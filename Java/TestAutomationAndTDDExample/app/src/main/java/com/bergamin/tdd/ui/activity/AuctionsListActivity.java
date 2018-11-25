@@ -6,15 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.bergamin.tdd.R;
 import com.bergamin.tdd.api.retrofit.client.AuctionWebClient;
-import com.bergamin.tdd.api.retrofit.client.ResponseListener;
 import com.bergamin.tdd.model.Auction;
+import com.bergamin.tdd.ui.AuctionsRefresher;
 import com.bergamin.tdd.ui.recyclerview.adapter.AuctionsListAdapter;
-
-import java.util.List;
 
 import static com.bergamin.tdd.ui.activity.AuctionConstants.KEY_AUCTION;
 
@@ -62,23 +59,7 @@ public class AuctionsListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getAuctions(adapter, client);
-    }
-
-    public void getAuctions(final AuctionsListAdapter adapter, AuctionWebClient client) {
-        client.all(new ResponseListener<List<Auction>>() {
-            @Override
-            public void success(List<Auction> auctions) {
-                adapter.update(auctions);
-            }
-
-            @Override
-            public void failure(String message) {
-                Toast.makeText(AuctionsListActivity.this,
-                        R.string.message_alert_load_auctions_error,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        AuctionsRefresher.getAuctions(adapter, client, this);
     }
 
     @Override
