@@ -9,11 +9,10 @@ import com.bergamin.tdd.ui.recyclerview.adapter.UsersListAdapter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserUpdaterTest {
@@ -30,10 +29,12 @@ public class UserUpdaterTest {
         UserUpdater updater = new UserUpdater(dao, adapter, recyclerView);
         User alex = new User("Alex");
 
+        when(dao.save(alex)).thenReturn(new User(1, "Alex"));
+        when(adapter.getItemCount()).thenReturn(1);
         updater.save(alex);
 
         verify(dao).save(alex);
-        verify(adapter).add(alex);
-        verify(recyclerView).smoothScrollToPosition(adapter.getItemCount() - 1);
+        verify(adapter).add(new User(1, "Alex"));
+        verify(recyclerView).smoothScrollToPosition(0);
     }
 }
