@@ -1,7 +1,5 @@
 package com.bergamin.tdd.ui;
 
-import android.content.Context;
-
 import com.bergamin.tdd.api.retrofit.client.AuctionWebClient;
 import com.bergamin.tdd.api.retrofit.client.ResponseListener;
 import com.bergamin.tdd.model.Auction;
@@ -24,15 +22,13 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AuctionsRefresherTest {
+public class AuctionUpdaterTest {
     @Mock
     private AuctionWebClient client;
     @Mock
     private AuctionsListAdapter adapter;
     @Mock
-    private Context context;
-    @Mock
-    private AuctionsRefresher.AuctionsLoadingErrorListener listener;
+    private AuctionUpdater.AuctionsLoadingErrorListener listener;
 
     @Test
     public void shouldUpdateAuctionsList_whenGetsAuctionsFromAPI() {
@@ -49,7 +45,7 @@ public class AuctionsRefresherTest {
             }
         }).when(client).all(any(ResponseListener.class));
 
-        AuctionsRefresher.getAuctions(adapter, client, listener);
+        AuctionUpdater.getAuctions(adapter, client, listener);
 
         verify(client).all(any(ResponseListener.class));
         verify(adapter).update(auctions);
@@ -66,7 +62,7 @@ public class AuctionsRefresherTest {
             }
         }).when(client).all(any(ResponseListener.class));
 
-        AuctionsRefresher.getAuctions(adapter, client, listener);
+        AuctionUpdater.getAuctions(adapter, client, listener);
 
         verify(listener).loadingError(anyString());
     }

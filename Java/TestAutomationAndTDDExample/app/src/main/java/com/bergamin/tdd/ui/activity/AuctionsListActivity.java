@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.bergamin.tdd.R;
 import com.bergamin.tdd.api.retrofit.client.AuctionWebClient;
 import com.bergamin.tdd.model.Auction;
-import com.bergamin.tdd.ui.AuctionsRefresher;
+import com.bergamin.tdd.ui.AuctionUpdater;
 import com.bergamin.tdd.ui.recyclerview.adapter.AuctionsListAdapter;
 
 import static com.bergamin.tdd.ui.activity.AuctionConstants.KEY_AUCTION;
@@ -60,7 +60,7 @@ public class AuctionsListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        AuctionsRefresher.getAuctions(adapter, client, new AuctionsRefresher.AuctionsLoadingErrorListener() {
+        AuctionUpdater.getAuctions(adapter, client, new AuctionUpdater.AuctionsLoadingErrorListener() {
             @Override
             public void loadingError(String message) {
                 showFailureMessage();

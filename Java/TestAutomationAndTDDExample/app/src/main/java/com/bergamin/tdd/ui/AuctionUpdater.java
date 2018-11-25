@@ -7,7 +7,7 @@ import com.bergamin.tdd.ui.recyclerview.adapter.AuctionsListAdapter;
 
 import java.util.List;
 
-public class AuctionsRefresher {
+public class AuctionUpdater {
 
     public static void getAuctions(final AuctionsListAdapter adapter,
                             AuctionWebClient client,
