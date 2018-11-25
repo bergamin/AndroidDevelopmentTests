@@ -10,7 +10,6 @@ import com.bergamin.tdd.ui.recyclerview.adapter.AuctionsListAdapter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
@@ -22,7 +21,6 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -33,11 +31,11 @@ public class AuctionsRefresherTest {
     private AuctionsListAdapter adapter;
     @Mock
     private Context context;
+    @Mock
+    private AuctionsRefresher.AuctionsLoadingErrorListener listener;
 
     @Test
     public void shouldUpdateAuctionsList_whenGetsAuctionsFromAPI() {
-        AuctionsRefresher refresher = new AuctionsRefresher();
-
         final ArrayList<Auction> auctions = new ArrayList<>(Arrays.asList(
                 new Auction("Computer"),
                 new Auction("Car")
@@ -51,7 +49,7 @@ public class AuctionsRefresherTest {
             }
         }).when(client).all(any(ResponseListener.class));
 
-        refresher.getAuctions(adapter, client, context);
+        AuctionsRefresher.getAuctions(adapter, client, listener);
 
         verify(client).all(any(ResponseListener.class));
         verify(adapter).update(auctions);
@@ -59,9 +57,6 @@ public class AuctionsRefresherTest {
 
     @Test
     public void shouldShowFailingMessage_whenAuctionsSearchFails() {
-        AuctionsRefresher refresher = Mockito.spy(new AuctionsRefresher());
-        doNothing().when(refresher).showFailureMessage(context);
-
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
@@ -71,8 +66,8 @@ public class AuctionsRefresherTest {
             }
         }).when(client).all(any(ResponseListener.class));
 
-        refresher.getAuctions(adapter, client, context);
+        AuctionsRefresher.getAuctions(adapter, client, listener);
 
-        verify(refresher).showFailureMessage(context);
+        verify(listener).loadingError(anyString());
     }
 }

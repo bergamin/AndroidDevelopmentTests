@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.bergamin.tdd.R;
 import com.bergamin.tdd.api.retrofit.client.AuctionWebClient;
@@ -59,7 +60,18 @@ public class AuctionsListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        new AuctionsRefresher().getAuctions(adapter, client, this);
+        AuctionsRefresher.getAuctions(adapter, client, new AuctionsRefresher.AuctionsLoadingErrorListener() {
+            @Override
+            public void loadingError(String message) {
+                showFailureMessage();
+            }
+        });
+    }
+
+    public void showFailureMessage() {
+        Toast.makeText(this,
+                R.string.message_alert_load_auctions_error,
+                Toast.LENGTH_SHORT).show();
     }
 
     @Override
