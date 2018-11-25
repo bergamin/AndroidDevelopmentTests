@@ -1,7 +1,5 @@
 package com.bergamin.tdd.ui.activity;
 
-import android.content.Context;
-
 import com.bergamin.tdd.api.retrofit.client.AuctionWebClient;
 import com.bergamin.tdd.api.retrofit.client.ResponseListener;
 import com.bergamin.tdd.model.Auction;
@@ -12,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
@@ -21,38 +18,37 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AuctionsListActivityTest {
 
     @Mock
-    private Context context;
-    @Mock
     private AuctionWebClient client;
-    @Spy
-    private AuctionsListAdapter adapter = new AuctionsListAdapter(context);
+    @Mock
+    private AuctionsListAdapter adapter;
 
     @Test
     public void shouldUpdateAuctionsList_whenGetsAuctionsFromAPI() {
         AuctionsListActivity activity = new AuctionsListActivity();
-        Mockito.doNothing().when(adapter).refreshList();
-        Mockito.doAnswer(new Answer() {
+        final ArrayList<Auction> auctions = new ArrayList<>(Arrays.asList(
+                new Auction("Computer"),
+                new Auction("Car")
+        ));
+        doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) {
                 ResponseListener<List<Auction>> argument = invocation.getArgument(0);
-                argument.success(new ArrayList<>(Arrays.asList(
-                        new Auction("Computer"),
-                        new Auction("Car")
-                )));
+                argument.success(auctions);
                 return null;
             }
-        }).when(client).all(ArgumentMatchers.any(ResponseListener.class));
+        }).when(client).all(any(ResponseListener.class));
 
         activity.getAuctions(adapter, client);
-        int amount = adapter.getItemCount();
 
-        assertThat(amount, is(2));
+        verify(client).all(any(ResponseListener.class));
+        verify(adapter).update(auctions);
     }
 }
