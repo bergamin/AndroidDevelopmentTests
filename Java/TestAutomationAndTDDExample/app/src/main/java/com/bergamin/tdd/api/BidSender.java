@@ -10,9 +10,9 @@ import com.bergamin.tdd.exception.UserBidsTwiceInARowException;
 import com.bergamin.tdd.exception.UserExceedsNumberOfBidsLimitException;
 import com.bergamin.tdd.model.Auction;
 import com.bergamin.tdd.model.Bid;
+import com.bergamin.tdd.ui.dialog.AlertDialogManager;
 
 import static com.bergamin.tdd.ui.dialog.AlertDialogManager.showAlertWhenBidEqualsToHighestBid;
-import static com.bergamin.tdd.ui.dialog.AlertDialogManager.showAlertWhenBidLowerThanHighestBid;
 import static com.bergamin.tdd.ui.dialog.AlertDialogManager.showAlertWhenUserBidsTwiceInARow;
 import static com.bergamin.tdd.ui.dialog.AlertDialogManager.showAlertWhenUserExceedsNumberOfBidsLimit;
 import static com.bergamin.tdd.ui.dialog.AlertDialogManager.showToastOnSendingFailure;
@@ -22,13 +22,16 @@ public class BidSender {
     private final AuctionWebClient client;
     private final ProcessedBidListener listener;
     private final Context context;
+    private final AlertDialogManager manager;
 
     public BidSender(AuctionWebClient client,
                      ProcessedBidListener listener,
-                     Context context) {
+                     Context context,
+                     AlertDialogManager manager) {
         this.client = client;
         this.listener = listener;
         this.context = context;
+        this.manager = manager;
     }
 
     public void send(final Auction auction, Bid bid) {
@@ -46,7 +49,7 @@ public class BidSender {
                 }
             });
         } catch (NewBidLowerThanHighestBidException exception) {
-            showAlertWhenBidLowerThanHighestBid(context);
+            manager.showAlertWhenBidLowerThanHighestBid(context);
         } catch (NewBidEqualsToHighestBidException exception) {
             showAlertWhenBidEqualsToHighestBid(context);
         } catch (UserBidsTwiceInARowException exception) {

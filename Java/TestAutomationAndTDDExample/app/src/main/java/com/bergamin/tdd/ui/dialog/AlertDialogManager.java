@@ -20,7 +20,7 @@ public class AlertDialogManager {
         showDialog(context, context.getString(R.string.message_alert_two_bids_in_a_row));
     }
 
-    public static void showAlertWhenBidLowerThanHighestBid(Context context) {
+    public void showAlertWhenBidLowerThanHighestBid(Context context) {
         showDialog(context, context.getString(R.string.message_alert_bid_should_be_higher_than_last_bid));
     }
 

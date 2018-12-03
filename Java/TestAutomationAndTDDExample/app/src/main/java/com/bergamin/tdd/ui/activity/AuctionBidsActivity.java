@@ -15,6 +15,7 @@ import com.bergamin.tdd.database.dao.UserDAO;
 import com.bergamin.tdd.formatter.CurrencyFormatter;
 import com.bergamin.tdd.model.Auction;
 import com.bergamin.tdd.model.Bid;
+import com.bergamin.tdd.ui.dialog.AlertDialogManager;
 import com.bergamin.tdd.ui.dialog.NewBidDialog;
 
 import static com.bergamin.tdd.ui.activity.AuctionConstants.KEY_AUCTION;
@@ -91,7 +92,8 @@ public class AuctionBidsActivity extends AppCompatActivity {
         BidSender sender = new BidSender(
                 client,
                 processedBidListener(),
-                this);
+                this,
+                new AlertDialogManager());
         sender.send(receivedAuction, bid);
     }
 
