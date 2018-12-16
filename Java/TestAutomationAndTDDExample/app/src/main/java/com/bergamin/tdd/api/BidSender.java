@@ -12,25 +12,17 @@ import com.bergamin.tdd.model.Auction;
 import com.bergamin.tdd.model.Bid;
 import com.bergamin.tdd.ui.dialog.AlertDialogManager;
 
-import static com.bergamin.tdd.ui.dialog.AlertDialogManager.showAlertWhenBidEqualsToHighestBid;
-import static com.bergamin.tdd.ui.dialog.AlertDialogManager.showAlertWhenUserBidsTwiceInARow;
-import static com.bergamin.tdd.ui.dialog.AlertDialogManager.showAlertWhenUserExceedsNumberOfBidsLimit;
-import static com.bergamin.tdd.ui.dialog.AlertDialogManager.showToastOnSendingFailure;
-
 public class BidSender {
 
     private final AuctionWebClient client;
     private final ProcessedBidListener listener;
-    private final Context context;
     private final AlertDialogManager manager;
 
     public BidSender(AuctionWebClient client,
                      ProcessedBidListener listener,
-                     Context context,
                      AlertDialogManager manager) {
         this.client = client;
         this.listener = listener;
-        this.context = context;
         this.manager = manager;
     }
 
@@ -45,17 +37,17 @@ public class BidSender {
 
                 @Override
                 public void failure(String message) {
-                    showToastOnSendingFailure(context);
+                    manager.showToastOnSendingFailure();
                 }
             });
         } catch (NewBidLowerThanHighestBidException exception) {
-            manager.showAlertWhenBidLowerThanHighestBid(context);
+            manager.showAlertWhenBidLowerThanHighestBid();
         } catch (NewBidEqualsToHighestBidException exception) {
-            showAlertWhenBidEqualsToHighestBid(context);
+            manager.showAlertWhenBidEqualsToHighestBid();
         } catch (UserBidsTwiceInARowException exception) {
-            showAlertWhenUserBidsTwiceInARow(context);
+            manager.showAlertWhenUserBidsTwiceInARow();
         } catch (UserExceedsNumberOfBidsLimitException exception) {
-            showAlertWhenUserExceedsNumberOfBidsLimit(context);
+            manager.showAlertWhenUserExceedsNumberOfBidsLimit();
         }
     }
 

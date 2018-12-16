@@ -92,8 +92,7 @@ public class AuctionBidsActivity extends AppCompatActivity {
         BidSender sender = new BidSender(
                 client,
                 processedBidListener(),
-                this,
-                new AlertDialogManager());
+                new AlertDialogManager(this));
         sender.send(receivedAuction, bid);
     }
 

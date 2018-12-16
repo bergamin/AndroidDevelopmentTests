@@ -21,8 +21,6 @@ import com.bergamin.tdd.ui.activity.UsersListActivity;
 
 import java.util.List;
 
-import static com.bergamin.tdd.ui.dialog.AlertDialogManager.showAlertWhenInvalidValue;
-
 public class NewBidDialog {
 
     private final Context context;
@@ -99,7 +97,7 @@ public class NewBidDialog {
                     Bid bid = new Bid(user, value);
                     listener.createdBid(bid);
                 } catch (NumberFormatException e) {
-                    showAlertWhenInvalidValue(context);
+                    new AlertDialogManager(context).showAlertWhenInvalidValue();
                 }
             }
         };
