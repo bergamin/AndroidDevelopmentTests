@@ -8,8 +8,8 @@ import java.util.*
  * Created by Guilherme Taffarel Bergamin on 16/02/2018.
  */
 
-fun BigDecimal.efFormatCurrency(): String{
-    val currencyFormat = DecimalFormat.getCurrencyInstance(Locale.getDefault())
+fun BigDecimal.efFormatCurrency(): String {
+    val currencyFormat = DecimalFormat.getCurrencyInstance()
     return currencyFormat.format(this)
 }
 
