@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity
-class Note(var text: String): Serializable {
+data class Note(var title: String, var text: String): Serializable {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 }
