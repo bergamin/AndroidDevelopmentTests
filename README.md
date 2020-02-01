@@ -12,3 +12,6 @@ https://www.udemy.com/curso-completo-flutter-app-android-ios
 My code might considerily differ from the originals in these courses.
 
 I have another dedicate repository for a lenghty Udacity course by Google here (EN-US): https://github.com/bergamin/udacity_google_kotlin_android_course
+
+And another dedicate repository for an app using MVVM that's going to be a baseline for new development for me:
+https://github.com/bergamin/marvelcharacters
