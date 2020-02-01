@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Notas</string>
+    <string name="delete">Deletar</string>
+    <string name="edit">Editar</string>
+    <string name="error_001_note_is_empty">A nota não pode ficar em branco</string>
+    <string name="title">Título</string>
+    <string name="text">Texto</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Salvar</string>
+</resources>

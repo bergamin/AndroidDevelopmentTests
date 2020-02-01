@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Аннотации</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
+    <string name="error_001_note_is_empty">Аннотация не может быть пустой</string>
+    <string name="title">Название</string>
+    <string name="text">Текст</string>
+    <string name="cancel">Отменить</string>
+    <string name="save">Готово</string>
+</resources>

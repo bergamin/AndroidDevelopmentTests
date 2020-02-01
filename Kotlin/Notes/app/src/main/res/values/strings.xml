@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Notes</string>
+    <string name="mussum_title" translatable="false">Mussum Ipsum</string>
+    <string name="mussum_text" translatable="false">Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat
+        erat hendrerit non. Nam vulputate dapibus. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Suco de
+        cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. Quem manda na minha terra sou euzis!
+    </string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="error_001_note_is_empty">The note cannot be empty</string>
+    <string name="title">Title</string>
+    <string name="text">Text</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+</resources>
