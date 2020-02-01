@@ -45,3 +45,19 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+Kotlin/Finances/.idea/
+Flutter/bmi_calculator/.idea/
+Flutter/bmi_calculator/.packages
+Flutter/bmi_calculator/android/.gradle
+Flutter/bmi_calculator/android/.idea/
+
+*.log
+
+Flutter/bmi_calculator/android/local.properties
+
+Flutter/bmi_calculator/build/
+
+Flutter/bmi_calculator/ios/Flutter/Generated.xcconfig
+
+Java/TestAutomationAndTDDExample/.idea/

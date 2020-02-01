@@ -3,13 +3,10 @@ package com.bergamin.finances.ui.dialog
 import android.content.Context
 import android.view.ViewGroup
 import com.bergamin.finances.R
+import com.bergamin.finances.database.converter.DateConverter
 import com.bergamin.finances.model.Transaction
 import com.bergamin.finances.model.Type
-import com.bergamin.finances.util.efFormat
 
-/**
- * Created by Guilherme Taffarel Bergamin on 26/03/2018.
- */
 class UpdateTransactionDialog(viewGroup: ViewGroup,
                               private val context: Context) : FormTransactionDialog(viewGroup, context) {
 
@@ -23,7 +20,7 @@ class UpdateTransactionDialog(viewGroup: ViewGroup,
         super.show(type, delegate)
 
         value.setText(transaction.value.toString())
-        date.setText(transaction.date.efFormat(context))
+        date.setText(DateConverter.toString(transaction.date))
         category.setSelection(position, true)
     }
 

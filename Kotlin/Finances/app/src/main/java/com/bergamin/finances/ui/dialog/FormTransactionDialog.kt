@@ -8,15 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.bergamin.finances.R
+import com.bergamin.finances.database.converter.DateConverter
+import com.bergamin.finances.database.converter.DecimalConverter
 import com.bergamin.finances.model.Transaction
 import com.bergamin.finances.model.Type
-import com.bergamin.finances.util.*
+import com.bergamin.finances.util.efDay
+import com.bergamin.finances.util.efMonth
+import com.bergamin.finances.util.efYear
 import kotlinx.android.synthetic.main.form_transaction.view.*
 import java.util.*
 
-/**
- * Created by Guilherme Taffarel Bergamin on 17/09/2018.
- */
 abstract class FormTransactionDialog(private val viewGroup: ViewGroup,
                                      private val context: Context) {
 
@@ -43,12 +44,12 @@ abstract class FormTransactionDialog(private val viewGroup: ViewGroup,
         val today = Calendar.getInstance()
 
         with(date) {
-            setText(today.efFormat(context))
+            setText(DateConverter.toString(today))
             setOnClickListener {
                 DatePickerDialog(context, { _, year, month, day ->
                     val selectedDate = Calendar.getInstance()
                     selectedDate.set(year, month, day)
-                    this.setText(selectedDate.efFormat(context))
+                    this.setText(DateConverter.toString(selectedDate))
                 }, today.efYear(), today.efMonth(), today.efDay())
                         .show()
             }
@@ -73,8 +74,8 @@ abstract class FormTransactionDialog(private val viewGroup: ViewGroup,
         alertDialog.setOnShowListener {
             val button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
             button.setOnClickListener {
-                val value = value.text.toString().efParseBigDecimal()
-                val date = date.text.toString().efParseCalendar(context)
+                val value = DecimalConverter.toBigDecimal(value)
+                val date = DateConverter.toCalendar(date.text.toString())
                 val category = category.selectedItem.toString()
                 val transaction = Transaction(
                         type = type,

@@ -7,16 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.bergamin.finances.R
-import com.bergamin.finances.util.efFormatCurrency
-import com.bergamin.finances.util.efFormat
-import com.bergamin.finances.util.efLimitsIn
+import com.bergamin.finances.database.converter.DateConverter
 import com.bergamin.finances.model.Transaction
 import com.bergamin.finances.model.Type
+import com.bergamin.finances.util.efFormatCurrency
+import com.bergamin.finances.util.efLimitsIn
 import kotlinx.android.synthetic.main.transaction_item.view.*
 
-/**
- * Created by Guilherme Taffarel Bergamin on 12/02/2018.
- */
 class TransactionsListAdapter(private val transactions: List<Transaction>,
                               private val context: Context) : BaseAdapter() {
 
@@ -26,8 +23,8 @@ class TransactionsListAdapter(private val transactions: List<Transaction>,
         val transactionItem = LayoutInflater.from(context).inflate(R.layout.transaction_item, parent, false)
         val transaction = transactions[position]
 
-        var valueColour: Int
-        var transactionIcon: Int
+        val valueColour: Int
+        val transactionIcon: Int
 
         when(transaction.type){
             Type.REVENUE -> {
@@ -44,7 +41,7 @@ class TransactionsListAdapter(private val transactions: List<Transaction>,
         transactionItem.transaction_value.setTextColor(valueColour)
         transactionItem.transaction_value.text = transaction.value.efFormatCurrency()
         transactionItem.transaction_category.text = transaction.category.efLimitsIn(categoryLimit)
-        transactionItem.transaction_date.text = transaction.date.efFormat(context)
+        transactionItem.transaction_date.text = DateConverter.toString(transaction.date)
 
         return transactionItem
     }
