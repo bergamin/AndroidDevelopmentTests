@@ -55,8 +55,8 @@ Flutter/bmi_calculator/android/.idea/
 Flutter/bmi_calculator/android/local.properties
 Flutter/bmi_calculator/build/
 Flutter/bmi_calculator/ios/Flutter/Generated.xcconfig
+Flutter/finances/.metadata
+Flutter/finances/pubspec.lock
 Java/TestAutomationAndTDDExample/.idea/
 
 *.log
-
-Flutter/finances/.metadata
