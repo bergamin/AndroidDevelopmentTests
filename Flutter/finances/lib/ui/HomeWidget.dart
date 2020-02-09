@@ -124,6 +124,9 @@ class HomeWidgetState extends State<HomeWidget> {
           ),
           Expanded(
             child: ListView(
+              padding: const EdgeInsets.only(
+                bottom: 80
+              ),
               children: generateCardsList(),
             ),
           ),
