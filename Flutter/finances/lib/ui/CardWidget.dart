@@ -32,7 +32,10 @@ class CardWidgetState extends State<CardWidget> {
         right: 8.0,
       ),
       child: Container(
-        color: Colors.white,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[

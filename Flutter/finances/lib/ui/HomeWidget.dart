@@ -54,7 +54,13 @@ class HomeWidgetState extends State<HomeWidget> {
       body: Column(
         children: <Widget>[
           Container(
-            color: Colors.white,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(5),
+                bottomRight: Radius.circular(5),
+              )
+            ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
