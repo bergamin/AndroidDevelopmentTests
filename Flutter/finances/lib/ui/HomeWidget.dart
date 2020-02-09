@@ -60,7 +60,7 @@ class HomeWidgetState extends State<HomeWidget> {
               borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(5),
                 bottomLeft: Radius.circular(5),
-              )
+              ),
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -124,11 +124,16 @@ class HomeWidgetState extends State<HomeWidget> {
             ),
           ),
           Expanded(
-            child: ListView(
+            child: Padding(
               padding: const EdgeInsets.only(
-                bottom: 80,
+                top: 0.5,
               ),
-              children: generateCardsList(),
+              child: ListView(
+                padding: const EdgeInsets.only(
+                  bottom: 80,
+                ),
+                children: generateCardsList(),
+              ),
             ),
           ),
         ],
