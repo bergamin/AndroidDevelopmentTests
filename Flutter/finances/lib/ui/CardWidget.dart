@@ -38,7 +38,7 @@ class CardWidgetState extends State<CardWidget> {
           borderRadius: BorderRadius.all(Radius.circular(5)),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -82,6 +82,7 @@ class CardWidgetState extends State<CardWidget> {
                 ],
               ),
             ),
+            Expanded(child: Container()),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
