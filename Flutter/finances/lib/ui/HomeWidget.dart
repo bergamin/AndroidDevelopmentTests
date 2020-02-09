@@ -39,7 +39,7 @@ class HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Color(0xFFdde0e3),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // O que fazer quando presisonar o botão
@@ -53,12 +53,13 @@ class HomeWidgetState extends State<HomeWidget> {
       ),
       body: Column(
         children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
+          Card(
+            elevation: 4,
+            margin: EdgeInsets.zero,
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(5),
                 bottomRight: Radius.circular(5),
+                bottomLeft: Radius.circular(5),
               )
             ),
             child: Padding(
@@ -125,7 +126,7 @@ class HomeWidgetState extends State<HomeWidget> {
           Expanded(
             child: ListView(
               padding: const EdgeInsets.only(
-                bottom: 80
+                bottom: 80,
               ),
               children: generateCardsList(),
             ),
