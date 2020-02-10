@@ -1,6 +1,7 @@
 import 'package:finances/model/Transaction.dart';
 import 'package:finances/model/Type.dart';
 import 'package:finances/ui/CardWidget.dart';
+import 'package:finances/ui/basic/SpeedDial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -39,15 +40,7 @@ class HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFdde0e3),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // O que fazer quando presisonar o botão
-        },
-        backgroundColor: Colors.green,
-        foregroundColor: Colors.white,
-        child: Icon(Icons.add),
-      ),
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: Text("Finances"),
       ),
@@ -135,6 +128,31 @@ class HomeWidgetState extends State<HomeWidget> {
                 children: generateCardsList(),
               ),
             ),
+          ),
+        ],
+      ),
+      floatingActionButton: SpeedDial(
+        backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
+        icon: Icon(Icons.add),
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              // revenue
+            },
+            backgroundColor: Colors.blueGrey,
+            foregroundColor: Colors.white,
+            child: Icon(Icons.arrow_upward),
+            mini: true,
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              // expense
+            },
+            backgroundColor: Colors.red,
+            foregroundColor: Colors.white,
+            child: Icon(Icons.arrow_downward),
+            mini: true,
           ),
         ],
       ),
