@@ -1,106 +1,65 @@
 import 'package:flutter/material.dart';
 
-class SpeedDial extends FloatingActionButton {
+class SpeedDial extends StatelessWidget {
+  final Icon icon;
+  final String label;
+  final Color foregroundColor;
+  final Color backgroundColor;
   final List<FloatingActionButton> children;
 
-  static Widget buildFabMenu(List<FloatingActionButton> children) {
-    
+  @override
+  Widget build(BuildContext context) {
+    FloatingActionButton mainFAB;
+    if(label == null || label.isEmpty) {
+      mainFAB = FloatingActionButton(
+        backgroundColor: backgroundColor,
+        foregroundColor: foregroundColor,
+        child: icon,
+        onPressed: () {
+
+        },
+      );
+    } else {
+      mainFAB = FloatingActionButton.extended(
+        backgroundColor: backgroundColor,
+        foregroundColor: foregroundColor,
+        icon: icon,
+        label: Text(label),
+        onPressed: () {
+
+        },
+      );
+    }
+
+    var finalList = List<Widget>();
+    finalList.add(
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: mainFAB,
+        )
+    );
+    for(FloatingActionButton child in children) {
+      finalList.add(
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: child,
+          )
+      );
+    }
+
+    Widget result = Column(
+      children: finalList,
+      verticalDirection: VerticalDirection.up,
+    );
+
+    return result;
   }
 
-  SpeedDial({
-    key,
-    child,
-    tooltip,
-    foregroundColor,
-    backgroundColor,
-    focusColor,
-    hoverColor,
-    splashColor,
-    heroTag,
-    elevation,
-    focusElevation,
-    hoverElevation,
-    highlightElevation,
-    disabledElevation,
-    shape,
-    clipBehavior = Clip.none,
-    focusNode,
-    autoFocus = false,
-    materialTapTargetSize,
+  const SpeedDial({
+    this.icon,
+    this.label,
+    this.foregroundColor,
+    this.backgroundColor,
     @required this.children,
-    @required Icon icon,
-  }) : super(
-    key: key,
-    child: icon,
-    tooltip: tooltip,
-    foregroundColor: foregroundColor,
-    backgroundColor: backgroundColor,
-    focusColor: focusColor,
-    hoverColor: hoverColor,
-    splashColor: splashColor,
-    heroTag: heroTag,
-    elevation: elevation,
-    focusElevation: focusElevation,
-    hoverElevation: hoverElevation,
-    highlightElevation: highlightElevation,
-    disabledElevation: disabledElevation,
-    onPressed: () {
-      return buildFabMenu(children);
-    },
-    mini: false,
-    shape: shape,
-    clipBehavior: clipBehavior,
-    focusNode: focusNode,
-    autofocus: autoFocus,
-    materialTapTargetSize: materialTapTargetSize,
-    isExtended: false,
-  );
-
-  SpeedDial.extended({
-    key,
-    tooltip,
-    foregroundColor,
-    backgroundColor,
-    focusColor,
-    hoverColor,
-    elevation,
-    focusElevation,
-    hoverElevation,
-    splashColor,
-    highlightElevation,
-    disabledElevation,
-    onPressed,
-    shape,
-    materialTapTargetSize,
-    clipBehavior = Clip.none,
-    focusNode,
-    autoFocus = false,
-    @required this.children,
-    Icon icon,
-    @required Widget label,
-  }) : super.extended(
-    key: key,
-    tooltip: tooltip,
-    foregroundColor: foregroundColor,
-    backgroundColor: backgroundColor,
-    focusColor: focusColor,
-    hoverColor: hoverColor,
-    elevation: elevation,
-    focusElevation: focusElevation,
-    hoverElevation: hoverElevation,
-    splashColor: splashColor,
-    highlightElevation: highlightElevation,
-    disabledElevation: disabledElevation,
-    onPressed: () {
-      return buildFabMenu(children);
-    },
-    shape: shape,
-    isExtended: true,
-    materialTapTargetSize: materialTapTargetSize,
-    clipBehavior: clipBehavior,
-    focusNode: focusNode,
-    autofocus: autoFocus,
-    icon: icon,
-    label: label,
-  );
+  }) : assert(icon != null || (label != null && label != ""));
 }
