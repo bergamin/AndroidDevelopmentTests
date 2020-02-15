@@ -67,13 +67,25 @@ class SpeedDialState extends State<SpeedDial> {
     var childrenColumn = List<Widget>();
 
     for (FloatingActionButton child in children) {
+      List<Widget> rowItems = List<Widget>();
+
+      if (child.tooltip != null && child.tooltip.isNotEmpty) {
+        rowItems.add(
+          Card(
+            elevation: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Text(child.tooltip),
+            ),
+          ),
+        );
+      }
+      rowItems.add(child);
+
       childrenColumn.add(Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
-          children: <Widget>[
-            Text(child.tooltip),
-            child,
-          ],
+          children: rowItems,
           mainAxisAlignment: MainAxisAlignment.end,
         ),
       ));
