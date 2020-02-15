@@ -2,19 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class SpeedDial extends StatefulWidget {
+  final List<FloatingActionButton> children;
   final Icon icon;
   final String label;
   final Color foregroundColor;
   final Color backgroundColor;
-  final List<FloatingActionButton> children;
+  final String tooltip;
+  final double elevation;
+  final Color splashColor;
 
   SpeedDial({
     this.icon,
     this.label,
     this.foregroundColor,
     this.backgroundColor,
+    this.tooltip,
+    this.elevation = 6,
+    this.splashColor,
     @required this.children,
-  }) : assert(icon != null || (label != null && label != ""));
+  }) : assert(icon != null || (label != null && label.trim().isNotEmpty));
 
   @override
   SpeedDialState createState() => SpeedDialState(
@@ -22,16 +28,23 @@ class SpeedDial extends StatefulWidget {
         label: label,
         foregroundColor: foregroundColor,
         backgroundColor: backgroundColor,
+        tooltip: tooltip,
+        elevation: elevation,
+        splashColor: splashColor,
         children: children,
       );
 }
 
 class SpeedDialState extends State<SpeedDial> {
+  final List<FloatingActionButton> children;
   final Icon icon;
   final String label;
   final Color foregroundColor;
   final Color backgroundColor;
-  final List<FloatingActionButton> children;
+  final String tooltip;
+  final double elevation;
+  final Color splashColor;
+
   bool areChildrenVisible = false;
 
   void switchChildrenVisibility() {
@@ -43,7 +56,7 @@ class SpeedDialState extends State<SpeedDial> {
   @override
   Widget build(BuildContext context) {
     FloatingActionButton mainFAB;
-    if (label == null || label.isEmpty) {
+    if (label == null || label.trim().isEmpty) {
       mainFAB = FloatingActionButton(
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
@@ -51,6 +64,9 @@ class SpeedDialState extends State<SpeedDial> {
         onPressed: () {
           switchChildrenVisibility();
         },
+        tooltip: tooltip,
+        elevation: elevation,
+        splashColor: splashColor,
       );
     } else {
       mainFAB = FloatingActionButton.extended(
@@ -61,6 +77,9 @@ class SpeedDialState extends State<SpeedDial> {
         onPressed: () {
           switchChildrenVisibility();
         },
+        tooltip: tooltip,
+        elevation: elevation,
+        splashColor: splashColor,
       );
     }
 
@@ -122,6 +141,9 @@ class SpeedDialState extends State<SpeedDial> {
     this.label,
     this.foregroundColor,
     this.backgroundColor,
+    this.tooltip,
+    this.elevation,
+    this.splashColor,
     @required this.children,
   });
 }

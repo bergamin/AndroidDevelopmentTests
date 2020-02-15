@@ -145,6 +145,7 @@ class HomeWidgetState extends State<HomeWidget> {
             child: Icon(Icons.arrow_upward),
             mini: true,
             tooltip: "Add Revenue",
+            splashColor: Colors.green,
           ),
           FloatingActionButton(
             onPressed: () {
@@ -155,8 +156,11 @@ class HomeWidgetState extends State<HomeWidget> {
             child: Icon(Icons.arrow_downward),
             mini: true,
             tooltip: "Add Expense",
+            splashColor: Colors.amber,
           ),
         ],
+        tooltip: "Add an entry",
+        splashColor: Colors.amber,
       ),
     );
   }
