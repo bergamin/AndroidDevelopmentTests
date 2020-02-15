@@ -1,22 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-class SpeedDial extends StatelessWidget {
+class SpeedDial extends StatefulWidget {
   final Icon icon;
   final String label;
   final Color foregroundColor;
   final Color backgroundColor;
   final List<FloatingActionButton> children;
 
+  SpeedDial({
+    this.icon,
+    this.label,
+    this.foregroundColor,
+    this.backgroundColor,
+    @required this.children,
+  }) : assert(icon != null || (label != null && label != ""));
+
+  @override
+  SpeedDialState createState() => SpeedDialState(
+        icon: icon,
+        label: label,
+        foregroundColor: foregroundColor,
+        backgroundColor: backgroundColor,
+        children: children,
+      );
+}
+
+class SpeedDialState extends State<SpeedDial> {
+  final Icon icon;
+  final String label;
+  final Color foregroundColor;
+  final Color backgroundColor;
+  final List<FloatingActionButton> children;
+  bool areChildrenVisible = false;
+
+  void switchChildrenVisibility() {
+    setState(() {
+      areChildrenVisible = !areChildrenVisible;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     FloatingActionButton mainFAB;
-    if(label == null || label.isEmpty) {
+    if (label == null || label.isEmpty) {
       mainFAB = FloatingActionButton(
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
         child: icon,
         onPressed: () {
-
+          switchChildrenVisibility();
         },
       );
     } else {
@@ -26,40 +59,54 @@ class SpeedDial extends StatelessWidget {
         icon: icon,
         label: Text(label),
         onPressed: () {
-
+          switchChildrenVisibility();
         },
       );
     }
 
-    var finalList = List<Widget>();
-    finalList.add(
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: mainFAB,
-        )
-    );
-    for(FloatingActionButton child in children) {
-      finalList.add(
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: child,
-          )
-      );
+    var childrenColumn = List<Widget>();
+
+    for (FloatingActionButton child in children) {
+      childrenColumn.add(Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: <Widget>[
+            Text(child.tooltip),
+            child,
+          ],
+          mainAxisAlignment: MainAxisAlignment.end,
+        ),
+      ));
     }
 
-    Widget result = Column(
-      children: finalList,
-      verticalDirection: VerticalDirection.up,
+    var childrenVisibility = Visibility(
+      visible: areChildrenVisible,
+      child: Column(
+        children: childrenColumn,
+        crossAxisAlignment: CrossAxisAlignment.end,
+      ),
     );
 
-    return result;
+    var finalColumn = Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: mainFAB,
+        ),
+        childrenVisibility,
+      ],
+      verticalDirection: VerticalDirection.up,
+      crossAxisAlignment: CrossAxisAlignment.end,
+    );
+
+    return finalColumn;
   }
 
-  const SpeedDial({
+  SpeedDialState({
     this.icon,
     this.label,
     this.foregroundColor,
     this.backgroundColor,
     @required this.children,
-  }) : assert(icon != null || (label != null && label != ""));
+  });
 }
