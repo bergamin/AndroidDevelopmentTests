@@ -102,7 +102,10 @@ class SpeedDialState extends State<SpeedDial> {
     var finalColumn = Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(
+            right: 8,
+            top: 8,
+          ),
           child: mainFAB,
         ),
         childrenVisibility,
