@@ -19,26 +19,49 @@ class HomeWidgetState extends State<HomeWidget> {
       CardWidget(Transaction(10, "Savings", Type.REVENUE)),
       CardWidget(Transaction(30, "Home", Type.EXPENSE)),
       CardWidget(Transaction(5, "Food", Type.EXPENSE)),
-      CardWidget(Transaction(10, "Savings", Type.REVENUE)),
-      CardWidget(Transaction(30, "Home", Type.EXPENSE)),
-      CardWidget(Transaction(5, "Food", Type.EXPENSE)),
-      CardWidget(Transaction(10, "Savings", Type.REVENUE)),
-      CardWidget(Transaction(30, "Home", Type.EXPENSE)),
-      CardWidget(Transaction(5, "Food", Type.EXPENSE)),
-      CardWidget(Transaction(10, "Savings", Type.REVENUE)),
-      CardWidget(Transaction(30, "Home", Type.EXPENSE)),
-      CardWidget(Transaction(5, "Food", Type.EXPENSE)),
-      CardWidget(Transaction(10, "Savings", Type.REVENUE)),
-      CardWidget(Transaction(30, "Home", Type.EXPENSE)),
-      CardWidget(Transaction(5, "Food", Type.EXPENSE)),
-      CardWidget(Transaction(10, "Savings", Type.REVENUE)),
-      CardWidget(Transaction(30, "Home", Type.EXPENSE)),
-      CardWidget(Transaction(5, "Food", Type.EXPENSE)),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
+    SpeedDial speedDial;
+    FloatingActionButton fabRevenue = FloatingActionButton(
+      onPressed: () {
+        // revenue
+        speedDial.switchChildrenVisibility();
+      },
+      backgroundColor: Colors.blueGrey,
+      foregroundColor: Colors.white,
+      child: Icon(Icons.arrow_upward),
+      mini: true,
+      tooltip: "Add Revenue",
+      splashColor: Colors.green,
+    );
+    FloatingActionButton fabExpense = FloatingActionButton(
+      onPressed: () {
+        // expense
+        speedDial.switchChildrenVisibility();
+      },
+      backgroundColor: Colors.red,
+      foregroundColor: Colors.white,
+      child: Icon(Icons.arrow_downward),
+      mini: true,
+      tooltip: "Add Expense",
+      splashColor: Colors.amber,
+    );
+
+    speedDial = SpeedDial(
+      backgroundColor: Colors.green,
+      foregroundColor: Colors.white,
+      icon: Icon(Icons.add),
+      children: [
+        fabRevenue,
+        fabExpense,
+      ],
+      tooltip: "Add an entry",
+      splashColor: Colors.amber,
+    );
+
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
@@ -133,37 +156,7 @@ class HomeWidgetState extends State<HomeWidget> {
           ),
         ],
       ),
-      floatingActionButton: SpeedDial(
-        backgroundColor: Colors.green,
-        foregroundColor: Colors.white,
-        icon: Icon(Icons.add),
-        children: [
-          FloatingActionButton(
-            onPressed: () {
-              // revenue
-            },
-            backgroundColor: Colors.blueGrey,
-            foregroundColor: Colors.white,
-            child: Icon(Icons.arrow_upward),
-            mini: true,
-            tooltip: "Add Revenue",
-            splashColor: Colors.green,
-          ),
-          FloatingActionButton(
-            onPressed: () {
-              // expense
-            },
-            backgroundColor: Colors.red,
-            foregroundColor: Colors.white,
-            child: Icon(Icons.arrow_downward),
-            mini: true,
-            tooltip: "Add Expense",
-            splashColor: Colors.amber,
-          ),
-        ],
-        tooltip: "Add an entry",
-        splashColor: Colors.amber,
-      ),
+      floatingActionButton: speedDial,
     );
   }
 }

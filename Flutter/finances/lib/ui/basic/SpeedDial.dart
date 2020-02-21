@@ -11,6 +11,8 @@ class SpeedDial extends StatefulWidget {
   final double elevation;
   final Color splashColor;
 
+  SpeedDialState _speedDialState;
+
   SpeedDial({
     this.icon,
     this.label,
@@ -23,16 +25,23 @@ class SpeedDial extends StatefulWidget {
   }) : assert(icon != null || (label != null && label.trim().isNotEmpty));
 
   @override
-  SpeedDialState createState() => SpeedDialState(
-        icon: icon,
-        label: label,
-        foregroundColor: foregroundColor,
-        backgroundColor: backgroundColor,
-        tooltip: tooltip,
-        elevation: elevation,
-        splashColor: splashColor,
-        children: children,
-      );
+  State<StatefulWidget> createState() {
+    _speedDialState = SpeedDialState(
+      icon: icon,
+      label: label,
+      foregroundColor: foregroundColor,
+      backgroundColor: backgroundColor,
+      tooltip: tooltip,
+      elevation: elevation,
+      splashColor: splashColor,
+      children: children,
+    );
+    return _speedDialState;
+  }
+
+  void switchChildrenVisibility() {
+    _speedDialState.switchChildrenVisibility();
+  }
 }
 
 class SpeedDialState extends State<SpeedDial> {
@@ -61,12 +70,12 @@ class SpeedDialState extends State<SpeedDial> {
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
         child: icon,
-        onPressed: () {
-          switchChildrenVisibility();
-        },
         tooltip: tooltip,
         elevation: elevation,
         splashColor: splashColor,
+        onPressed: () {
+          switchChildrenVisibility();
+        },
       );
     } else {
       mainFAB = FloatingActionButton.extended(
@@ -74,12 +83,12 @@ class SpeedDialState extends State<SpeedDial> {
         foregroundColor: foregroundColor,
         icon: icon,
         label: Text(label),
-        onPressed: () {
-          switchChildrenVisibility();
-        },
         tooltip: tooltip,
         elevation: elevation,
         splashColor: splashColor,
+        onPressed: () {
+          switchChildrenVisibility();
+        },
       );
     }
 
