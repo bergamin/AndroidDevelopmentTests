@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -44,7 +45,7 @@ class SpeedDial extends StatefulWidget {
   }
 }
 
-class SpeedDialState extends State<SpeedDial> {
+class SpeedDialState extends State<SpeedDial> with SingleTickerProviderStateMixin {
   final List<FloatingActionButton> children;
   final Icon icon;
   final String label;
@@ -56,10 +57,34 @@ class SpeedDialState extends State<SpeedDial> {
 
   bool areChildrenVisible = false;
 
+  AnimationController _animationController;
+
   void switchChildrenVisibility() {
     setState(() {
       areChildrenVisible = !areChildrenVisible;
     });
+    if (areChildrenVisible) {
+      _animationController.forward();
+    } else {
+      _animationController.reverse();
+    }
+  }
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      value: 0,
+      duration: Duration(milliseconds: 200),
+      reverseDuration: Duration(milliseconds: 200),
+      vsync: this,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -92,7 +117,7 @@ class SpeedDialState extends State<SpeedDial> {
       );
     }
 
-    var childrenColumn = List<Widget>();
+    var childrenList = List<Widget>();
 
     for (FloatingActionButton child in children) {
       List<Widget> rowItems = List<Widget>();
@@ -110,7 +135,7 @@ class SpeedDialState extends State<SpeedDial> {
       }
       rowItems.add(child);
 
-      childrenColumn.add(Padding(
+      childrenList.add(Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: rowItems,
@@ -119,12 +144,15 @@ class SpeedDialState extends State<SpeedDial> {
       ));
     }
 
-    var childrenVisibility = Visibility(
-      visible: areChildrenVisible,
-      child: Column(
-        children: childrenColumn,
-        crossAxisAlignment: CrossAxisAlignment.end,
-      ),
+    var animatedChildren = AnimatedBuilder(
+      animation: _animationController,
+      builder: (BuildContext context, Widget child) {
+        return FadeScaleTransition(
+          animation: _animationController,
+          child: child,
+        );
+      },
+      child: Column(children: childrenList),
     );
 
     var finalColumn = Column(
@@ -136,7 +164,7 @@ class SpeedDialState extends State<SpeedDial> {
           ),
           child: mainFAB,
         ),
-        childrenVisibility,
+        animatedChildren,
       ],
       verticalDirection: VerticalDirection.up,
       crossAxisAlignment: CrossAxisAlignment.end,
