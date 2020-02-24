@@ -152,7 +152,10 @@ class SpeedDialState extends State<SpeedDial> with SingleTickerProviderStateMixi
           child: child,
         );
       },
-      child: Column(children: childrenList),
+      child: IgnorePointer(
+        ignoring: !areChildrenVisible,
+        child: Column(children: childrenList),
+      ),
     );
 
     var finalColumn = Column(
