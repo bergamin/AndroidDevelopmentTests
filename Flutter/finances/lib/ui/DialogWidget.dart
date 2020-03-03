@@ -2,6 +2,7 @@ import 'package:finances/model/Transaction.dart';
 import 'package:finances/model/Type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:toast/toast.dart';
 
 class DialogWidget extends StatefulWidget {
@@ -24,18 +25,39 @@ class DialogWidgetState extends State<DialogWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     return AlertDialog(
       title: Text(buildTitle()),
       content: Column(
         children: <Widget>[
           TextFormField(
+            initialValue: transaction.value != null
+                ? transaction.value.toString()
+                : "",
+            decoration: const InputDecoration(
+              icon: Icon(Icons.attach_money),
+              labelText: "Value",
+            ),
             keyboardType: TextInputType.number,
+            autofocus: true,
           ),
           TextFormField(
+            initialValue: transaction.date != null
+                ? DateFormat("dd/MM/yyyy").format(transaction.date)
+                : DateTime.now(),
+            decoration: const InputDecoration(
+              icon: Icon(Icons.event),
+              labelText: "Date",
+            ),
             keyboardType: TextInputType.datetime,
           ),
           TextFormField(
+            initialValue: transaction.category != null
+                ? transaction.category
+                : "",
+            decoration: const InputDecoration(
+              icon: Icon(Icons.category),
+              labelText: "Category",
+            ),
             keyboardType: TextInputType.text,
           ),
         ],
