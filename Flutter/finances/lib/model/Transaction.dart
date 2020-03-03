@@ -7,7 +7,8 @@ class Transaction {
   DateTime date = DateTime.now();
   Type type;
 
-  Transaction(double value, String category, Type type) {
+  Transaction({int id, double value, String category, Type type}) {
+    this.id = id;
     this.value = value;
     this.category = category;
     this.type = type;

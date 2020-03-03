@@ -1,8 +1,10 @@
 import 'package:finances/model/Transaction.dart';
 import 'package:finances/model/Type.dart';
+import 'package:finances/ui/DialogWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:toast/toast.dart';
 
 class CardWidget extends StatefulWidget {
   Transaction transaction;
@@ -25,82 +27,92 @@ class CardWidgetState extends State<CardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      margin: EdgeInsets.only(
-        top: 8,
-        left: 8,
-        right: 8,
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+    return InkWell(
+      onTap: () {
+        showDialog<void>(
+          context: context,
+          builder: (BuildContext context) {
+            return DialogWidget(transaction);
+          },
+        );
+      },
+      child: Card(
+        elevation: 2,
+        margin: EdgeInsets.only(
+          top: 8,
+          left: 8,
+          right: 8,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ClipOval(
-                child: Material(
-                  color: transaction.type == Type.REVENUE
-                      ? Colors.blueGrey
-                      : Colors.red,
-                  child: Icon(
-                    transaction.type == Type.REVENUE
-                        ? Icons.arrow_upward
-                        : Icons.arrow_downward,
-                    color: Colors.white,
-                    size: 50,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClipOval(
+                  child: Material(
+                    color: transaction.type == Type.REVENUE
+                        ? Colors.blueGrey
+                        : Colors.red,
+                    child: Icon(
+                      transaction.type == Type.REVENUE
+                          ? Icons.arrow_upward
+                          : Icons.arrow_downward,
+                      color: Colors.white,
+                      size: 50,
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text(
-                      transaction.category,
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(
+                        transaction.category,
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text(
-                      DateFormat("dd/MM/yyyy").format(transaction.date),
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(
+                        DateFormat("dd/MM/yyyy").format(transaction.date),
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(child: Container()),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "\$ ${transaction.value}",
-                style: TextStyle(
-                  color: transaction.type == Type.REVENUE
-                      ? Colors.blueGrey
-                      : Colors.red,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  ],
                 ),
               ),
-            ),
-          ],
+              Expanded(child: Container()),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "\$ ${transaction.value}",
+                  style: TextStyle(
+                    color: transaction.type == Type.REVENUE
+                        ? Colors.blueGrey
+                        : Colors.red,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   intl: ^0.16.1
   animations: ^1.0.0+3
+  toast: ^0.1.5
 
 dev_dependencies:
   flutter_test:

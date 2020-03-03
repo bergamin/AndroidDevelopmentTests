@@ -1,6 +1,7 @@
 import 'package:finances/model/Transaction.dart';
 import 'package:finances/model/Type.dart';
 import 'package:finances/ui/CardWidget.dart';
+import 'package:finances/ui/DialogWidget.dart';
 import 'package:finances/ui/basic/SpeedDial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,9 +17,24 @@ class HomeWidgetState extends State<HomeWidget> {
 
   List<CardWidget> generateCardsList() {
     return [
-      CardWidget(Transaction(10, "Savings", Type.REVENUE)),
-      CardWidget(Transaction(30, "Home", Type.EXPENSE)),
-      CardWidget(Transaction(5, "Food", Type.EXPENSE)),
+      CardWidget(Transaction(
+        id: 1,
+        value: 10,
+        category: "Savings",
+        type: Type.REVENUE,
+      )),
+      CardWidget(Transaction(
+        id: 2,
+        value: 30,
+        category: "Home",
+        type: Type.EXPENSE,
+      )),
+      CardWidget(Transaction(
+        id: 3,
+        value: 5,
+        category: "Food",
+        type: Type.EXPENSE,
+      )),
     ];
   }
 
@@ -28,6 +44,12 @@ class HomeWidgetState extends State<HomeWidget> {
     FloatingActionButton fabRevenue = FloatingActionButton(
       onPressed: () {
         // revenue
+        showDialog<void>(
+          context: context,
+          builder: (BuildContext context) {
+            return DialogWidget(Transaction(type: Type.REVENUE));
+          },
+        );
         speedDial.switchChildrenVisibility();
       },
       backgroundColor: Colors.blueGrey,
@@ -40,6 +62,12 @@ class HomeWidgetState extends State<HomeWidget> {
     FloatingActionButton fabExpense = FloatingActionButton(
       onPressed: () {
         // expense
+        showDialog<void>(
+          context: context,
+          builder: (BuildContext context) {
+            return DialogWidget(Transaction(type: Type.EXPENSE));
+          },
+        );
         speedDial.switchChildrenVisibility();
       },
       backgroundColor: Colors.red,

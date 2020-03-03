@@ -2,6 +2,7 @@ import 'package:finances/model/Transaction.dart';
 import 'package:finances/model/Type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:toast/toast.dart';
 
 class DialogWidget extends StatefulWidget {
   Transaction transaction;
@@ -23,6 +24,7 @@ class DialogWidgetState extends State<DialogWidget> {
 
   @override
   Widget build(BuildContext context) {
+
     return AlertDialog(
       title: Text(buildTitle()),
       content: Column(
@@ -43,12 +45,14 @@ class DialogWidgetState extends State<DialogWidget> {
           child: Text("Cancel"),
           onPressed: () {
             // cancel action
+            Toast.show("Cancel", context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
           },
         ),
         FlatButton(
           child: Text(transaction.id == null ? "Add" : "Update"),
           onPressed: () {
             // confirm action
+            Toast.show("Confirm", context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
           },
         ),
       ],
