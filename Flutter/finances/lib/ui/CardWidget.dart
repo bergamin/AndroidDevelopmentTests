@@ -4,7 +4,6 @@ import 'package:finances/ui/DialogWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:toast/toast.dart';
 
 class CardWidget extends StatefulWidget {
   Transaction transaction;
@@ -55,13 +54,9 @@ class CardWidgetState extends State<CardWidget> {
                 padding: const EdgeInsets.all(8.0),
                 child: ClipOval(
                   child: Material(
-                    color: transaction.type == Type.REVENUE
-                        ? Colors.blueGrey
-                        : Colors.red,
+                    color: transaction.type == Type.REVENUE ? Colors.blueGrey : Colors.red,
                     child: Icon(
-                      transaction.type == Type.REVENUE
-                          ? Icons.arrow_upward
-                          : Icons.arrow_downward,
+                      transaction.type == Type.REVENUE ? Icons.arrow_upward : Icons.arrow_downward,
                       color: Colors.white,
                       size: 50,
                     ),
@@ -103,9 +98,7 @@ class CardWidgetState extends State<CardWidget> {
                 child: Text(
                   "\$ ${transaction.value}",
                   style: TextStyle(
-                    color: transaction.type == Type.REVENUE
-                        ? Colors.blueGrey
-                        : Colors.red,
+                    color: transaction.type == Type.REVENUE ? Colors.blueGrey : Colors.red,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),

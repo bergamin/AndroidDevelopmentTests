@@ -146,9 +146,7 @@ class HomeWidgetState extends State<HomeWidget> {
                       Text(
                         "\$ ${revenue - expense}",
                         style: TextStyle(
-                          color: revenue - expense < 0
-                              ? Colors.red
-                              : Colors.blueGrey,
+                          color: revenue - expense < 0 ? Colors.red : Colors.blueGrey,
                           fontSize: 20,
                         ),
                       ),

@@ -30,9 +30,7 @@ class DialogWidgetState extends State<DialogWidget> {
       content: Column(
         children: <Widget>[
           TextFormField(
-            initialValue: transaction.value != null
-                ? transaction.value.toString()
-                : "",
+            initialValue: transaction.value != null ? transaction.value.toString() : "",
             decoration: const InputDecoration(
               icon: Icon(Icons.attach_money),
               labelText: "Value",
@@ -41,9 +39,7 @@ class DialogWidgetState extends State<DialogWidget> {
             autofocus: true,
           ),
           TextFormField(
-            initialValue: transaction.date != null
-                ? DateFormat("dd/MM/yyyy").format(transaction.date)
-                : DateTime.now(),
+            initialValue: transaction.date != null ? DateFormat("dd/MM/yyyy").format(transaction.date) : DateTime.now(),
             decoration: const InputDecoration(
               icon: Icon(Icons.event),
               labelText: "Date",
@@ -51,9 +47,7 @@ class DialogWidgetState extends State<DialogWidget> {
             keyboardType: TextInputType.datetime,
           ),
           TextFormField(
-            initialValue: transaction.category != null
-                ? transaction.category
-                : "",
+            initialValue: transaction.category != null ? transaction.category : "",
             decoration: const InputDecoration(
               icon: Icon(Icons.category),
               labelText: "Category",
