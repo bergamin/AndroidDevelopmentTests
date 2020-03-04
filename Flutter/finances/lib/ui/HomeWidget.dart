@@ -1,5 +1,6 @@
 import 'package:finances/model/Transaction.dart';
 import 'package:finances/model/Type.dart';
+import 'package:finances/services/DB.dart';
 import 'package:finances/ui/CardWidget.dart';
 import 'package:finances/ui/DialogWidget.dart';
 import 'package:finances/ui/basic/SpeedDial.dart';
@@ -12,35 +13,13 @@ class HomeWidget extends StatefulWidget {
 }
 
 class HomeWidgetState extends State<HomeWidget> {
-  var revenue = 10.00;
-  var expense = 35.00;
-
-  List<CardWidget> generateCardsList() {
-    return [
-      CardWidget(Transaction(
-        id: 1,
-        value: 10,
-        category: "Savings",
-        type: Type.REVENUE,
-      )),
-      CardWidget(Transaction(
-        id: 2,
-        value: 30,
-        category: "Home",
-        type: Type.EXPENSE,
-      )),
-      CardWidget(Transaction(
-        id: 3,
-        value: 5,
-        category: "Food",
-        type: Type.EXPENSE,
-      )),
-    ];
-  }
+  List<Transaction> _transactions = [];
+  List<CardWidget> get _cards => _transactions.map((transaction) => CardWidget(transaction)).toList();
 
   @override
   Widget build(BuildContext context) {
     SpeedDial speedDial;
+
     FloatingActionButton fabRevenue = FloatingActionButton(
       onPressed: () {
         // revenue
@@ -59,6 +38,7 @@ class HomeWidgetState extends State<HomeWidget> {
       tooltip: "Add Revenue",
       splashColor: Colors.green,
     );
+
     FloatingActionButton fabExpense = FloatingActionButton(
       onPressed: () {
         // expense
@@ -89,6 +69,16 @@ class HomeWidgetState extends State<HomeWidget> {
       tooltip: "Add an entry",
       splashColor: Colors.amber,
     );
+
+    double revenue = 0;
+    double expense = 0;
+    for (Transaction transaction in _transactions) {
+      if (transaction.type == Type.EXPENSE) {
+        expense += transaction.value;
+      } else {
+        revenue += transaction.value;
+      }
+    }
 
     return Scaffold(
       backgroundColor: Colors.grey[300],
@@ -178,7 +168,7 @@ class HomeWidgetState extends State<HomeWidget> {
                 padding: const EdgeInsets.only(
                   bottom: 80,
                 ),
-                children: generateCardsList(),
+                children: _cards,
               ),
             ),
           ),
@@ -186,5 +176,17 @@ class HomeWidgetState extends State<HomeWidget> {
       ),
       floatingActionButton: speedDial,
     );
+  }
+
+  @override
+  void initState() {
+    refresh();
+    super.initState();
+  }
+
+  void refresh() async {
+    List<Map<String, dynamic>> _results = await DB.query(Transaction.tableName);
+    _transactions = _results.map((mapTransaction) => Transaction.fromMap(mapTransaction)).toList();
+    setState(() {});
   }
 }

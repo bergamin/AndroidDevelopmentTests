@@ -1,16 +1,50 @@
+import 'package:finances/model/DataModel.dart';
 import 'package:finances/model/Type.dart';
 
-class Transaction {
+class Transaction extends DataModel {
+  static String tableName = "transactions";
+
   int id;
   double value;
   String category = "Undefined";
   DateTime date = DateTime.now();
   Type type;
 
-  Transaction({int id, double value, String category, Type type}) {
-    this.id = id;
-    this.value = value;
-    this.category = category;
-    this.type = type;
+  Transaction({
+    this.value,
+    this.category,
+    this.type,
+  });
+
+  Transaction._full({
+    this.id,
+    this.value,
+    this.category,
+    this.date,
+    this.type,
+  });
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      "value": value,
+      "category": category,
+      "date": date,
+      "type": type,
+    };
+
+    if (id != null) {
+      map["id"] = id;
+    }
+    return map;
+  }
+
+  static Transaction fromMap(Map<String, dynamic> map) {
+    return Transaction._full(
+      id: map["id"],
+      value: map["value"],
+      category: map["category"],
+      date: map["date"],
+      type: map["type"],
+    );
   }
 }
