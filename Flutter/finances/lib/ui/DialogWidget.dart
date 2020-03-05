@@ -1,9 +1,9 @@
 import 'package:finances/model/Transaction.dart';
 import 'package:finances/model/Type.dart';
+import 'package:finances/services/DB.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:toast/toast.dart';
 
 class DialogWidget extends StatefulWidget {
   Transaction transaction;
@@ -31,6 +31,9 @@ class DialogWidgetState extends State<DialogWidget> {
         children: <Widget>[
           TextFormField(
             initialValue: transaction.value != null ? transaction.value.toString() : "",
+            onChanged: (value) {
+              transaction.value = double.parse(value);
+            },
             decoration: const InputDecoration(
               icon: Icon(Icons.attach_money),
               labelText: "Value",
@@ -40,6 +43,9 @@ class DialogWidgetState extends State<DialogWidget> {
           ),
           TextFormField(
             initialValue: transaction.date != null ? DateFormat("dd/MM/yyyy").format(transaction.date) : DateTime.now(),
+            onChanged: (value) {
+              transaction.date = DateFormat("dd/MM/yyyy").parse(value);
+            },
             decoration: const InputDecoration(
               icon: Icon(Icons.event),
               labelText: "Date",
@@ -48,6 +54,9 @@ class DialogWidgetState extends State<DialogWidget> {
           ),
           TextFormField(
             initialValue: transaction.category != null ? transaction.category : "",
+            onChanged: (value) {
+              transaction.category = value;
+            },
             decoration: const InputDecoration(
               icon: Icon(Icons.category),
               labelText: "Category",
@@ -60,15 +69,18 @@ class DialogWidgetState extends State<DialogWidget> {
         FlatButton(
           child: Text("Cancel"),
           onPressed: () {
-            // cancel action
-            Toast.show("Cancel", context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+            Navigator.of(context).pop();
           },
         ),
         FlatButton(
           child: Text(transaction.id == null ? "Add" : "Update"),
           onPressed: () {
-            // confirm action
-            Toast.show("Confirm", context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+            Navigator.of(context).pop();
+            if(transaction.id == null) {
+              _insert();
+            } else {
+              _update();
+            }
           },
         ),
       ],
@@ -91,5 +103,13 @@ class DialogWidgetState extends State<DialogWidget> {
         break;
     }
     return title;
+  }
+
+  void _insert() async {
+    await DB.insert(Transaction.tableName, transaction);
+  }
+
+  void _update() async {
+    await DB.update(Transaction.tableName, transaction);
   }
 }

@@ -22,7 +22,6 @@ class HomeWidgetState extends State<HomeWidget> {
 
     FloatingActionButton fabRevenue = FloatingActionButton(
       onPressed: () {
-        // revenue
         showDialog<void>(
           context: context,
           builder: (BuildContext context) {
@@ -41,7 +40,6 @@ class HomeWidgetState extends State<HomeWidget> {
 
     FloatingActionButton fabExpense = FloatingActionButton(
       onPressed: () {
-        // expense
         showDialog<void>(
           context: context,
           builder: (BuildContext context) {
