@@ -6,6 +6,6 @@ abstract class CreateScripts {
       "    category TEXT NOT NULL,"
       "    date     TEXT NOT NULL,"
       "    type     TEXT CHECK(type IN('REVENUE', 'EXPENSE')"
-      ");";
+      ")";
   static const String BIG_BANG = TRANSACTION;
 }
