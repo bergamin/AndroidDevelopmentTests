@@ -1,5 +1,7 @@
 import 'package:finances/model/DataModel.dart';
 import 'package:finances/model/Type.dart';
+import 'package:flutter/foundation.dart';
+import 'package:intl/intl.dart';
 
 class Transaction extends DataModel {
   static String tableName = "transactions";
@@ -28,8 +30,8 @@ class Transaction extends DataModel {
     Map<String, dynamic> map = {
       "value": value,
       "category": category,
-      "date": date,
-      "type": type,
+      "date": DateFormat("yyyy-MM-dd").format(date),
+      "type": describeEnum(type),
     };
 
     if (id != null) {
@@ -43,8 +45,8 @@ class Transaction extends DataModel {
       id: map["id"],
       value: map["value"],
       category: map["category"],
-      date: map["date"],
-      type: map["type"],
+      date: DateFormat("yyyy-MM-dd").parse(map["date"]),
+      type: Type.values.firstWhere((type) => describeEnum(type) == map["type"]),
     );
   }
 }
