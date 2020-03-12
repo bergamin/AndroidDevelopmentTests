@@ -5,7 +5,7 @@ abstract class CreateScripts {
       "    value    REAL NOT NULL,"
       "    category TEXT NOT NULL,"
       "    date     TEXT NOT NULL,"
-      "    type     TEXT CHECK(type IN('REVENUE', 'EXPENSE')"
-      ")";
+      "    type     TEXT CHECK(type IN('REVENUE', 'EXPENSE'))"
+      ");";
   static const String BIG_BANG = TRANSACTION;
 }
