@@ -34,7 +34,7 @@ class HomeWidgetState extends State<HomeWidget> {
       foregroundColor: Colors.white,
       child: Icon(Icons.arrow_upward),
       mini: true,
-      tooltip: "Add Revenue",
+      tooltip: "Add revenue",
       splashColor: Colors.green,
     );
 
@@ -52,7 +52,7 @@ class HomeWidgetState extends State<HomeWidget> {
       foregroundColor: Colors.white,
       child: Icon(Icons.arrow_downward),
       mini: true,
-      tooltip: "Add Expense",
+      tooltip: "Add expense",
       splashColor: Colors.amber,
     );
 

@@ -55,18 +55,26 @@ class SpeedDialState extends State<SpeedDial> with SingleTickerProviderStateMixi
   final double elevation;
   final Color splashColor;
 
-  bool areChildrenVisible = false;
+  bool get _isAnimationRunningForwardsOrComplete {
+    switch(_animationController.status) {
+      case AnimationStatus.forward:
+      case AnimationStatus.completed:
+        return true;
+      case AnimationStatus.reverse:
+      case AnimationStatus.dismissed:
+        return false;
+    }
+    assert(false);
+    return null;
+  }
 
   AnimationController _animationController;
 
   void switchChildrenVisibility() {
-    setState(() {
-      areChildrenVisible = !areChildrenVisible;
-    });
-    if (areChildrenVisible) {
-      _animationController.forward();
-    } else {
+    if (_isAnimationRunningForwardsOrComplete) {
       _animationController.reverse();
+    } else {
+      _animationController.forward();
     }
   }
 
@@ -74,10 +82,14 @@ class SpeedDialState extends State<SpeedDial> with SingleTickerProviderStateMixi
   void initState() {
     _animationController = AnimationController(
       value: 0,
-      duration: Duration(milliseconds: 200),
+      duration: Duration(milliseconds: 400),
       reverseDuration: Duration(milliseconds: 200),
       vsync: this,
-    );
+    )..addStatusListener((AnimationStatus status) {
+      setState(() {
+
+      });
+    });
     super.initState();
   }
 
@@ -152,8 +164,8 @@ class SpeedDialState extends State<SpeedDial> with SingleTickerProviderStateMixi
           child: child,
         );
       },
-      child: IgnorePointer(
-        ignoring: !areChildrenVisible,
+      child: Visibility(
+        visible: _animationController.status != AnimationStatus.dismissed,
         child: Column(children: childrenList),
       ),
     );
